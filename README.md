@@ -30,11 +30,15 @@ C++ can be used in Godot in two ways, with GDExtentions or custom C++ modules.
 
 The godot cpp headers have been added as a submodule to this project. If you are freshly cloning it make sure to add `--recurse-submodules` when cloning like so:
 
-`git clone --recurse-submodules`
+```c++
+git clone --recurse-submodules
+```
 
 And then do a 
 
-`git submodule update --init`
+```c++
+git submodule update --init
+```
 
 To check the submodule out to the right version.
 
