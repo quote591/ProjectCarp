@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://da81sy865780s"]
 
-[ext_resource type="PackedScene" uid="uid://c45r5keapv0tk" path="res://VOIP+Multiplayer/AudioManager.tscn" id="1_g51kh"]
+[ext_resource type="PackedScene" uid="uid://c45r5keapv0tk" path="res://VOIP+Multiplayer/AudioManager.tscn" id="1_farfo"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_6gu7x"]
 mix_rate = 48000.0
@@ -8,11 +8,10 @@ mix_rate = 48000.0
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_g51kh"]
 mix_rate = 48000.0
 
-[node name="Voip+multiplayer" type="Node3D"]
+[node name="Node3D" type="Node3D"]
 
-[node name="AudioManager" parent="." instance=ExtResource("1_g51kh")]
+[node name="AudioManager" parent="." instance=ExtResource("1_farfo")]
 AudioOutputPath = NodePath("../AudioStreamPlayer2D")
-InputThreashold = 0.001
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamGenerator_6gu7x")

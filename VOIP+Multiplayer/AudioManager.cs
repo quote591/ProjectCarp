@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.IO;
+using System.IO.Compression;
 using System.Text.Encodings.Web;
 
 public partial class AudioManager : Node
@@ -28,7 +30,10 @@ public partial class AudioManager : Node
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        processMic();
+        if (IsMultiplayerAuthority())
+        {
+            processMic();
+        }
         processVoice();
     }
 
@@ -36,10 +41,20 @@ public partial class AudioManager : Node
     {
         input = GetNode<AudioStreamPlayer>("Input"); // pulling back our input (microphone input) "hold microphone input"
 
-        input.Stream = new AudioStreamMicrophone(); // creating a new stream "creating microphone"
-        input.Play(); // starting capture
-        index = AudioServer.GetBusIndex("Record"); // setting which bus 
-        effect = (AudioEffectCapture)AudioServer.GetBusEffect(index, 0); // pulling back the effect to where we are gonna load that data
+        SetMultiplayerAuthority(Convert.ToInt32(id));
+        // check if player is allowed to send data
+        if (IsMultiplayerAuthority())
+        {
+            input.Stream = new AudioStreamMicrophone(); // creating a new stream "creating microphone"
+            input.Play(); // starting capture
+            index = AudioServer.GetBusIndex("Record"); // setting which bus 
+            effect = (AudioEffectCapture)AudioServer.GetBusEffect(index, 0); // pulling back the effect to where we are gonna load that data
+        }
+
+        //input.Stream = new AudioStreamMicrophone(); // creating a new stream "creating microphone"
+        //input.Play(); // starting capture
+        //index = AudioServer.GetBusIndex("Record"); // setting which bus 
+        //effect = (AudioEffectCapture)AudioServer.GetBusEffect(index, 0); // pulling back the effect to where we are gonna load that data
 
         // TODO MAKE AUDIO 3D
         // good luck x
@@ -83,8 +98,8 @@ public partial class AudioManager : Node
             }
 
             // if we have data and we has been averaged properly, pass on
-            //Rpc("sendData", sterioData);                                      // THIS HAS BEEN COMMENTED OUT FOR LOCAL TESTING
-            sendData(data);                                                     // COMMENT THIS OUT WHEN DEPLOYED MULTIPLAYER
+            Rpc("sendData", CompressFloatArray(data));                                      // THIS HAS BEEN COMMENTED OUT FOR LOCAL TESTING
+            //sendData(data);                                                     // COMMENT THIS OUT WHEN DEPLOYED MULTIPLAYER
         }
     }
 
@@ -105,12 +120,41 @@ public partial class AudioManager : Node
     // unrealiable allows to send the data no matter what (it wont wait for recieve)
     // "throw all the words out and see if the person catches it"
     [Rpc(mode: MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Unreliable)]
-    private void sendData(float[] data)
+    private void sendData(byte[] data)
     {
         // when a person rpcs that data over, but not all the data has arrived yet
         // "chuncks of data"
         // we are gonna have a recieve buffer
 
-        receiveBuffer.AddRange(data);
+        receiveBuffer.AddRange(DecompressFloatArray(data));
+    }
+
+    public byte[] CompressFloatArray(float[] floatArray)
+    {
+        byte[] byteArray = new byte[floatArray.Length * 4];
+        Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
+
+        using (var memoryStream = new MemoryStream())
+        {
+            using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress))
+            {
+                gZipStream.Write(byteArray, 0, byteArray.Length);
+            }
+            return memoryStream.ToArray();
+        }
+    }
+
+    public float[] DecompressFloatArray(byte[] compressedArray)
+    {
+        using (var memoryStream = new MemoryStream(compressedArray))
+        using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+        using (var resultStream = new MemoryStream())
+        {
+            gZipStream.CopyTo(resultStream);
+            byte[] byteArray = resultStream.ToArray();
+            float[] floatArray = new float[byteArray.Length / 4];
+            Buffer.BlockCopy(byteArray, 0, floatArray, 0, byteArray.Length);
+            return floatArray;
+        }
     }
 }

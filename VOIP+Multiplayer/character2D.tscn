@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4lxyyb1gc4ds"]
+
+[ext_resource type="PackedScene" uid="uid://c45r5keapv0tk" path="res://VOIP+Multiplayer/AudioManager.tscn" id="1_5qysl"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_8qt5t"]
+mix_rate = 48000.0
+
+[node name="Character2d" type="Node2D"]
+
+[node name="AudioManager" parent="." instance=ExtResource("1_5qysl")]
+AudioOutputPath = NodePath("../AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamGenerator_8qt5t")
+autoplay = true

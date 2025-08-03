@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dse3bwawr650h"]
+
+[ext_resource type="Script" uid="uid://d0mnb0k1a0nhx" path="res://VOIP+Multiplayer/Client.cs" id="1_onf8w"]
+[ext_resource type="PackedScene" uid="uid://c4lxyyb1gc4ds" path="res://VOIP+Multiplayer/character2D.tscn" id="2_onf8w"]
+[ext_resource type="Script" uid="uid://ssdtvhrxsyev" path="res://VOIP+Multiplayer/Server.cs" id="3_s6hs3"]
+
+[node name="ServerClientNode" type="Node"]
+
+[node name="Client" type="Node" parent="."]
+script = ExtResource("1_onf8w")
+PlayerScene = ExtResource("2_onf8w")
+SpawnLocation = NodePath("../PlayerSpawnLocation")
+
+[node name="Connect" type="Button" parent="Client"]
+offset_left = 61.0
+offset_top = 43.0
+offset_right = 152.0
+offset_bottom = 79.0
+text = "Connect
+"
+
+[node name="Server" type="Node" parent="."]
+script = ExtResource("3_s6hs3")
+PlayerScene = ExtResource("2_onf8w")
+SpawnLocation = NodePath("../PlayerSpawnLocation")
+
+[node name="Host" type="Button" parent="Server"]
+offset_left = 550.0
+offset_top = 42.0
+offset_right = 639.0
+offset_bottom = 75.0
+text = "Host"
+
+[node name="PlayerSpawnLocation" type="Node" parent="."]
+
+[connection signal="button_down" from="Client/Connect" to="Client" method="_on_connect_button_down"]
+[connection signal="button_down" from="Server/Host" to="Server" method="_on_host_button_down"]
