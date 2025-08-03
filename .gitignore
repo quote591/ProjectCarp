@@ -1,3 +1,25 @@
 # Godot 4+ specific ignores
 .godot/
+.sconsign.dblite
 /android/
+
+#Code editors
+.vscode
+
+# Libs
+*.dll
+*.a
+*.so
+*.lib
+*.libs
+*.exp
+
+# Executables
+*.exe
+
+# Artifacts of gdextention compilation
+*.obj
+*.obj.import
+
+# Uid swap files
+*.uid
