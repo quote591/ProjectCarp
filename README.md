@@ -24,3 +24,26 @@ https://godotengine.org/download/windows/
 <img width="473" height="115" alt="image" src="https://github.com/user-attachments/assets/0a748868-e020-4724-8adc-342b2d5c6fc0" />
 
 You will then be launched into the Godot Editor where you can start building GodotTest!
+
+## Using C++ with Godot
+C++ can be used in Godot in two ways, with GDExtentions or custom C++ modules.
+
+The godot cpp headers have been added as a submodule to this project. If you are freshly cloning it make sure to add `--recurse-submodules` when cloning like so:
+
+`git clone --recurse-submodules`
+
+And then do a 
+
+`git submodule update --init`
+
+To check the submodule out to the right version.
+
+### GDExtentions
+GDExtentions are used in Godot to be able to make Godot's engine run C or C++ code and interact with native shared libs without the recomplilation of the engine.
+
+https://docs.godotengine.org/en/4.4/tutorials/scripting/gdextension/gdextension_cpp_example.html
+TODO: How to write and compile a GDExtention to run within Godot on windows
+
+### C++ Modules
+Modules are written within the core of the engine and require you to rebuild the whole engine.
+This should only be done for building with external libraries, optimizing critical sections, adding new functionality to the engine.
