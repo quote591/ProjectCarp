@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Test"
+run/main_scene="uid://b627hvgjd82nf"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [rendering]
 
