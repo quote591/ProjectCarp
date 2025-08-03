@@ -42,6 +42,7 @@ public partial class AudioManager : Node
         effect = (AudioEffectCapture)AudioServer.GetBusEffect(index, 0); // pulling back the effect to where we are gonna load that data
 
         // TODO MAKE AUDIO 3D
+        // good luck x
         AudioStreamPlayback player = GetNode<AudioStreamPlayer2D>(AudioOutputPath).GetStreamPlayback();     // HERE IS WHERE WE GET 2D AUDIO, THIS NEEDS TO BE FIXED TO BE 3D
         playback = player as AudioStreamGeneratorPlayback;
 
