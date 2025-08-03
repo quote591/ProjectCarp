@@ -11,7 +11,8 @@ public partial class Player : CharacterBody3D
 	private Node3D _head;
 	private Camera3D _cam;
 
-	public override void _Ready(){
+	public override void _Ready()
+	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		_head = GetNode<Node3D>("Head");
 		_cam = GetNode<Camera3D>("Head/Camera3D");
@@ -19,7 +20,8 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseMotion m)
+		
+		if (@event is InputEventMouseMotion m && !camDiabled)
 		{
 			_head.RotateY(-m.Relative.X * CamSensitivity);
 			_cam.RotateX(-m.Relative.Y * CamSensitivity);
@@ -50,7 +52,7 @@ public partial class Player : CharacterBody3D
 		// Handle Jump.
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
-			velocity.Y = JumpVelocity;
+			velocity.Y = JumpVelocity * delta;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -59,13 +61,13 @@ public partial class Player : CharacterBody3D
 		Vector3 direction = (_head.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
 		{
-			velocity.X = direction.X * Speed;
-			velocity.Z = direction.Z * Speed;
+			velocity.X = direction.X * Speed * delta;
+			velocity.Z = direction.Z * Speed * delta;
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * delta);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed * delta);
 		}
 
 		Velocity = velocity;
