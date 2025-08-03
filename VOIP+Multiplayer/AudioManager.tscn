@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c45r5keapv0tk"]
+
+[ext_resource type="Script" uid="uid://qxm8n1q18ync" path="res://VOIP+Multiplayer/AudioManager.cs" id="1_pdmw4"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_pdmw4")
+
+[node name="Input" type="AudioStreamPlayer" parent="."]
+bus = &"Record"
