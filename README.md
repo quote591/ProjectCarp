@@ -23,4 +23,4 @@ https://godotengine.org/download/windows/
 
 <img width="473" height="115" alt="image" src="https://github.com/user-attachments/assets/0a748868-e020-4724-8adc-342b2d5c6fc0" />
 
-You will then be launched into the Godot Editor where you can start building GodotTest!
+You will then be launched into the Godot Editor where you can start building GodotTest stuff!
