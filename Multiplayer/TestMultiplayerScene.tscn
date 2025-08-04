@@ -24,6 +24,15 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.6361
 [node name="1" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.81671, 2.11597, 0)
 
+[node name="2" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.373129, 0.580462, -7.84618)
+
+[node name="3" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03763, 6.18173)
+
+[node name="4" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18837, 0)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000834465, 0.00836134, 0.000858307)
 material_override = ExtResource("3_3e1ob")

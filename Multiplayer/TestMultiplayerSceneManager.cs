@@ -29,7 +29,18 @@ public partial class TestMultiplayerSceneManager : Node3D
             currentPlayer.Name = item.Id.ToString();
             currentPlayer.PlayerId = item.Id;
             AddChild(currentPlayer);
-            currentPlayer.GlobalPosition = spawnPoints[index].GlobalPosition;
+            //currentPlayer.GlobalPosition = spawnPoints[index].GlobalPosition;
+            //index++;
+
+            // checking
+            if (index < spawnPoints.Length)
+            {
+                currentPlayer.GlobalPosition = spawnPoints[index].GlobalPosition;
+            }
+            else
+            {
+                GD.PrintErr($"No spawn point for player index {index}");
+            }
             index++;
         }
     }

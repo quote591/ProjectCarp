@@ -35,8 +35,10 @@ public partial class Player : CharacterBody3D
 		var authority = (int)PlayerId;
 		var localId = Multiplayer.GetUniqueId();
 
-		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer")
-			.SetMultiplayerAuthority(authority);
+		//GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer")
+		//	.SetMultiplayerAuthority(authority);
+		var ms = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+    	ms.SetMultiplayerAuthority((int)PlayerId);
 
 		bool isLocal = authority == localId;
 

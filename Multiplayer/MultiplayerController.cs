@@ -8,6 +8,7 @@ public partial class MultiplayerController : Control
 
     [Export]
     private string address = "127.0.0.1";
+    // 127.0.0.1
 
     [Export]
     private int numberOfPlayers = 8;
