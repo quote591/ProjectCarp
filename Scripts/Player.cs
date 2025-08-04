@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 public partial class Player : CharacterBody3D
 {
-	public const float Speed = 100.0f;
+	public const float Speed = 1000.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float CamSensitivity = 0.006f;
 	
@@ -55,7 +55,7 @@ public partial class Player : CharacterBody3D
 		// Handle Jump.
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
-			velocity.Y = JumpVelocity * (float)delta;
+			velocity.Y = JumpVelocity;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -64,8 +64,8 @@ public partial class Player : CharacterBody3D
 		Vector3 direction = (_head.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
 		{
-			velocity.X = direction.X * Speed * (float)delta;
-			velocity.Z = direction.Z * Speed * (float)delta;
+			velocity.X = direction.X * Speed;
+			velocity.Z = direction.Z * Speed;
 		}
 		else
 		{
