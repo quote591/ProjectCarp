@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 public partial class Player : CharacterBody3D
 {
-	public const float Speed = 1000.0f;
+	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float CamSensitivity = 0.006f;
 	
@@ -98,8 +98,7 @@ public partial class Player : CharacterBody3D
         }
     }
 
-
-	public override void _PhysicsProcess(double delta)
+public override void _PhysicsProcess(double delta)
 	{
 		// before doing anything, check that we are the boss
 		// oh and checking the client is actully actibe
