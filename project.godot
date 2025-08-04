@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Test"
-run/main_scene="uid://bi5282aqmdhfq"
+config/name="ProjectCarp"
+run/main_scene="uid://b627hvgjd82nf"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+driver/enable_input=true
 
 [display]
 

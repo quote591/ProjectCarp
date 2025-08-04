@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://chv3nba4si4dr"]
+[gd_scene load_steps=6 format=3 uid="uid://c8c3c7vg4klrp"]
 
 [ext_resource type="Material" uid="uid://dkt6f0p1nwd3e" path="res://Materials/missing-texture.tres" id="1_kvjmi"]
 [ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_xh66l"]
