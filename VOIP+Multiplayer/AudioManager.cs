@@ -18,6 +18,7 @@ public partial class AudioManager : Node
     [Export]
     public float InputThreashold = 0.005f;
 
+
     // forces to be a godot collection instead of a c# array
     private Godot.Collections.Array<float> receiveBuffer = new Godot.Collections.Array<float>();
 
