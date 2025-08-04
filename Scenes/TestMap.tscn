@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://chv3nba4si4dr"]
+
+[ext_resource type="Material" uid="uid://dkt6f0p1nwd3e" path="res://Materials/missing-texture.tres" id="1_kvjmi"]
+[ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_xh66l"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xh66l"]
+size = Vector2(20, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xh66l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xh66l"]
+size = Vector3(20, 0, 20)
+
+[node name="TestMap" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000834465, 0.00836134, 0.000858307)
+material_override = ExtResource("1_kvjmi")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_xh66l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+physics_material_override = SubResource("PhysicsMaterial_xh66l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0445902, -0.0796456, -0.219063)
+shape = SubResource("BoxShape3D_xh66l")
+
+[node name="Player" parent="." instance=ExtResource("2_xh66l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.724851, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7923, 0.610131, 0, -0.610131, 0.7923, 0, 8.19102, 11.6544)
