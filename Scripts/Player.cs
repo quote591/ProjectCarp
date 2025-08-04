@@ -4,12 +4,14 @@ using System.Runtime.CompilerServices;
 
 public partial class Player : CharacterBody3D
 {
-	public const float Speed = 5.0f;
+	public const float Speed = 100.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float CamSensitivity = 0.006f;
 	
 	private Node3D _head;
 	private Camera3D _cam;
+
+	private bool camDisabled = false;
 
 	public override void _Ready()
 	{
@@ -21,7 +23,7 @@ public partial class Player : CharacterBody3D
 	public override void _Input(InputEvent @event)
 	{
 		
-		if (@event is InputEventMouseMotion m && !camDiabled)
+		if (@event is InputEventMouseMotion m && !camDisabled)
 		{
 			_head.RotateY(-m.Relative.X * CamSensitivity);
 			_cam.RotateX(-m.Relative.Y * CamSensitivity);
@@ -34,6 +36,7 @@ public partial class Player : CharacterBody3D
 		// exit mouse captured mode with Escape
 		else if (@event is InputEventKey k && k.Keycode == Key.Escape)
 		{
+			camDisabled = !camDisabled; 
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
 	}
@@ -52,7 +55,7 @@ public partial class Player : CharacterBody3D
 		// Handle Jump.
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
-			velocity.Y = JumpVelocity * delta;
+			velocity.Y = JumpVelocity * (float)delta;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -61,13 +64,13 @@ public partial class Player : CharacterBody3D
 		Vector3 direction = (_head.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
 		{
-			velocity.X = direction.X * Speed * delta;
-			velocity.Z = direction.Z * Speed * delta;
+			velocity.X = direction.X * Speed * (float)delta;
+			velocity.Z = direction.Z * Speed * (float)delta;
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * delta);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed * delta);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * (float)delta);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed * (float)delta);
 		}
 
 		Velocity = velocity;
