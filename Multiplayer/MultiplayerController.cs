@@ -1,25 +1,54 @@
+/// <summary>
+/// 
+/// Welcome to the Multiplayer Controller!
+/// 
+/// TODO
+/// We need to make the port and address accessible via the main menu            (QoL)
+/// i would recommend using the LineEdit UI node to get the correct information
+/// 
+/// Also we need a way to hide the buttons as their are used                     (QoL)
+/// example, we dont need a join button when the user has hosted
+/// 
+/// UPnP Universal Plug and Play                                        (low priority)
+/// basically we want something that port forwards automatically
+/// while yes we can port forward manually with router access
+/// probs best to have an actul automatic system for this
+/// problem of UPnP, not all routers support it, so probs steam might be best
+/// 
+/// Steam intergration                                                  (low priority)
+/// I hope to you good luck if you are here for implementing steam integration
+/// I wouldn't wish it on my worst enermy... GOODLUCK!! 
+/// 
+/// </summary>
+
 using Godot;
 using System;
 using System.Diagnostics.SymbolStore;
 using System.Linq;
 
+
 public partial class MultiplayerController : Control
 {
+    // Here is the first scene the game will load into when a user presses start
+    // Set it in the inspector
+    [Export]
+    public PackedScene MultiplayerScene { get; set; }
+
     [Export]
     private int port = 8910;
+    // I would recommend ports:
+    // 49152 – 65535
 
     [Export]
     private string address = "127.0.0.1";
-    // 127.0.0.1
+    // For local use: 127.0.0.1
 
     [Export]
     private int numberOfPlayers = 8;
-
-    private int numberOfPlayersOnline = 0;
+    // i know this seems like its easy to just increase the number of players
+    // however before you do that, make sure all scenes have 8 player spawn locations
 
     private ENetMultiplayerPeer peer;
-
-    private int howManyPeopleDoIThinkConnected = 1; // its one because we are assuming there is always a host
 
     public override void _Ready()
     {
@@ -37,9 +66,7 @@ public partial class MultiplayerController : Control
     private void ConnectedToServer()
     {
         GD.Print("Connected To Server!");
-        GD.Print("[ConnectToServer] LineEdit: " + GetNode<LineEdit>("LineEdit").Text);
-        GD.Print("[ConnectToServer] GetUniqueId: " + Multiplayer.GetUniqueId());
-        RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("LineEdit").Text, Multiplayer.GetUniqueId()); // host only sends info
+        RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("LineEdit").Text, Multiplayer.GetUniqueId()); // only sends RPC call to the host aka 1
     }
 
     private void PeerDisconnected(long id)
@@ -49,9 +76,7 @@ public partial class MultiplayerController : Control
 
     public void PeerConnected(long id)
     {
-        GD.Print("[" + Multiplayer.GetUniqueId() + "] " + "Player " + id.ToString() + " Is in the Lobby!");
-        howManyPeopleDoIThinkConnected++;
-        GD.Print("[" + Multiplayer.GetUniqueId() + "] [IMPORTANT] people count:" + howManyPeopleDoIThinkConnected.ToString());
+        GD.Print("Found New Player! \tPlayer " + id.ToString());
     }
 
     public void _on_host_button_down()
@@ -67,10 +92,8 @@ public partial class MultiplayerController : Control
         Multiplayer.MultiplayerPeer = peer;
         GD.Print("Waiting For Players!");
 
-        SendPlayerInformation(GetNode<LineEdit>("LineEdit").Text, 1); // register to ourselves 
-
-        howManyPeopleDoIThinkConnected = 1; // its one because we are the host?
-        GD.Print("[" + Multiplayer.GetUniqueId() + "] [IMPORTANT] people count:" + howManyPeopleDoIThinkConnected.ToString());
+        // will get the canvas name and pass it to itself when hosting
+        SendPlayerInformation(GetNode<LineEdit>("LineEdit").Text, 1);
     }
 
     public void _on_join_button_down()
@@ -85,46 +108,39 @@ public partial class MultiplayerController : Control
 
     public void _on_start_game_button_down()
     {
-        GD.Print("===== [" + Multiplayer.GetUniqueId() + "] " + "HAS STARTED THE GAME =====");
         Rpc("startGame");
     }
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     private void startGame()
     {
-
-        GD.Print("Starting game with connected players:");
-
-        numberOfPlayersOnline = GameManager.Players.Count;
-        GD.Print("[startGame()] Trying to connect " + numberOfPlayersOnline + " Players!");
-        foreach (var playerInfo in GameManager.Players)
+        // change in inspector window with what you want the first scene to be
+        if (MultiplayerScene != null)
         {
-            GD.Print($"Player Name: {playerInfo.Name}, Player ID: {playerInfo.Id}");
+            var scene = MultiplayerScene.Instantiate<Node3D>();
+            GetTree().Root.AddChild(scene);
         }
-
-        var scene = ResourceLoader.Load<PackedScene>("res://Multiplayer/TestMultiplayerScene.tscn").Instantiate<Node3D>();
-        GetTree().Root.AddChild(scene);
-        this.Hide(); // hide the canvas screen
+        else
+        {
+            GD.PrintErr("No scene assigned in the Inspector!");
+        }
+        this.Hide(); // hide the canvas screen so player can play
     }
 
-    // sending player information
+    // for adding players to the GamaManger PlayerInfo
     [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
     private void SendPlayerInformation(string name, long id)
     {
-        GD.Print("[" + Multiplayer.GetUniqueId() + "] " + "===== Adding new players =====");
         PlayerInfo playerInfo = new PlayerInfo()
         {
             Name = name,
             Id = id
         };
-        //GameManager.Players.Add(playerInfo);
-        GD.Print("["+Multiplayer.GetUniqueId()+"] "+"Attempting to add:\t" + playerInfo.Id + "\tname:\t" + playerInfo.Name);
 
-        // Contains is fucked, this is the bodge temp solution to adding to local maps
+        // checks if player has already registered, if yes, dont add
         bool isInThere = false;
         foreach (var test in GameManager.Players)
         {
-            GD.Print("["+Multiplayer.GetUniqueId()+"] "+"[ARE THESE THE SAME] " + test.Id + " == " + playerInfo.Id);
             if (test.Id == playerInfo.Id)
             {
                 isInThere = true;
@@ -133,55 +149,15 @@ public partial class MultiplayerController : Control
         if (!isInThere)
         {
             GameManager.Players.Add(playerInfo);
-            GD.Print("[" + Multiplayer.GetUniqueId() + "] " + "Adding unique player:\t" + playerInfo.Id + "\tname:\t" + playerInfo.Name);
-            GD.Print("[" + Multiplayer.GetUniqueId() + "] " + "GetConnectedPlayerCount(): " + GetConnectedPlayerCount());
-            GD.Print("[" + Multiplayer.GetUniqueId() + "] " + "GameManager.Players.Count: " + GameManager.Players.Count);
         }
-        else
-        {
-            GD.Print("[" + Multiplayer.GetUniqueId() + "] " + "Player already exists, next person");
-        }
-        //GD.Print("["+Multiplayer.GetUniqueId()+"] "+"Adding unique player:\t" + playerInfo.Id + "\tname:\t" + playerInfo.Name);
-        //GD.Print("["+Multiplayer.GetUniqueId()+"] "+"GetConnectedPlayerCount(): "+GetConnectedPlayerCount());
-        //GD.Print("["+Multiplayer.GetUniqueId()+"] "+"GameManager.Players.Count: "+GameManager.Players.Count);
 
-        // better check if we have the player
-        // for (int index = 0; index < GameManager.Players.Count; index++)
-        // {
-        //     if (GameManager.Players[index].Id == playerInfo.Id)
-        //     {
-        //         GD.Print("[Debug] GameManager.Players[index].Id == playerInfo.Id");
-        //     }
-        //     else
-        //     {
-        //         GameManager.Players.Add(playerInfo);
-        //         GD.Print("Adding unique player:\t" + playerInfo.Id + "\tname:\t" + playerInfo.Name);
-        //     }
-        // }
-        // GD.Print("GetConnectedPlayerCount(): "+GetConnectedPlayerCount());
-
-
-        // if (!GameManager.Players.Contains(playerInfo))
-        // {
-        //     GameManager.Players.Add(playerInfo);
-        //     GD.Print("Adding unique player:\t" + playerInfo.Id + "\tname:\t" + playerInfo.Name);
-        // }
-
+        // when receiving a new connection, send out all current players to everyone
         if (Multiplayer.IsServer())
         {
-            GD.Print("[HOST]: Hey I'm gonna send SendPlayerInformation");
             foreach (var item in GameManager.Players)
             {
                 Rpc("SendPlayerInformation", item.Name, item.Id);
             }
         }
     }
-
-    public int GetConnectedPlayerCount()
-    {
-        var peers = Multiplayer.GetPeers(); // Returns an array of peer IDs
-        return peers.Count();
-    }
-
-    
 }
