@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ProjectCarp"
-run/main_scene="uid://b627hvgjd82nf"
+run/main_scene="uid://dvw84vtck70nl"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

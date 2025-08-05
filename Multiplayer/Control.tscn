@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvw84vtck70nl"]
+[gd_scene load_steps=5 format=3 uid="uid://dvw84vtck70nl"]
 
 [ext_resource type="Script" uid="uid://1a6kypyu4nno" path="res://Multiplayer/MultiplayerController.cs" id="1_k2l3g"]
 [ext_resource type="PackedScene" uid="uid://do8skqcvrqrl5" path="res://Multiplayer/TestMultiplayerScene.tscn" id="2_cjlde"]
 [ext_resource type="Theme" uid="uid://c3uqa40po2q06" path="res://UI/game_ui_theme.tres" id="3_fpk2p"]
+[ext_resource type="PackedScene" uid="uid://b627hvgjd82nf" path="res://Scenes/PrototypeScene.tscn" id="3_tl6e0"]
 
 [node name="Multiplayer Controller" type="Control"]
 layout_mode = 3
@@ -13,6 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k2l3g")
 MultiplayerScene = ExtResource("2_cjlde")
+BackgroundScene = ExtResource("3_tl6e0")
 port = 60065
 
 [node name="CC" type="CenterContainer" parent="."]

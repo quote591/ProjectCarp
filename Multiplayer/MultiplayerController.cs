@@ -35,6 +35,9 @@ public partial class MultiplayerController : Control
     public PackedScene MultiplayerScene { get; set; }
 
     [Export]
+    public PackedScene BackgroundScene { get; set; }
+
+    [Export]
     private int port = 8910;
     // I would recommend ports:
     // 49152 – 65535
@@ -56,6 +59,9 @@ public partial class MultiplayerController : Control
         Multiplayer.PeerDisconnected += PeerDisconnected;
         Multiplayer.ConnectedToServer += ConnectedToServer;
         Multiplayer.ConnectionFailed += ConnectionFailed;
+
+        var sceneBack = BackgroundScene.Instantiate<Node3D>();
+        GetTree().Root.CallDeferred("add_child", sceneBack);
     }
 
     private void ConnectionFailed()

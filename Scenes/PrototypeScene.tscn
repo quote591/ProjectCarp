@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b627hvgjd82nf"]
+[gd_scene load_steps=7 format=3 uid="uid://b627hvgjd82nf"]
 
 [ext_resource type="Script" uid="uid://pyhfa1pbwakg" path="res://Scripts/fish_spin.gd" id="1_lp0cs"]
 [ext_resource type="Texture2D" uid="uid://bc46bgocw8b6e" path="res://3D Models/Low Poly Fish 2/Texture/fish.png" id="2_r76xm"]
 [ext_resource type="ArrayMesh" uid="uid://bhsfky7l2h6b6" path="res://3D Models/Low Poly Fish 2/obj/fish.obj" id="3_fpt4d"]
 [ext_resource type="AudioStream" uid="uid://dautd6iu63c2g" path="res://UI/Mr Beast Music.wav" id="4_fpt4d"]
-[ext_resource type="PackedScene" uid="uid://dvw84vtck70nl" path="res://Multiplayer/Control.tscn" id="5_fpt4d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dj5p"]
 albedo_texture = ExtResource("2_r76xm")
@@ -13,6 +12,7 @@ albedo_texture = ExtResource("2_r76xm")
 background_mode = 1
 
 [node name="PrototypeScene" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45035, 0)
 
 [node name="Fish" type="Node3D" parent="."]
 script = ExtResource("1_lp0cs")
@@ -37,6 +37,3 @@ transform = Transform3D(0.844716, -0.22158, 0.487193, -0.00158692, 0.909235, 0.4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_soq2c")
-
-[node name="Multiplayer Controller" parent="." instance=ExtResource("5_fpt4d")]
-self_modulate = Color(1, 1, 1, 0)
