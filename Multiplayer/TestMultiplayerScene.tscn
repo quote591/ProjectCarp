@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://do8skqcvrqrl5"]
+
+[ext_resource type="Script" uid="uid://co7c0de4x7kij" path="res://Multiplayer/TestMultiplayerSceneManager.cs" id="1_t2v8s"]
+[ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_p6jtl"]
+[ext_resource type="Material" uid="uid://dkt6f0p1nwd3e" path="res://Materials/missing-texture.tres" id="3_3e1ob"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gwrah"]
+size = Vector2(20, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2ocyd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oc2fl"]
+size = Vector3(20, 0, 20)
+
+[node name="TestMultiplayerScene" type="Node3D"]
+script = ExtResource("1_t2v8s")
+playerScene = ExtResource("2_p6jtl")
+
+[node name="PlayerSpawnPoints" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.63619, 1.50722, 0)
+
+[node name="1" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.81671, 2.11597, 0)
+
+[node name="2" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.373129, 0.580462, -7.84618)
+
+[node name="3" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03763, 6.18173)
+
+[node name="4" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18837, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000834465, 0.00836134, 0.000858307)
+material_override = ExtResource("3_3e1ob")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_gwrah")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+physics_material_override = SubResource("PhysicsMaterial_2ocyd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0445902, -0.0796456, -0.219063)
+shape = SubResource("BoxShape3D_oc2fl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0233329, 0.999728, 0, -0.999728, -0.0233329, -4.95352, 10.3269, -2.37538)
