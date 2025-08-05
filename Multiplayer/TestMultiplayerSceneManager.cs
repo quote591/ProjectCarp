@@ -28,6 +28,7 @@ public partial class TestMultiplayerSceneManager : Node3D
             //var desiredName = string.IsNullOrWhiteSpace(item.Name) ? $"Player{index}" : item.Name;
             currentPlayer.Name = item.Id.ToString();
             currentPlayer.PlayerId = item.Id;
+            currentPlayer.SetMultiplayerAuthority((int)item.Id);
             AddChild(currentPlayer);
             //currentPlayer.GlobalPosition = spawnPoints[index].GlobalPosition;
             //index++;

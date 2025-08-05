@@ -17,37 +17,57 @@ public partial class Player : CharacterBody3D
 
 	// more boring ahh multiplayer varibles
 	public long PlayerId { get; set; } = 0;
+	
+	private bool canIControl = false;
 
 	public override void _Ready()
 	{
 		// // Multiplayer Check (check authority)
 		// // honeslty dont worry about this x
-		// //GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name));
-		// GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer")
+		GD.Print("===== " + Multiplayer.GetUniqueId() + " =====");
+		GD.Print("int.Parse(Name) " + int.Parse(Name));
+		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name));
+		//GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer")
 		// 	.SetMultiplayerAuthority((int)PlayerId); // cast if the API takes int
-		// GD.Print($"[Player {PlayerId}] GetMultiplayerAuthority: {GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority()}");
-		// GD.Print($"[Player {PlayerId}] GetUniqueId: {Multiplayer.GetUniqueId()}");
+		GD.Print($"[Player {PlayerId}] GetMultiplayerAuthority: {GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority()}");
+		GD.Print($"[Player {PlayerId}] GetUniqueId: {Multiplayer.GetUniqueId()}");
+
+		SetMultiplayerAuthority(GetMultiplayerAuthority());
 
 		// //Input.MouseMode = Input.MouseModeEnum.Captured;
 		// _head = GetNode<Node3D>("Head");
 		// _cam = GetNode<Camera3D>("Head/Camera3D");
 
-		var authority = (int)PlayerId;
-		var localId = Multiplayer.GetUniqueId();
+
+
+		//var authority = (int)PlayerId;
+		//var localId = Multiplayer.GetUniqueId();
 
 		//GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer")
 		//	.SetMultiplayerAuthority(authority);
-		var ms = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
-    	ms.SetMultiplayerAuthority((int)PlayerId);
+		//var ms = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+		//ms.SetMultiplayerAuthority((int)PlayerId);
 
-		bool isLocal = authority == localId;
+		//bool isLocal = authority == localId;
 
 		_head = GetNode<Node3D>("Head");
 		_cam = GetNode<Camera3D>("Head/Camera3D");
 
-		_cam.Current = isLocal; // only set active camera for local player
+		if (GetMultiplayerAuthority() == PlayerId && GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+			// This is the local player, activate the camera
+			_cam.Current = true;
+			GD.Print(Multiplayer.GetUniqueId()+"Im cool enough, im gonna take this camera");
+        }
+		else
+		{
+			// Disable camera on remote players
+			_cam.Current = false;
+		}
 
-		GD.Print($"[{Name}] isLocal={isLocal}, authority={authority}, localId={localId}");
+		//_cam.Current = isLocal; // only set active camera for local player
+
+		//GD.Print($"[Player.cs] [{Name}] isLocal={isLocal}, authority={authority}, localId={localId}");
 	}
 
 	public void SetActive(bool active)
