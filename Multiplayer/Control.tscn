@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dvw84vtck70nl"]
 
 [ext_resource type="Script" uid="uid://1a6kypyu4nno" path="res://Multiplayer/MultiplayerController.cs" id="1_k2l3g"]
-[ext_resource type="PackedScene" uid="uid://do8skqcvrqrl5" path="res://Multiplayer/TestMultiplayerScene.tscn" id="2_cjlde"]
+[ext_resource type="PackedScene" uid="uid://dechedcimg57p" path="res://Interactions/InteractionScene.tscn" id="2_cjlde"]
 
 [node name="Multiplayer Controller" type="Control"]
 layout_mode = 3

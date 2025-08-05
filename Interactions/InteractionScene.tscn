@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://dechedcimg57p"]
+
+[ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_hln6r"]
+[ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_5pvwf"]
+[ext_resource type="Material" uid="uid://dkt6f0p1nwd3e" path="res://Materials/missing-texture.tres" id="3_k54nw"]
+[ext_resource type="Script" uid="uid://bbh283h2vkjrg" path="res://Interactions/Box.cs" id="4_qot8w"]
+[ext_resource type="Texture2D" uid="uid://dc6nsedsxowwg" path="res://Materials/crossHair.png" id="5_d3olk"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qot8w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d3olk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_d3olk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k4774"]
+
+[node name="TemplateMultiplayerScene" type="Node3D"]
+script = ExtResource("1_hln6r")
+playerScene = ExtResource("2_5pvwf")
+
+[node name="PlayerSpawnPoints" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5, 0, 5)
+
+[node name="1" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="2" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+
+[node name="3" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="4" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+
+[node name="5" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="6" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+
+[node name="7" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="FloorPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, -0.0228729, 0.111021, -0.0439377)
+material_override = ExtResource("3_k54nw")
+mesh = SubResource("PlaneMesh_qot8w")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloorPlane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorPlane/StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.00105419, -0.919741, -0.00128994)
+shape = SubResource("BoxShape3D_d3olk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.00223402, 0.999997, 0, -0.999997, -0.00223402, -0.144366, 21.6876, 0.00174379)
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.00145864, 1.64345, 9.15523)
+mesh = SubResource("BoxMesh_d3olk")
+script = ExtResource("4_qot8w")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box"]
+
+[node name="Area3D" type="Area3D" parent="Box/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D/Area3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("BoxShape3D_k4774")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
+shape = SubResource("BoxShape3D_k4774")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 468.58
+offset_top = 265.09
+offset_right = 468.58
+offset_bottom = 265.09
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.025, 0.025)
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+texture = ExtResource("5_d3olk")
+stretch_mode = 3

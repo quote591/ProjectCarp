@@ -37,6 +37,8 @@ public partial class Player : CharacterBody3D
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float CamSensitivity = 0.006f;
+
+	public Vector3 ForwardVector { get; private set; }
 	
 	private Node3D _head;
 	private Camera3D _cam;
@@ -78,23 +80,36 @@ public partial class Player : CharacterBody3D
     {
         if (!_isActive) return;
 
-        if (@event is InputEventMouseMotion m && !camDisabled)
-        {
-            _head.RotateY(-m.Relative.X * CamSensitivity);
-            _cam.RotateX(-m.Relative.Y * CamSensitivity);
+		if (@event is InputEventMouseMotion m && !camDisabled)
+		{
+			//float yaw = -m.Relative.X * CamSensitivity;
+			_head.RotateY(-m.Relative.X * CamSensitivity);
+			_cam.RotateX(-m.Relative.Y * CamSensitivity);
 
-            Vector3 camRot = _cam.Rotation;
-            camRot.X = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
-            _cam.Rotation = camRot;
+
+			Vector3 camRot = _cam.Rotation;
+			float pitch = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
+			camRot.X = pitch;
+			_cam.Rotation = camRot;
+
+			// Don't worry about this, just has to be done
+			float yaw = Mathf.DegToRad(_head.RotationDegrees.Y) + (float)(3.1415 /2);
+
+			// Calculate the forward vector using yaw and pitch
+			float newX = Mathf.Cos(yaw) * MathF.Cos(pitch);
+			float newY = Mathf.Sin(pitch);
+			float newZ = -Mathf.Sin(yaw) * Mathf.Cos(pitch);
+			Vector3 finalForwardVec = new Vector3(newX, newY, newZ).Normalized();
+			ForwardVector = finalForwardVec;
         }
-        else if (@event is InputEventKey k && k.Keycode == Key.Escape && k.IsPressed())
-        {
-            camDisabled = !camDisabled;
-            Input.MouseMode = camDisabled ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
-        }
+		else if (@event is InputEventKey k && k.Keycode == Key.Escape && k.IsPressed())
+		{
+			camDisabled = !camDisabled;
+			Input.MouseMode = camDisabled ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+		}
     }
 
-public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		// If player is a remote player (aka not the player in the window)
 		// dont process anything
@@ -134,6 +149,33 @@ public override void _PhysicsProcess(double delta)
 
 			Velocity = velocity;
 			MoveAndSlide();
+
+			// Raycasting for intersections
+			var spaceState = GetWorld3D().DirectSpaceState;
+
+
+			var mesh_intance = new MeshInstance3D();
+			var immediate_mesh = new ImmediateMesh();
+			var material = new OrmMaterial3D();
+
+			mesh_intance.Mesh = immediate_mesh;
+
+			immediate_mesh.SurfaceBegin(Mesh.PrimitiveType.Lines, material);
+			immediate_mesh.SurfaceAddVertex(Position + _head.Position);
+			immediate_mesh.SurfaceAddVertex(Position + _head.Position + ForwardVector);
+			immediate_mesh.SurfaceEnd();
+
+			material.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
+			material.AlbedoColor = Color.Color8(1, 0, 0, 1);
+
+			GetTree().Root.AddChild(mesh_intance);
+
+
+			var query = PhysicsRayQueryParameters3D.Create(Position + _head.Position, Position + _head.Position + ForwardVector);
+			var result = spaceState.IntersectRay(query);
+
+			if (result.Count > 0)
+				GD.Print("Hit at point: ", result["position"]);
 
 			// ===== End Physics Code =====
 		}
