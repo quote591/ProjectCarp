@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dautd6iu63c2g"
+path="res://.godot/imported/Mr Beast Music.wav-9ea7e44498de2e1704db4a62547564ab.sample"
+
+[deps]
+
+source_file="res://UI/Mr Beast Music.wav"
+dest_files=["res://.godot/imported/Mr Beast Music.wav-9ea7e44498de2e1704db4a62547564ab.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -66,7 +66,7 @@ public partial class MultiplayerController : Control
     private void ConnectedToServer()
     {
         GD.Print("Connected To Server!");
-        RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("LineEdit").Text, Multiplayer.GetUniqueId()); // only sends RPC call to the host aka 1
+        RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Text, Multiplayer.GetUniqueId()); // only sends RPC call to the host aka 1
     }
 
     private void PeerDisconnected(long id)
@@ -82,6 +82,8 @@ public partial class MultiplayerController : Control
     public void _on_host_button_down()
     {
         peer = new ENetMultiplayerPeer();
+        port = int.Parse(GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Text);
+        GD.Print("Using Port: "+port);
         var error = peer.CreateServer(port, numberOfPlayers);
         if (error != Error.Ok)
         {
@@ -93,12 +95,16 @@ public partial class MultiplayerController : Control
         GD.Print("Waiting For Players!");
 
         // will get the canvas name and pass it to itself when hosting
-        SendPlayerInformation(GetNode<LineEdit>("LineEdit").Text, 1);
+        SendPlayerInformation(GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Text, 1);
     }
 
     public void _on_join_button_down()
     {
         peer = new ENetMultiplayerPeer();
+        address = GetNode<LineEdit>("CC/VBC/HB IP/IPLineEdit").Text;
+        port = int.Parse(GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Text);
+        GD.Print("Using address: "+address);
+        GD.Print("Using Port: "+port);
         peer.CreateClient(address, port);
 
         peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
@@ -159,5 +165,11 @@ public partial class MultiplayerController : Control
                 Rpc("SendPlayerInformation", item.Name, item.Id);
             }
         }
+    }
+
+    // Non Multiplayer UI
+    public void _on_quit_button_down()
+    {
+        GetTree().Quit();
     }
 }

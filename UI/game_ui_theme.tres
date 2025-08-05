@@ -1,0 +1,40 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c3uqa40po2q06"]
+
+[ext_resource type="FontFile" uid="uid://c7qm4fknnd7i6" path="res://UI/RabbidHighwaySignExtendedIta.otf" id="1_tplrb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ufipx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5q4n0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sesrp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4no5k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tplrb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vxs55"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jcik5"]
+
+[resource]
+Button/colors/font_hover_color = Color(1, 0.55, 0, 1)
+Button/font_sizes/font_size = 40
+Button/fonts/font = ExtResource("1_tplrb")
+Button/styles/focus = SubResource("StyleBoxEmpty_ufipx")
+Button/styles/hover = SubResource("StyleBoxEmpty_5q4n0")
+Button/styles/normal = SubResource("StyleBoxEmpty_sesrp")
+Button/styles/pressed = SubResource("StyleBoxEmpty_4no5k")
+HBoxContainer/constants/separation = 20
+Label/font_sizes/font_size = 30
+Label/fonts/font = ExtResource("1_tplrb")
+LineEdit/colors/caret_color = Color(0.870588, 0.396078, 0, 1)
+LineEdit/colors/font_color = Color(0.871328, 0.396539, 0, 1)
+LineEdit/colors/selection_color = Color(0.320377, 0.304424, 0.50045, 1)
+LineEdit/constants/caret_width = 3
+LineEdit/constants/minimum_character_width = 19
+LineEdit/font_sizes/font_size = 30
+LineEdit/fonts/font = ExtResource("1_tplrb")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_tplrb")
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_vxs55")
+LineEdit/styles/read_only = SubResource("StyleBoxEmpty_jcik5")
+VBoxContainer/constants/separation = 10
