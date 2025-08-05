@@ -12,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k2l3g")
 MultiplayerScene = ExtResource("2_cjlde")
+address = "80.5.196.181"
 
 [node name="Host" type="Button" parent="."]
 layout_mode = 0
