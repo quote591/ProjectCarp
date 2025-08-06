@@ -72,13 +72,13 @@ public partial class MultiplayerController : Control
     {
         GD.Print("Connection Failed!");
         GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "Connection Failed ;(";
-        GetNode<Button>("CC/VBC/Go Back").Visible = true;
+        GetNode<Button>("VBC/Go Back").Visible = true;
     }
 
     private void ConnectedToServer()
     {
         GD.Print("Connected To Server!");
-        RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Text, Multiplayer.GetUniqueId()); // only sends RPC call to the host aka 1
+        RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("VBC/HB Name/NameLineEdit").Text, Multiplayer.GetUniqueId()); // only sends RPC call to the host aka 1
         GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "Lobby";
     }
 
@@ -95,7 +95,7 @@ public partial class MultiplayerController : Control
     public void _on_host_button_down()
     {
         peer = new ENetMultiplayerPeer();
-        port = int.Parse(GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Text);
+        port = int.Parse(GetNode<LineEdit>("VBC/HB Port/PortLineEdit").Text);
         GD.Print("Using Port: " + port);
         var error = peer.CreateServer(port, numberOfPlayers);
         if (error != Error.Ok)
@@ -109,10 +109,10 @@ public partial class MultiplayerController : Control
 
         // will get the canvas name and pass it to itself when hosting
         GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "Lobby (Host)";
-        GetNode<Button>("CC/VBC/Host").Hide();
-        GetNode<Button>("CC/VBC/Join").Hide();
-        GetNode<Button>("CC/VBC/Start Game").Visible = true;
-        SendPlayerInformation(GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Text, 1);
+        GetNode<Button>("VBC/Host").Hide();
+        GetNode<Button>("VBC/Join").Hide();
+        GetNode<Button>("VBC/Start Game").Visible = true;
+        SendPlayerInformation(GetNode<LineEdit>("VBC/HB Name/NameLineEdit").Text, 1);
 
        
         HideNameIpPort();
@@ -121,8 +121,8 @@ public partial class MultiplayerController : Control
     public void _on_join_button_down()
     {
         peer = new ENetMultiplayerPeer();
-        address = GetNode<LineEdit>("CC/VBC/HB IP/IPLineEdit").Text;
-        port = int.Parse(GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Text);
+        address = GetNode<LineEdit>("VBC/HB IP/IPLineEdit").Text;
+        port = int.Parse(GetNode<LineEdit>("VBC/HB Port/PortLineEdit").Text);
         GD.Print("Using address: " + address);
         GD.Print("Using Port: " + port);
         peer.CreateClient(address, port);
@@ -198,19 +198,19 @@ public partial class MultiplayerController : Control
 
     public void _on_go_back_button_down()
     {
-        GetNode<Label>("CC/VBC/HB Name/Name").Visible = true;
-        GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Visible = true;
+        GetNode<Label>("VBC/HB Name/Name").Visible = true;
+        GetNode<LineEdit>("VBC/HB Name/NameLineEdit").Visible = true;
 
-        GetNode<Label>("CC/VBC/HB IP/IP").Visible = true;
-        GetNode<LineEdit>("CC/VBC/HB IP/IPLineEdit").Visible = true;
+        GetNode<Label>("VBC/HB IP/IP").Visible = true;
+        GetNode<LineEdit>("VBC/HB IP/IPLineEdit").Visible = true;
 
-        GetNode<Label>("CC/VBC/HB Port/Port").Visible = true;
-        GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Visible = true;
+        GetNode<Label>("VBC/HB Port/Port").Visible = true;
+        GetNode<LineEdit>("VBC/HB Port/PortLineEdit").Visible = true;
 
-        GetNode<Button>("CC/VBC/Host").Visible = true;
-        GetNode<Button>("CC/VBC/Join").Visible = true;
+        GetNode<Button>("VBC/Host").Visible = true;
+        GetNode<Button>("VBC/Join").Visible = true;
 
-        GetNode<Button>("CC/VBC/Go Back").Hide();
+        GetNode<Button>("VBC/Go Back").Hide();
         GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "";
     }
 
@@ -223,16 +223,16 @@ public partial class MultiplayerController : Control
 
     public void HideNameIpPort()
     {
-        GetNode<Label>("CC/VBC/HB Name/Name").Hide();
-        GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Hide();
+        GetNode<Label>("VBC/HB Name/Name").Hide();
+        GetNode<LineEdit>("VBC/HB Name/NameLineEdit").Hide();
 
-        GetNode<Label>("CC/VBC/HB IP/IP").Hide();
-        GetNode<LineEdit>("CC/VBC/HB IP/IPLineEdit").Hide();
+        GetNode<Label>("VBC/HB IP/IP").Hide();
+        GetNode<LineEdit>("VBC/HB IP/IPLineEdit").Hide();
 
-        GetNode<Label>("CC/VBC/HB Port/Port").Hide();
-        GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Hide();
+        GetNode<Label>("VBC/HB Port/Port").Hide();
+        GetNode<LineEdit>("VBC/HB Port/PortLineEdit").Hide();
 
-        GetNode<Button>("CC/VBC/Host").Hide();
-        GetNode<Button>("CC/VBC/Join").Hide();
+        GetNode<Button>("VBC/Host").Hide();
+        GetNode<Button>("VBC/Join").Hide();
     }
 }
