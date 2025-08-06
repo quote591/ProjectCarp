@@ -67,6 +67,8 @@ public partial class MultiplayerController : Control
 
         var sceneBack = BackgroundScene.Instantiate<Node3D>();
         GetTree().Root.CallDeferred("add_child", sceneBack);
+
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     private void ServerDisconnected()
