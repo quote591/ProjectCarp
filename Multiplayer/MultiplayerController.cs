@@ -53,6 +53,10 @@ public partial class MultiplayerController : Control
 
     private ENetMultiplayerPeer peer;
 
+    private string[] listOfLobbyNames;
+    private long[] listOfLobbyIds;
+    private int numberOfPlayersInLobby = 1;
+
     public override void _Ready()
     {
         Multiplayer.PeerConnected += PeerConnected;
@@ -67,12 +71,15 @@ public partial class MultiplayerController : Control
     private void ConnectionFailed()
     {
         GD.Print("Connection Failed!");
+        GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "Connection Failed ;(";
+        GetNode<Button>("CC/VBC/Go Back").Visible = true;
     }
 
     private void ConnectedToServer()
     {
         GD.Print("Connected To Server!");
         RpcId(1, "SendPlayerInformation", GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Text, Multiplayer.GetUniqueId()); // only sends RPC call to the host aka 1
+        GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "Lobby";
     }
 
     private void PeerDisconnected(long id)
@@ -89,7 +96,7 @@ public partial class MultiplayerController : Control
     {
         peer = new ENetMultiplayerPeer();
         port = int.Parse(GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Text);
-        GD.Print("Using Port: "+port);
+        GD.Print("Using Port: " + port);
         var error = peer.CreateServer(port, numberOfPlayers);
         if (error != Error.Ok)
         {
@@ -101,7 +108,14 @@ public partial class MultiplayerController : Control
         GD.Print("Waiting For Players!");
 
         // will get the canvas name and pass it to itself when hosting
+        GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "Lobby (Host)";
+        GetNode<Button>("CC/VBC/Host").Hide();
+        GetNode<Button>("CC/VBC/Join").Hide();
+        GetNode<Button>("CC/VBC/Start Game").Visible = true;
         SendPlayerInformation(GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Text, 1);
+
+       
+        HideNameIpPort();
     }
 
     public void _on_join_button_down()
@@ -109,13 +123,15 @@ public partial class MultiplayerController : Control
         peer = new ENetMultiplayerPeer();
         address = GetNode<LineEdit>("CC/VBC/HB IP/IPLineEdit").Text;
         port = int.Parse(GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Text);
-        GD.Print("Using address: "+address);
-        GD.Print("Using Port: "+port);
+        GD.Print("Using address: " + address);
+        GD.Print("Using Port: " + port);
         peer.CreateClient(address, port);
 
         peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
         Multiplayer.MultiplayerPeer = peer;
         GD.Print("Joining Game!");
+        GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "Attempting to join...";
+        HideNameIpPort();
     }
 
     public void _on_start_game_button_down()
@@ -161,6 +177,7 @@ public partial class MultiplayerController : Control
         if (!isInThere)
         {
             GameManager.Players.Add(playerInfo);
+            AddPlayerToLobby(name, id);
         }
 
         // when receiving a new connection, send out all current players to everyone
@@ -177,5 +194,45 @@ public partial class MultiplayerController : Control
     public void _on_quit_button_down()
     {
         GetTree().Quit();
+    }
+
+    public void _on_go_back_button_down()
+    {
+        GetNode<Label>("CC/VBC/HB Name/Name").Visible = true;
+        GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Visible = true;
+
+        GetNode<Label>("CC/VBC/HB IP/IP").Visible = true;
+        GetNode<LineEdit>("CC/VBC/HB IP/IPLineEdit").Visible = true;
+
+        GetNode<Label>("CC/VBC/HB Port/Port").Visible = true;
+        GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Visible = true;
+
+        GetNode<Button>("CC/VBC/Host").Visible = true;
+        GetNode<Button>("CC/VBC/Join").Visible = true;
+
+        GetNode<Button>("CC/VBC/Go Back").Hide();
+        GetNode<Label>("LoobyC/VBoxContainer/LabelHost").Text = "";
+    }
+
+    public void AddPlayerToLobby(string name, long id)
+    {
+        GetNode<Label>("LoobyC/VBoxContainer/Player" + numberOfPlayersInLobby + "C/Player" + numberOfPlayersInLobby + "Name").Text = name;
+        GetNode<Label>("LoobyC/VBoxContainer/Player" + numberOfPlayersInLobby + "C/Player" + numberOfPlayersInLobby + "UniqueID").Text = id.ToString();
+        numberOfPlayersInLobby++;
+    }
+
+    public void HideNameIpPort()
+    {
+        GetNode<Label>("CC/VBC/HB Name/Name").Hide();
+        GetNode<LineEdit>("CC/VBC/HB Name/NameLineEdit").Hide();
+
+        GetNode<Label>("CC/VBC/HB IP/IP").Hide();
+        GetNode<LineEdit>("CC/VBC/HB IP/IPLineEdit").Hide();
+
+        GetNode<Label>("CC/VBC/HB Port/Port").Hide();
+        GetNode<LineEdit>("CC/VBC/HB Port/PortLineEdit").Hide();
+
+        GetNode<Button>("CC/VBC/Host").Hide();
+        GetNode<Button>("CC/VBC/Join").Hide();
     }
 }

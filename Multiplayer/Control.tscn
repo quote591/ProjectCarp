@@ -19,10 +19,11 @@ port = 60065
 
 [node name="CC" type="CenterContainer" parent="."]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 481.0
-offset_right = 1089.0
-offset_bottom = 1080.0
+offset_left = -1.0
+offset_top = 216.0
+offset_right = 1065.0
+offset_bottom = 866.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("3_fpk2p")
 
 [node name="VBC" type="VBoxContainer" parent="CC"]
@@ -89,8 +90,15 @@ text = "Join"
 alignment = 0
 
 [node name="Start Game" type="Button" parent="CC/VBC"]
+visible = false
 layout_mode = 2
 text = "Start Game"
+alignment = 0
+
+[node name="Go Back" type="Button" parent="CC/VBC"]
+visible = false
+layout_mode = 2
+text = "Go Back"
 alignment = 0
 
 [node name="Quit" type="Button" parent="CC/VBC"]
@@ -105,7 +113,102 @@ offset_top = 526.0
 offset_right = 544.0
 offset_bottom = 661.0
 
+[node name="LoobyC" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 580.0
+scale = Vector2(0.4, 0.4)
+theme = ExtResource("3_fpk2p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoobyC"]
+layout_mode = 2
+
+[node name="LabelHost" type="Label" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player1C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player1Name" type="Label" parent="LoobyC/VBoxContainer/Player1C"]
+layout_mode = 2
+
+[node name="Player1UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player1C"]
+layout_mode = 2
+
+[node name="Player2C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player2Name" type="Label" parent="LoobyC/VBoxContainer/Player2C"]
+layout_mode = 2
+
+[node name="Player2UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player2C"]
+layout_mode = 2
+
+[node name="Player3C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player3Name" type="Label" parent="LoobyC/VBoxContainer/Player3C"]
+layout_mode = 2
+
+[node name="Player3UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player3C"]
+layout_mode = 2
+
+[node name="Player4C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player4Name" type="Label" parent="LoobyC/VBoxContainer/Player4C"]
+layout_mode = 2
+
+[node name="Player4UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player4C"]
+layout_mode = 2
+
+[node name="Player5C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player5Name" type="Label" parent="LoobyC/VBoxContainer/Player5C"]
+layout_mode = 2
+
+[node name="Player5UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player5C"]
+layout_mode = 2
+
+[node name="Player6C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player6Name" type="Label" parent="LoobyC/VBoxContainer/Player6C"]
+layout_mode = 2
+
+[node name="Player6UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player6C"]
+layout_mode = 2
+
+[node name="Player6C2" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player6Name" type="Label" parent="LoobyC/VBoxContainer/Player6C2"]
+layout_mode = 2
+
+[node name="Player6UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player6C2"]
+layout_mode = 2
+
+[node name="Player7C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player7Name" type="Label" parent="LoobyC/VBoxContainer/Player7C"]
+layout_mode = 2
+
+[node name="Player7UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player7C"]
+layout_mode = 2
+
+[node name="Player8C" type="HBoxContainer" parent="LoobyC/VBoxContainer"]
+layout_mode = 2
+
+[node name="Player8Name" type="Label" parent="LoobyC/VBoxContainer/Player8C"]
+layout_mode = 2
+
+[node name="Player8UniqueID" type="Label" parent="LoobyC/VBoxContainer/Player8C"]
+layout_mode = 2
+
 [connection signal="button_down" from="CC/VBC/Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="CC/VBC/Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="CC/VBC/Start Game" to="." method="_on_start_game_button_down"]
+[connection signal="button_down" from="CC/VBC/Go Back" to="." method="_on_go_back_button_down"]
 [connection signal="button_down" from="CC/VBC/Quit" to="." method="_on_quit_button_down"]
