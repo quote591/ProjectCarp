@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhxmmr7tpr8j1"]
+[gd_scene load_steps=7 format=3 uid="uid://bhxmmr7tpr8j1"]
 
 [ext_resource type="Script" uid="uid://c7j1201a4wfsu" path="res://Scripts/Player.cs" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://2cdjhkwcqbdb" path="res://UI/Settings.tscn" id="2_cvnsp"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v0iea"]
 properties/0/path = NodePath(".:position")
@@ -22,6 +23,7 @@ radius = 0.3
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(0.999995, -0.00272739, 0.00170064, 0.00272992, 0.999995, -0.00148836, -0.00169658, 0.00149298, 0.999997, 0, 0, 0)
 script = ExtResource("1_v0iea")
+SettingsMenuScene = ExtResource("2_cvnsp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_v0iea")

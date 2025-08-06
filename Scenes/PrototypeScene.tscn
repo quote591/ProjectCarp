@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://pyhfa1pbwakg" path="res://Scripts/fish_spin.gd" id="1_lp0cs"]
 [ext_resource type="Texture2D" uid="uid://bc46bgocw8b6e" path="res://3D Models/Low Poly Fish 2/Texture/fish.png" id="2_r76xm"]
 [ext_resource type="ArrayMesh" uid="uid://bhsfky7l2h6b6" path="res://3D Models/Low Poly Fish 2/obj/fish.obj" id="3_fpt4d"]
-[ext_resource type="AudioStream" uid="uid://bin6w2mn3l415" path="res://Sound Files/fish spin music.wav" id="3_soq2c"]
+[ext_resource type="AudioStream" uid="uid://dautd6iu63c2g" path="res://UI/Mr Beast Music.wav" id="4_fpt4d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dj5p"]
 albedo_texture = ExtResource("2_r76xm")
@@ -12,9 +12,7 @@ albedo_texture = ExtResource("2_r76xm")
 background_mode = 1
 
 [node name="PrototypeScene" type="Node3D"]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.845078, -0.221486, 0.486608, -0.00125606, 0.90933, 0.416074, -0.534642, -0.352226, 0.768176, 2.1234, 1.57564, 3.27532)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45035, 0)
 
 [node name="Fish" type="Node3D" parent="."]
 script = ExtResource("1_lp0cs")
@@ -25,13 +23,17 @@ material_override = SubResource("StandardMaterial3D_4dj5p")
 mesh = ExtResource("3_fpt4d")
 skeleton = NodePath("../..")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fpt4d")
+volume_db = -25.0
+autoplay = true
+bus = &"Music"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.67842, -0.304904, 0.668416, -0.00125604, 0.90933, 0.416074, -0.734673, -0.283113, 0.616525, 2.24506, 1.67781, 4.2209)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.844716, -0.22158, 0.487193, -0.00158692, 0.909235, 0.416281, -0.535212, -0.352412, 0.767693, 2.123, 1.576, 3.275)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_soq2c")
-volume_db = -10.0
-autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_soq2c")
