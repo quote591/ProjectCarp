@@ -3,10 +3,10 @@
 /// Welcome to the Multiplayer Controller!
 /// 
 /// TODO
-/// We need to make the port and address accessible via the main menu            (QoL)
+/// We need to make the port and address accessible via the main menu            (QoL) (DONE 06/08/2025)
 /// i would recommend using the LineEdit UI node to get the correct information
 /// 
-/// Also we need a way to hide the buttons as their are used                     (QoL)
+/// Also we need a way to hide the buttons as their are used                     (QoL) (DONE 06/08/2025)
 /// example, we dont need a join button when the user has hosted
 /// 
 /// UPnP Universal Plug and Play                                        (low priority)
@@ -63,10 +63,18 @@ public partial class MultiplayerController : Control
         Multiplayer.PeerDisconnected += PeerDisconnected;
         Multiplayer.ConnectedToServer += ConnectedToServer;
         Multiplayer.ConnectionFailed += ConnectionFailed;
+        Multiplayer.ServerDisconnected += ServerDisconnected;
 
         var sceneBack = BackgroundScene.Instantiate<Node3D>();
         GetTree().Root.CallDeferred("add_child", sceneBack);
     }
+
+    private void ServerDisconnected()
+    {
+        GD.Print("Disconnected from server!");
+        RestartGame();
+    }
+
 
     private void ConnectionFailed()
     {
@@ -85,6 +93,17 @@ public partial class MultiplayerController : Control
     private void PeerDisconnected(long id)
     {
         GD.Print("Player " + id.ToString() + " Disconnected!");
+        GD.Print($"Player {id} disconnected!");
+
+        // Remove from GameManager
+        var playerToRemove = GameManager.Players.FirstOrDefault(p => p.Id == id);
+        if (playerToRemove != null)
+        {
+            GameManager.Players.Remove(playerToRemove);
+        }
+
+        // Update UI (e.g., lobby display)
+        UpdateLobbyUI();
     }
 
     public void PeerConnected(long id)
@@ -114,7 +133,7 @@ public partial class MultiplayerController : Control
         GetNode<Button>("VBC/Start Game").Visible = true;
         SendPlayerInformation(GetNode<LineEdit>("VBC/HB Name/NameLineEdit").Text, 1);
 
-       
+
         HideNameIpPort();
     }
 
@@ -234,5 +253,43 @@ public partial class MultiplayerController : Control
 
         GetNode<Button>("VBC/Host").Hide();
         GetNode<Button>("VBC/Join").Hide();
+    }
+
+    public void _on_settings_button_down()
+    {
+        GetNode<Control>("Settings").Visible = true;
+    }
+
+    public void RestartGame()
+    {
+        Multiplayer.MultiplayerPeer = null;
+        GameManager.Players.Clear();
+        foreach (Node child in GetTree().Root.GetChildren())
+        {
+            if (child.Name != "MultiplayerController" && child.Name != "GameManager")
+            {
+                child.QueueFree();
+            }
+        }
+        GetTree().ChangeSceneToFile("res://Multiplayer/MainMenu.tscn");
+    }
+
+    private void UpdateLobbyUI()
+    {
+        for (int i = 1; i <= numberOfPlayers; i++)
+        {
+            GetNode<Label>($"LoobyC/VBoxContainer/Player{i}C/Player{i}Name").Text = "";
+            GetNode<Label>($"LoobyC/VBoxContainer/Player{i}C/Player{i}UniqueID").Text = "";
+        }
+
+        int slot = 1;
+        foreach (var player in GameManager.Players)
+        {
+            GetNode<Label>($"LoobyC/VBoxContainer/Player{slot}C/Player{slot}Name").Text = player.Name;
+            GetNode<Label>($"LoobyC/VBoxContainer/Player{slot}C/Player{slot}UniqueID").Text = player.Id.ToString();
+            slot++;
+        }
+
+        numberOfPlayersInLobby = slot;
     }
 }

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dvw84vtck70nl"]
 
-[ext_resource type="Script" uid="uid://1a6kypyu4nno" path="res://Multiplayer/MultiplayerController.cs" id="1_k2l3g"]
-[ext_resource type="PackedScene" uid="uid://do8skqcvrqrl5" path="res://Multiplayer/TestMultiplayerScene.tscn" id="2_cjlde"]
-[ext_resource type="Theme" uid="uid://c3uqa40po2q06" path="res://UI/game_ui_theme.tres" id="3_fpk2p"]
-[ext_resource type="PackedScene" uid="uid://b627hvgjd82nf" path="res://Scenes/PrototypeScene.tscn" id="3_tl6e0"]
+[ext_resource type="Script" uid="uid://1a6kypyu4nno" path="res://Multiplayer/MultiplayerController.cs" id="1_0h2kk"]
+[ext_resource type="PackedScene" uid="uid://do8skqcvrqrl5" path="res://Multiplayer/TestMultiplayerScene.tscn" id="2_m25wp"]
+[ext_resource type="PackedScene" uid="uid://b627hvgjd82nf" path="res://Scenes/PrototypeScene.tscn" id="3_6i2j3"]
+[ext_resource type="Theme" uid="uid://c3uqa40po2q06" path="res://UI/game_ui_theme.tres" id="4_34od7"]
 
 [node name="Multiplayer Controller" type="Control"]
 layout_mode = 3
@@ -12,9 +12,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_k2l3g")
-MultiplayerScene = ExtResource("2_cjlde")
-BackgroundScene = ExtResource("3_tl6e0")
+script = ExtResource("1_0h2kk")
+MultiplayerScene = ExtResource("2_m25wp")
+BackgroundScene = ExtResource("3_6i2j3")
 port = 60065
 
 [node name="CC" type="CenterContainer" parent="."]
@@ -24,7 +24,7 @@ anchor_bottom = 1.0
 offset_top = 546.0
 offset_right = 1115.0
 grow_vertical = 2
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 
 [node name="CenterContainer2" type="CenterContainer" parent="."]
 layout_mode = 0
@@ -37,7 +37,7 @@ offset_bottom = 661.0
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 580.0
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoobyC"]
 layout_mode = 2
@@ -157,7 +157,7 @@ offset_top = 567.0
 offset_right = 1061.0
 offset_bottom = 1033.0
 grow_vertical = 0
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 alignment = 2
 
 [node name="HB Name" type="HBoxContainer" parent="VBC"]
@@ -165,14 +165,14 @@ layout_mode = 2
 
 [node name="Name" type="Label" parent="VBC/HB Name"]
 layout_mode = 2
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 theme_override_font_sizes/font_size = 40
 text = "Name:"
 vertical_alignment = 3
 
 [node name="NameLineEdit" type="LineEdit" parent="VBC/HB Name"]
 layout_mode = 2
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 placeholder_text = "xX_Carp_Gamer_Xx"
 alignment = 2
 
@@ -181,14 +181,14 @@ layout_mode = 2
 
 [node name="IP" type="Label" parent="VBC/HB IP"]
 layout_mode = 2
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 theme_override_font_sizes/font_size = 40
 text = "IP:       "
 vertical_alignment = 3
 
 [node name="IPLineEdit" type="LineEdit" parent="VBC/HB IP"]
 layout_mode = 2
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 text = "127.0.0.1"
 placeholder_text = "pee.pee.poo.poo"
 alignment = 2
@@ -198,14 +198,14 @@ layout_mode = 2
 
 [node name="Port" type="Label" parent="VBC/HB Port"]
 layout_mode = 2
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 theme_override_font_sizes/font_size = 40
 text = "Port:"
 vertical_alignment = 3
 
 [node name="PortLineEdit" type="LineEdit" parent="VBC/HB Port"]
 layout_mode = 2
-theme = ExtResource("3_fpk2p")
+theme = ExtResource("4_34od7")
 text = "8910"
 placeholder_text = "8910"
 alignment = 2
@@ -232,6 +232,12 @@ layout_mode = 2
 text = "Go Back"
 alignment = 0
 
+[node name="Settings (Not Visible, Not Finished)" type="Button" parent="VBC"]
+visible = false
+layout_mode = 2
+text = "Settings"
+alignment = 0
+
 [node name="Quit" type="Button" parent="VBC"]
 layout_mode = 2
 text = "Quit"
@@ -241,4 +247,5 @@ alignment = 0
 [connection signal="button_down" from="VBC/Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="VBC/Start Game" to="." method="_on_start_game_button_down"]
 [connection signal="button_down" from="VBC/Go Back" to="." method="_on_go_back_button_down"]
+[connection signal="button_down" from="VBC/Settings (Not Visible, Not Finished)" to="." method="_on_settings_button_down"]
 [connection signal="button_down" from="VBC/Quit" to="." method="_on_quit_button_down"]
