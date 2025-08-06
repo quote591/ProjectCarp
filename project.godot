@@ -13,6 +13,7 @@ config_version=5
 config/name="ProjectCarp"
 run/main_scene="uid://dvw84vtck70nl"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
 [audio]
@@ -28,6 +29,7 @@ GameManager="*res://GameManager.cs"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=4
 window/stretch/mode="canvas_items"
 
 [dotnet]

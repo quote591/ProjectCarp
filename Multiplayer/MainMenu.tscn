@@ -207,7 +207,7 @@ vertical_alignment = 3
 layout_mode = 2
 theme = ExtResource("4_34od7")
 text = "8910"
-placeholder_text = "8910"
+placeholder_text = "60065"
 alignment = 2
 
 [node name="Host" type="Button" parent="VBC"]
