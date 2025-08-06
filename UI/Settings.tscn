@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://2cdjhkwcqbdb"]
+[gd_scene load_steps=3 format=3 uid="uid://2cdjhkwcqbdb"]
 
 [ext_resource type="Theme" uid="uid://c3uqa40po2q06" path="res://UI/game_ui_theme.tres" id="1_lbqto"]
+[ext_resource type="Script" uid="uid://b1qcts2uvvwot" path="res://UI/SettingsScript.cs" id="2_ojqoa"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_lbqto")
+script = ExtResource("2_ojqoa")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -26,12 +28,14 @@ z_index = -1
 layout_mode = 0
 offset_right = 1931.0
 offset_bottom = 1088.0
-color = Color(0.82, 0.396333, 0, 0.215686)
+color = Color(0.82, 0.396333, 0, 0.0823529)
 
-[node name="Button" type="Button" parent="."]
+[node name="Quit" type="Button" parent="."]
 layout_mode = 0
 offset_left = 54.0
 offset_top = 968.0
 offset_right = 384.0
 offset_bottom = 1033.0
-text = "Go Back"
+text = "Quit"
+
+[connection signal="button_down" from="Quit" to="." method="_on_quit_button_down"]

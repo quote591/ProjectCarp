@@ -37,7 +37,7 @@ public partial class Player : CharacterBody3D
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float CamSensitivity = 0.006f;
-	
+
 	private Node3D _head;
 	private Camera3D _cam;
 
@@ -47,8 +47,14 @@ public partial class Player : CharacterBody3D
 	public long PlayerId { get; set; } = 0; // Multiplayer
 
 	// synced varibles
-    public int Score { get; set; } = 0;
-	
+	public int Score { get; set; } = 0;
+	private bool _isSettingsVisible = false;
+
+	[Export]
+    public PackedScene SettingsMenuScene { get; set; }
+
+	private Control _settingsMenuInstance;
+
 	public override void _Ready()
 	{
 		// When loading the players, and each one has a MultiplayerSynchronizer
@@ -64,37 +70,40 @@ public partial class Player : CharacterBody3D
 			_cam.Current = true; // Multiplayer 
 		else // Multiplayer
 			_cam.Current = false; // Multiplayer
+
+		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
 	public void SetActive(bool active)
-    {
-        _isActive = active;
-        _cam.Current = _isActive;
+	{
+		_isActive = active;
+		_cam.Current = _isActive;
 
-        Input.MouseMode = _isActive && !camDisabled ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
-    }
-	
+		Input.MouseMode = _isActive && !camDisabled ? Input.MouseModeEnum.Captured : Input.MouseModeEnum.Visible;
+	}
+
 	public override void _Input(InputEvent @event)
-    {
-        if (!_isActive) return;
+	{
+		if (!_isActive) return;
 
-        if (@event is InputEventMouseMotion m && !camDisabled)
-        {
-            _head.RotateY(-m.Relative.X * CamSensitivity);
-            _cam.RotateX(-m.Relative.Y * CamSensitivity);
+		if (@event is InputEventMouseMotion m && !camDisabled)
+		{
+			_head.RotateY(-m.Relative.X * CamSensitivity);
+			_cam.RotateX(-m.Relative.Y * CamSensitivity);
 
-            Vector3 camRot = _cam.Rotation;
-            camRot.X = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
-            _cam.Rotation = camRot;
-        }
-        else if (@event is InputEventKey k && k.Keycode == Key.Escape && k.IsPressed())
-        {
-            camDisabled = !camDisabled;
-            Input.MouseMode = camDisabled ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
-        }
-    }
+			Vector3 camRot = _cam.Rotation;
+			camRot.X = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
+			_cam.Rotation = camRot;
+		}
+		else if (@event is InputEventKey k && k.Keycode == Key.Escape && k.IsPressed())
+		{
+			camDisabled = !camDisabled;
+			Input.MouseMode = camDisabled ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+			SettingsMenuToggle();
+		}
+	}
 
-public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		// If player is a remote player (aka not the player in the window)
 		// dont process anything
@@ -138,4 +147,27 @@ public override void _PhysicsProcess(double delta)
 			// ===== End Physics Code =====
 		}
 	}
+
+	public void SettingsMenuToggle()
+{
+    if (_settingsMenuInstance == null || !_settingsMenuInstance.IsInsideTree())
+    {
+        // Instantiate and add to the UI tree
+        _settingsMenuInstance = SettingsMenuScene.Instantiate<Control>();
+
+        // Add it to your UI hierarchy (e.g., as a child of a CanvasLayer or main UI Control)
+        // For example, add to the root viewport:
+        GetTree().Root.CallDeferred("add_child", _settingsMenuInstance);
+
+        // Or better: add to a dedicated UI parent (e.g., `CanvasLayer` or `UIRoot`)
+        // GetNode("UIRoot").CallDeferred("add_child", _settingsMenuInstance);
+    }
+    else
+    {
+        // Remove the menu
+        _settingsMenuInstance.QueueFree();
+        _settingsMenuInstance = null;
+    }
 }
+}
+
