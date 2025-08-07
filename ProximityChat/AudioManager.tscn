@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://q8dnii7pyiso"]
+
+[ext_resource type="Script" uid="uid://bpo0d6nvsyx3j" path="res://ProximityChat/AudioManager.cs" id="1_7gnhg"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_7gnhg"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_7gnhg")
+AudioOutputPath = NodePath("Output")
+
+[node name="Input" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_7gnhg")
+
+[node name="Output" type="AudioStreamPlayer" parent="."]
