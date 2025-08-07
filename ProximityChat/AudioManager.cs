@@ -31,13 +31,19 @@ public partial class AudioManager : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        SetupAudio(Multiplayer.GetUniqueId());      // DEFAULT VALUE 1 FOR DEBUGGING SOLO
+        SetupAudio(Multiplayer.GetUniqueId());      
         GD.Print("{" + Multiplayer.GetUniqueId() + "} Has set up Audio");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+
+        if (Multiplayer.MultiplayerPeer == null || Multiplayer.MultiplayerPeer.GetConnectionStatus() != MultiplayerPeer.ConnectionStatus.Connected)
+        {
+            return; // Skip processing if not connected
+        }
+
         if (IsMultiplayerAuthority())
         {
             processMic();
@@ -114,7 +120,15 @@ public partial class AudioManager : Node
             //GD.Print("{" + Multiplayer.GetUniqueId() + "} Audio loud enough");
 
             // if we have data and we has been averaged properly, pass on
-            Rpc("sendData", CompressFloatArray(data));      // original compression
+            //Rpc("sendData", CompressFloatArray(data));      // original compression
+            try
+            {
+                Rpc("sendData", CompressFloatArray(data));
+            }
+            catch (Exception e)
+            {
+                GD.PushError($"Error sending voice data: {e.Message}");
+            }
         }
     }
 
@@ -143,8 +157,17 @@ public partial class AudioManager : Node
         // "chuncks of data"
         // we are gonna have a recieve buffer
 
-        receiveBuffer.AddRange(DecompressFloatArray(data));     // base compression
-        //receiveBuffer.AddRange(DecompressFloatArrayLossy(data));   // custom compression
+        //receiveBuffer.AddRange(DecompressFloatArray(data));     // base compression
+        
+        try
+        {
+            var floats = DecompressFloatArray(data);
+            receiveBuffer.AddRange(floats);
+        }
+        catch (Exception e)
+        {
+            GD.PushError($"Error receiving voice data: {e.Message}");
+        }
     }
 
     public byte[] CompressFloatArray(float[] floatArray)
