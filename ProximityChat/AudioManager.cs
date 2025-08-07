@@ -86,6 +86,11 @@ public partial class AudioManager : Node
         var player = outputPlayer.GetStreamPlayback();
         playback = player as AudioStreamGeneratorPlayback;
 
+
+
+
+        
+
         // Optional safety check
         if (playback == null)
         {

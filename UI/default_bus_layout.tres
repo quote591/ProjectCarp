@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=7 format=3 uid="uid://56fsxmtfwv6c"]
+[gd_resource type="AudioBusLayout" load_steps=5 format=3 uid="uid://56fsxmtfwv6c"]
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_j3pel"]
 resource_name = "SpectrumAnalyzer"
@@ -7,21 +7,16 @@ resource_name = "SpectrumAnalyzer"
 resource_name = "Capture"
 buffer_length = 0.05
 
-[sub_resource type="AudioEffectEQ" id="AudioEffectEQ_an7nc"]
+[sub_resource type="AudioEffectEQ" id="AudioEffectEQ_aih5a"]
 resource_name = "EQ"
 band_db/32_hz = -60.0
-band_db/100_hz = -60.0
+band_db/1000_hz = 2.0
+band_db/3200_hz = 1.0
 band_db/10000_hz = -60.0
 
-[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_an7nc"]
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_aih5a"]
 resource_name = "PitchShift"
-pitch_scale = 1.1
-
-[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_an7nc"]
-resource_name = "Compressor"
-
-[sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_an7nc"]
-resource_name = "Limiter"
+pitch_scale = 1.07
 
 [resource]
 bus/1/name = &"Music"
@@ -46,17 +41,13 @@ bus/3/volume_db = 0.0
 bus/3/send = &"Mute"
 bus/3/effect/0/effect = SubResource("AudioEffectCapture_an7nc")
 bus/3/effect/0/enabled = true
-bus/3/effect/1/effect = SubResource("AudioEffectEQ_an7nc")
-bus/3/effect/1/enabled = true
-bus/3/effect/2/effect = SubResource("AudioEffectPitchShift_an7nc")
-bus/3/effect/2/enabled = true
-bus/3/effect/3/effect = SubResource("AudioEffectCompressor_an7nc")
-bus/3/effect/3/enabled = true
-bus/3/effect/4/effect = SubResource("AudioEffectLimiter_an7nc")
-bus/3/effect/4/enabled = true
 bus/4/name = &"OutsideVoice"
 bus/4/solo = false
 bus/4/mute = false
 bus/4/bypass_fx = false
 bus/4/volume_db = 0.0
 bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectEQ_aih5a")
+bus/4/effect/0/enabled = true
+bus/4/effect/1/effect = SubResource("AudioEffectPitchShift_aih5a")
+bus/4/effect/1/enabled = true

@@ -5,7 +5,8 @@
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_7gnhg"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_7gnhg"]
-mix_rate = 48000.0
+mix_rate_mode = 1
+mix_rate = 22050.0
 
 [node name="AudioManager" type="Node"]
 script = ExtResource("1_7gnhg")
