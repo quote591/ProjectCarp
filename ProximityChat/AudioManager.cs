@@ -18,6 +18,13 @@ public partial class AudioManager : Node
     [Export]
     public float InputThreashold = 0.005f;
 
+
+    // testing
+    private const int MaxPacketSize = 1200; // testing
+    private System.Collections.Generic.List<byte> incomingCompressedData = new();
+    private bool receivingData = false;
+    private int expectedPacketLength = -1; // or some protocol to know full size
+
     // forces to be a godot collection instead of a c# array
     private Godot.Collections.Array<float> receiveBuffer = new Godot.Collections.Array<float>();
 
@@ -62,7 +69,7 @@ public partial class AudioManager : Node
         //AudioStreamPlayback player = GetNode<AudioStreamPlayer>(AudioOutputPath).GetStreamPlayback();     // HERE IS WHERE WE GET 2D AUDIO, THIS NEEDS TO BE FIXED TO BE 3D
         //playback = player as AudioStreamGeneratorPlayback;
 
-                // Get the output player node
+        // Get the output player node
         var outputPlayer = GetNode<AudioStreamPlayer>(AudioOutputPath);
 
         // Set up the generator stream
@@ -78,16 +85,6 @@ public partial class AudioManager : Node
         {
             GD.PrintErr("Failed to get AudioStreamGeneratorPlayback. Check if stream was set correctly.");
         }
-
-        // ===== OLD CODE START ===== 
-        // testing if there is data
-        //var player = GetNode<AudioStreamPlayer3D>(AudioOutputPath).GetStreamPlayback();
-        //if (player is AudioStreamGeneratorPlayback)
-        //{
-        //    playback = player as AudioStreamGeneratorPlayback;
-        //}
-        // playback = (AudioStreamGeneratorPlayback)GetNode<AudioStreamPlayer3D>(AudioOutputPath).GetStreamPlayback();  // which node to play back to    // need for later
-        // ===== OLD CODE END ===== 
     }
 
     private void processMic()
@@ -114,11 +111,10 @@ public partial class AudioManager : Node
             {
                 return;
             }
-            GD.Print("{" + Multiplayer.GetUniqueId() + "} Audio loud enough");
+            //GD.Print("{" + Multiplayer.GetUniqueId() + "} Audio loud enough");
 
             // if we have data and we has been averaged properly, pass on
-            Rpc("sendData", CompressFloatArray(data));                                      // THIS HAS BEEN COMMENTED OUT FOR LOCAL TESTING
-            //sendData(data);                                                     // COMMENT THIS OUT WHEN DEPLOYED MULTIPLAYER
+            Rpc("sendData", CompressFloatArray(data));      // original compression
         }
     }
 
@@ -138,14 +134,17 @@ public partial class AudioManager : Node
     // call local false so we dont hear ourselves
     // unrealiable allows to send the data no matter what (it wont wait for recieve)
     // "throw all the words out and see if the person catches it"
-    [Rpc(mode: MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Unreliable)]
+    [Rpc(mode: MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     private void sendData(byte[] data)
     {
+        //GD.Print("Received voice data from another player!");
+
         // when a person rpcs that data over, but not all the data has arrived yet
         // "chuncks of data"
         // we are gonna have a recieve buffer
 
-        receiveBuffer.AddRange(DecompressFloatArray(data));
+        receiveBuffer.AddRange(DecompressFloatArray(data));     // base compression
+        //receiveBuffer.AddRange(DecompressFloatArrayLossy(data));   // custom compression
     }
 
     public byte[] CompressFloatArray(float[] floatArray)
