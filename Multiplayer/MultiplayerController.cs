@@ -67,6 +67,9 @@ public partial class MultiplayerController : Control
 
         var sceneBack = BackgroundScene.Instantiate<Node3D>();
         GetTree().Root.CallDeferred("add_child", sceneBack);
+
+        // this just captures the mouse again when server is ready
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     private void ServerDisconnected()

@@ -1,3 +1,15 @@
+/// <summary>
+/// 
+/// Welcome to Audio Manager
+/// 
+/// currently we have two modes
+/// - Voice Chat    (everyone hears everyone all the time)
+/// - Proxy Chat    (drones)
+/// 
+/// currently we have made proxy chat the default option for playerss
+/// 
+/// </summary>
+
 using Godot;
 using System;
 using System.IO;
@@ -6,7 +18,6 @@ using System.Text.Encodings.Web;
 
 public partial class AudioManager : Node
 {
-    // global 
     private AudioStreamPlayer input; // when we are talking and inputting into
     private int index; // bus index 
     private AudioEffectCapture effect; // capture of your voice (housed by input)
@@ -18,10 +29,6 @@ public partial class AudioManager : Node
     [Export]
     public float InputThreashold = 0.005f;
 
-
-    // testing
-    private const int MaxPacketSize = 1200; // testing
-    private System.Collections.Generic.List<byte> incomingCompressedData = new();
     private bool receivingData = false;
     private int expectedPacketLength = -1; // or some protocol to know full size
 
@@ -44,47 +51,47 @@ public partial class AudioManager : Node
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        // this fixes issue with game crashing after getting force disconnected from host
+        if (GetMultiplayer().GetMultiplayerPeer() == null)
+        {
+            GD.Print("GetMultiplayer().GetMultiplayerPeer() == null");
+            return;
+        }
 
-        //GD.Print("AudioManager _Process running");
-
-        // Node current = this;
-        // while (current != null)
-        // {
-        //     GD.Print("Parent node: " + current.Name);
-        //     current = current.GetParent();
-        // }
-
+        // find the drone manager
+        // root
+        // - scene
+        // - - PlayerSpawnPoints
+        // - - VoiceDroneController
         if (droneManager == null)
         {
-            // Climb up to the TestMultiplayerScene node (parent of parent)
-            var testMultiplayerScene = GetParent()?.GetParent();
-            if (testMultiplayerScene != null)
+            Node current = this;
+            while (current != null)
             {
-                droneManager = testMultiplayerScene.GetNodeOrNull<Node>("VoiceDroneController");
+                // Try to find "VoiceDroneController" directly under this node
+                droneManager = current.GetNodeOrNull<Node>("VoiceDroneController");
                 if (droneManager != null)
-                {
-                    GD.Print("DroneManager found!");
-                }
-                else
-                {
-                    GD.Print("DroneManager NOT found under TestMultiplayerScene");
-                }
-            }
-            else
-            {
-                GD.Print("TestMultiplayerScene node not found");
+                    break;
+                current = current.GetParent();
             }
         }
         else
         {
-            if (IsMultiplayerAuthority())
+            try
             {
-                processMic();
+                if (IsMultiplayerAuthority())
+                {
+                    processMic();
+                }
+                processVoice();
             }
-            processVoice();
+            catch (Exception e)
+            {
+                GD.Print("Caught exception: " + e.Message);
+            }
         }
 
-
+        // use this commented out code if you dont want drones (proxy chat)
         // if (IsMultiplayerAuthority())
         // {
         //     processMic();
@@ -107,16 +114,6 @@ public partial class AudioManager : Node
             effect = (AudioEffectCapture)AudioServer.GetBusEffect(index, 0); // pulling back the effect to where we are gonna load that data
         }
 
-        //input.Stream = new AudioStreamMicrophone(); // creating a new stream "creating microphone"
-        //input.Play(); // starting capture
-        //index = AudioServer.GetBusIndex("Record"); // setting which bus 
-        //effect = (AudioEffectCapture)AudioServer.GetBusEffect(index, 0); // pulling back the effect to where we are gonna load that data
-
-        // TODO MAKE AUDIO 3D
-        // good luck x
-        //AudioStreamPlayback player = GetNode<AudioStreamPlayer>(AudioOutputPath).GetStreamPlayback();     // HERE IS WHERE WE GET 2D AUDIO, THIS NEEDS TO BE FIXED TO BE 3D
-        //playback = player as AudioStreamGeneratorPlayback;
-
         // Get the output player node
         var outputPlayer = GetNode<AudioStreamPlayer>(AudioOutputPath);
 
@@ -127,11 +124,6 @@ public partial class AudioManager : Node
         // Get the playback stream
         var player = outputPlayer.GetStreamPlayback();
         playback = player as AudioStreamGeneratorPlayback;
-
-
-
-
-
 
         // Optional safety check
         if (playback == null)
@@ -164,18 +156,18 @@ public partial class AudioManager : Node
             {
                 return;
             }
-            //GD.Print("{" + Multiplayer.GetUniqueId() + "} Audio loud enough");
 
-            // if we have data and we has been averaged properly, pass on
-            //Rpc("sendData", CompressFloatArray(data));      // original compression
+            // if you want non 3D audio, uncomment below
             //Rpc("sendData", CompressFloatArray(data)); // non 3d audio
+
+            // if drone manager exists then send the player voice to it
             try
             {
                 if (droneManager != null)
                 {
                     // Call the RPC on droneManager
-                    GD.Print("[" + Multiplayer.GetUniqueId() + "] im sending RecieveMicDataFromPlayer "+Multiplayer.GetUniqueId() );
-                    droneManager.Rpc("ReceiveMicDataFromPlayer", Multiplayer.GetUniqueId() , CompressFloatArray(data));
+                    //GD.Print("[" + Multiplayer.GetUniqueId() + "] im sending RecieveMicDataFromPlayer "+Multiplayer.GetUniqueId() );
+                    droneManager.Rpc("ReceiveMicDataFromPlayer", Multiplayer.GetUniqueId(), CompressFloatArray(data));
                 }
                 else
                 {
@@ -189,6 +181,7 @@ public partial class AudioManager : Node
         }
     }
 
+    // this is only used for general voice chat (non 3D)
     private void processVoice()
     {
         if (receiveBuffer.Count <= 0) return;
@@ -205,17 +198,10 @@ public partial class AudioManager : Node
     // call local false so we dont hear ourselves
     // unrealiable allows to send the data no matter what (it wont wait for recieve)
     // "throw all the words out and see if the person catches it"
+    // [08/082025] this is now only used for voice chat (non 3D)
     [Rpc(mode: MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     private void sendData(byte[] data)
     {
-        //GD.Print("Received voice data from another player!");
-
-        // when a person rpcs that data over, but not all the data has arrived yet
-        // "chuncks of data"
-        // we are gonna have a recieve buffer
-
-        //receiveBuffer.AddRange(DecompressFloatArray(data));     // base compression
-
         try
         {
             var floats = DecompressFloatArray(data);
@@ -261,7 +247,6 @@ public partial class AudioManager : Node
     [Rpc(mode: MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void SendMicDataToManager(byte[] audioData)
     {
-        //var id = GetMultiplayer().GetUniqueId();
         int id = Multiplayer.GetUniqueId();
         if (id <= 0)
         {

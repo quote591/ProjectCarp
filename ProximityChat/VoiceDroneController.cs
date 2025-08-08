@@ -1,3 +1,13 @@
+/// <summary>
+/// 
+/// Welcome to voice drone controller!
+/// 
+/// this works by dynamically making and assigning drones to everyone
+/// a drone is a 3d node which has a 3d audio stream generator attached
+/// each drone will be called Drone{playerUniqueId}
+/// 
+/// </summary>
+
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -14,9 +24,10 @@ public partial class VoiceDroneController : Node3D
 
     public override void _Ready()
     {
-        // Initially no drones — they get created as players join
+
     }
 
+    // this is called from the scene
     public void RegisterPlayer(Node3D player)
     {
         if (player.GetMultiplayer() == null || player.GetMultiplayer().GetMultiplayerPeer() == null)
@@ -24,10 +35,8 @@ public partial class VoiceDroneController : Node3D
             GD.PrintErr("Player multiplayer peer not assigned yet");
             return;
         }
-        //int playerId = player.Multiplayer.GetUniqueId();
         int playerId = player.GetMultiplayerAuthority();
 
-        // Check if we already have a drone for this playerId
         if (dronesByPlayerId.ContainsKey(playerId))
         {
             GD.PrintErr($"RegisterPlayer: Drone already exists for player {playerId}");
@@ -119,18 +128,16 @@ public partial class VoiceDroneController : Node3D
     public void ReceiveMicDataFromPlayer(int playerId, byte[] audioData)
     {
         // log everything
-        GD.Print($"[{Multiplayer.GetUniqueId()}] ReceiveMicDataFromPlayer called with playerId {playerId}, audioData length: {audioData?.Length ?? 0}");
+        //GD.Print($"[{Multiplayer.GetUniqueId()}] ReceiveMicDataFromPlayer called with playerId {playerId}, audioData length: {audioData?.Length ?? 0}");
 
         if (playerId <= 0)
         {
             GD.PrintErr($"[{Multiplayer.GetUniqueId()}] ReceiveMicDataFromPlayer called with invalid playerId {playerId}");
             return;
         }
-        //Rpc("PlayPlayerAudioOnDrone", playerId, audioData);
         PlayPlayerAudioOnDrone(playerId, audioData);
     }
 
-    //[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
     public void PlayPlayerAudioOnDrone(int playerId, byte[] audioData)
     {
         if (playerId <= 0)
@@ -175,6 +182,8 @@ public partial class VoiceDroneController : Node3D
         return floatArray;
     }
 
+    // currently we use mono but 3d requires stereo (but we just faked it)
+    // should still work with no problem
     private Vector2[] MonoToStereoVector2Array(float[] monoSamples)
     {
         Vector2[] stereoSamples = new Vector2[monoSamples.Length];
