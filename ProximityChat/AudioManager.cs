@@ -28,27 +28,69 @@ public partial class AudioManager : Node
     // forces to be a godot collection instead of a c# array
     private Godot.Collections.Array<float> receiveBuffer = new Godot.Collections.Array<float>();
 
+
+    //private Node droneManager;
+    private Node droneManager = null;
+    private int playerId;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        SetupAudio(Multiplayer.GetUniqueId());      
+        SetupAudio(Multiplayer.GetUniqueId());
         GD.Print("{" + Multiplayer.GetUniqueId() + "} Has set up Audio");
+        SetProcess(true);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
 
-        if (Multiplayer.MultiplayerPeer == null || Multiplayer.MultiplayerPeer.GetConnectionStatus() != MultiplayerPeer.ConnectionStatus.Connected)
+        //GD.Print("AudioManager _Process running");
+
+        // Node current = this;
+        // while (current != null)
+        // {
+        //     GD.Print("Parent node: " + current.Name);
+        //     current = current.GetParent();
+        // }
+
+        if (droneManager == null)
         {
-            return; // Skip processing if not connected
+            // Climb up to the TestMultiplayerScene node (parent of parent)
+            var testMultiplayerScene = GetParent()?.GetParent();
+            if (testMultiplayerScene != null)
+            {
+                droneManager = testMultiplayerScene.GetNodeOrNull<Node>("VoiceDroneController");
+                if (droneManager != null)
+                {
+                    GD.Print("DroneManager found!");
+                }
+                else
+                {
+                    GD.Print("DroneManager NOT found under TestMultiplayerScene");
+                }
+            }
+            else
+            {
+                GD.Print("TestMultiplayerScene node not found");
+            }
+        }
+        else
+        {
+            if (IsMultiplayerAuthority())
+            {
+                processMic();
+            }
+            processVoice();
         }
 
-        if (IsMultiplayerAuthority())
-        {
-            processMic();
-        }
-        processVoice();
+
+        // if (IsMultiplayerAuthority())
+        // {
+        //     processMic();
+        // }
+        // processVoice();
+
     }
 
     public void SetupAudio(long id)
@@ -89,7 +131,7 @@ public partial class AudioManager : Node
 
 
 
-        
+
 
         // Optional safety check
         if (playback == null)
@@ -126,9 +168,19 @@ public partial class AudioManager : Node
 
             // if we have data and we has been averaged properly, pass on
             //Rpc("sendData", CompressFloatArray(data));      // original compression
+            //Rpc("sendData", CompressFloatArray(data)); // non 3d audio
             try
             {
-                Rpc("sendData", CompressFloatArray(data));
+                if (droneManager != null)
+                {
+                    // Call the RPC on droneManager
+                    GD.Print("[" + Multiplayer.GetUniqueId() + "] im sending RecieveMicDataFromPlayer "+Multiplayer.GetUniqueId() );
+                    droneManager.Rpc("ReceiveMicDataFromPlayer", Multiplayer.GetUniqueId() , CompressFloatArray(data));
+                }
+                else
+                {
+                    GD.PrintErr("DroneManager node not found!");
+                }
             }
             catch (Exception e)
             {
@@ -163,7 +215,7 @@ public partial class AudioManager : Node
         // we are gonna have a recieve buffer
 
         //receiveBuffer.AddRange(DecompressFloatArray(data));     // base compression
-        
+
         try
         {
             var floats = DecompressFloatArray(data);
@@ -202,5 +254,37 @@ public partial class AudioManager : Node
             Buffer.BlockCopy(byteArray, 0, floatArray, 0, byteArray.Length);
             return floatArray;
         }
+    }
+
+    // drone manager 3d audio
+    // proxy chat
+    [Rpc(mode: MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void SendMicDataToManager(byte[] audioData)
+    {
+        //var id = GetMultiplayer().GetUniqueId();
+        int id = Multiplayer.GetUniqueId();
+        if (id <= 0)
+        {
+            GD.PrintErr("Trying to send mic data with invalid player ID " + id);
+            return;
+        }
+
+        var droneManager = GetTree().Root.GetNode<VoiceDroneController>("root/VoiceDroneController");
+        droneManager.RpcId(1, "ReceiveMicDataFromPlayer", id, audioData);
+    }
+
+
+    Node FindNodeByName(Node root, string name)
+    {
+        if (root.Name == name)
+            return root;
+
+        foreach (Node child in root.GetChildren())
+        {
+            Node found = FindNodeByName(child, name);
+            if (found != null)
+                return found;
+        }
+        return null;
     }
 }

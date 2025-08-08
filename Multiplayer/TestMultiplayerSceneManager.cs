@@ -8,6 +8,9 @@ public partial class TestMultiplayerSceneManager : Node3D
 
     public override void _Ready()
     {
+        // find drone manager
+        var droneManager = GetNode<VoiceDroneController>("VoiceDroneController");
+
         // get all the spawn points and sort them
         var spawnPoints = GetTree().GetNodesInGroup("PlayerSpawnPoints").OfType<Node3D>().OrderBy(n =>
         {
@@ -35,6 +38,11 @@ public partial class TestMultiplayerSceneManager : Node3D
                 GD.PrintErr($"No spawn point for player index {index}");
             }
             index++;
+
+            // attach drone to player (target not child)
+            GD.Print("[" + Multiplayer.GetUniqueId() + "] RegisterPlayer currentPlayerId: "+currentPlayer.PlayerId);
+            droneManager.RegisterPlayer(currentPlayer);
         }
+
     }
 }

@@ -26,7 +26,6 @@ skeleton = NodePath("../..")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_fpt4d")
 volume_db = -15.0
-autoplay = true
 bus = &"Music"
 
 [node name="Camera3D" type="Camera3D" parent="."]
