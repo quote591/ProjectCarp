@@ -38,8 +38,6 @@ public partial class Player : CharacterBody3D
 	public const float JumpVelocity = 4.5f;
 	public const float CamSensitivity = 0.006f;
 
-	public Vector3 ForwardVector { get; private set; }
-	
 	private Node3D _head;
 	private Camera3D _cam;
 
@@ -91,16 +89,6 @@ public partial class Player : CharacterBody3D
 			float pitch = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
 			camRot.X = pitch;
 			_cam.Rotation = camRot;
-
-			// Don't worry about this, just has to be done
-			float yaw = Mathf.DegToRad(_head.RotationDegrees.Y) + (float)(3.1415 /2);
-
-			// Calculate the forward vector using yaw and pitch
-			float newX = Mathf.Cos(yaw) * MathF.Cos(pitch);
-			float newY = Mathf.Sin(pitch);
-			float newZ = -Mathf.Sin(yaw) * Mathf.Cos(pitch);
-			Vector3 finalForwardVec = new Vector3(newX, newY, newZ).Normalized();
-			ForwardVector = finalForwardVec;
         }
 		else if (@event is InputEventKey k && k.Keycode == Key.Escape && k.IsPressed())
 		{
@@ -150,10 +138,13 @@ public partial class Player : CharacterBody3D
 			Velocity = velocity;
 			MoveAndSlide();
 
+
 			// Raycasting for intersections
 			var spaceState = GetWorld3D().DirectSpaceState;
 
-
+			#region RayDebugging
+			/*
+			// Debugging code to show rays
 			var mesh_intance = new MeshInstance3D();
 			var immediate_mesh = new ImmediateMesh();
 			var material = new OrmMaterial3D();
@@ -161,21 +152,25 @@ public partial class Player : CharacterBody3D
 			mesh_intance.Mesh = immediate_mesh;
 
 			immediate_mesh.SurfaceBegin(Mesh.PrimitiveType.Lines, material);
-			immediate_mesh.SurfaceAddVertex(Position + _head.Position);
-			immediate_mesh.SurfaceAddVertex(Position + _head.Position + ForwardVector);
+			immediate_mesh.SurfaceAddVertex(_cam.GlobalPosition);
+			immediate_mesh.SurfaceAddVertex(_cam.GlobalPosition - _cam.GlobalTransform.Basis.Z * 2);
 			immediate_mesh.SurfaceEnd();
 
 			material.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
 			material.AlbedoColor = Color.Color8(1, 0, 0, 1);
 
 			GetTree().Root.AddChild(mesh_intance);
+			*/
+			#endregion
 
-
-			var query = PhysicsRayQueryParameters3D.Create(Position + _head.Position, Position + _head.Position + ForwardVector);
+			// Get 
+			var query = PhysicsRayQueryParameters3D.Create(_cam.GlobalPosition, _cam.GlobalPosition - _cam.GlobalTransform.Basis.Z * 2);
+			query.CollisionMask = 1U << InteractionManager.collisionMask;
 			var result = spaceState.IntersectRay(query);
 
-			if (result.Count > 0)
-				GD.Print("Hit at point: ", result["position"]);
+			if (result.Count > 0 && Input.IsKeyPressed(Key.E))
+				GD.Print("Hit at point: ", result["position"], result["collider"], result["collider_id"]);
+				
 
 			// ===== End Physics Code =====
 		}

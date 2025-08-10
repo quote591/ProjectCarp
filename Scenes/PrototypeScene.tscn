@@ -31,7 +31,6 @@ transform = Transform3D(0.844716, -0.22158, 0.487193, -0.00158692, 0.909235, 0.4
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_soq2c")
 volume_db = -10.0
-autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_soq2c")
