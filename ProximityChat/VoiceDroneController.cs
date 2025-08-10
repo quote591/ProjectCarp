@@ -45,7 +45,7 @@ public partial class VoiceDroneController : Node3D
 
         players.Add(player);
         GD.Print($"[{Multiplayer.GetUniqueId()}] RegisterPlayer: Adding drone for player {playerId}");
-        CreateDroneForPlayer(player);
+        CreateDroneForPlayer(player, playerId);
     }
 
     public void UnregisterPlayer(Node3D player)
@@ -68,9 +68,9 @@ public partial class VoiceDroneController : Node3D
         }
     }
 
-    private void CreateDroneForPlayer(Node3D player)
+    private void CreateDroneForPlayer(Node3D player, int playerId)
     {
-        int playerId = player.GetMultiplayerAuthority();
+        //int playerId = player.GetMultiplayerAuthority();
 
         if (dronesByPlayerId.ContainsKey(playerId))
         {
@@ -111,11 +111,11 @@ public partial class VoiceDroneController : Node3D
 
     private Node3D GetDroneByPlayerId(int playerId)
     {
-        if (playerId <= 0)
-        {
-            GD.PrintErr($"Invalid playerId {playerId} passed to GetDroneByPlayerId");
-            return null;
-        }
+        //if (playerId <= 0)
+        //{
+        //    GD.PrintErr($"Invalid playerId {playerId} passed to GetDroneByPlayerId");
+        //    return null;
+        //}
 
         if (dronesByPlayerId.TryGetValue(playerId, out Drone drone))
             return drone;
@@ -140,11 +140,11 @@ public partial class VoiceDroneController : Node3D
 
     public void PlayPlayerAudioOnDrone(int playerId, byte[] audioData)
     {
-        if (playerId <= 0)
-        {
-            GD.PrintErr($"PlayPlayerAudioOnDrone called with invalid playerId {playerId}");
-            return;
-        }
+        //if (playerId <= 0)
+        //{
+        //    GD.PrintErr($"PlayPlayerAudioOnDrone called with invalid playerId {playerId}");
+        //    return;
+        //}
 
         var drone = GetDroneByPlayerId(playerId);
         if (drone == null)

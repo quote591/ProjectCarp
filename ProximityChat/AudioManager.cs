@@ -27,7 +27,7 @@ public partial class AudioManager : Node
     public NodePath AudioOutputPath { get; set; }
 
     [Export]
-    public float InputThreashold = 0.005f;
+    public float InputThreshold = 0.005f;
 
     private bool receivingData = false;
     private int expectedPacketLength = -1; // or some protocol to know full size
@@ -152,7 +152,7 @@ public partial class AudioManager : Node
             }
 
             // what if a person is not speaking at all, then dont send anything
-            if (maxAmplitude < InputThreashold)
+            if (maxAmplitude < InputThreshold)
             {
                 return;
             }
@@ -187,7 +187,8 @@ public partial class AudioManager : Node
         if (receiveBuffer.Count <= 0) return;
 
         // this checks if it still has audio to play before playing recieving audio
-        for (int i = 0; i < Math.Min(playback.GetFramesAvailable(), receiveBuffer.Count); i++)
+        var loopCount = Math.Min(playback.GetFramesAvailable(), receiveBuffer.Count);
+        for (int i = 0; i < loopCount; i++)
         {
             playback.PushFrame(new Vector2(receiveBuffer[0], receiveBuffer[0]));
             receiveBuffer.RemoveAt(0); // once processed, then remove
