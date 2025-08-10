@@ -1,0 +1,135 @@
+[gd_scene load_steps=7 format=3 uid="uid://duakbce0unxpi"]
+
+[ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_meh8y"]
+[ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_qhnhq"]
+[ext_resource type="PackedScene" uid="uid://bb8truij5p6x1" path="res://ProximityChat/VoiceDroneController.tscn" id="3_edmep"]
+[ext_resource type="Material" uid="uid://bg65dwhm1uvqj" path="res://Materials/Stone_1/stone_1.tres" id="4_nd3a8"]
+[ext_resource type="PackedScene" uid="uid://5djdc60kgnk1" path="res://3D Models/shipping_container.tscn" id="5_ml3do"]
+[ext_resource type="PackedScene" uid="uid://hmi4kmdwmo3x" path="res://3D Models/shipping_container_full.tscn" id="6_1n544"]
+
+[node name="LobbyArea" type="Node3D"]
+script = ExtResource("1_meh8y")
+playerScene = ExtResource("2_qhnhq")
+
+[node name="PlayerSpawnPoints" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.49, 0.5, -15.9816)
+
+[node name="1" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.78778, 0.5, -30.5496)
+
+[node name="2" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.93643, 0.5, -35.7761)
+
+[node name="3" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4502, 0.5, -61.267)
+
+[node name="4" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4939, 0.5, -56.8971)
+
+[node name="5" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.9994, 0.5, -41.2173)
+
+[node name="6" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3655, 0.5, -35.5145)
+
+[node name="7" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8646, 0.5, -11.3002)
+
+[node name="VoiceDroneController" parent="." instance=ExtResource("3_edmep")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -41.8599)
+use_collision = true
+
+[node name="Floor_1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41534, -0.5, 5.26788)
+material_override = ExtResource("4_nd3a8")
+size = Vector3(44.2672, 1, 38.6676)
+material = ExtResource("4_nd3a8")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-3.45836e-08, -0.611582, 0.791181, -2.67331e-08, 0.791181, 0.611582, -1, 3.55271e-15, -4.37114e-08, 24.4753, 22.1705, 0.0923039)
+visible = false
+light_energy = 22.595
+light_indirect_energy = 0.0
+spot_range = 49.3601
+spot_angle = 17.31
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.541744, -0.595305, 0.593402, -0.045488, 0.684175, 0.727898, -0.839312, -0.421326, 0.343568, 22.2252, 18.492, -23.6699)
+light_energy = 0.5
+light_indirect_energy = 1.728
+light_volumetric_fog_energy = 0.856
+shadow_enabled = true
+sky_mode = 1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80294, 6.83745, 0)
+omni_range = 10.179
+
+[node name="ShippingContainers" type="Node3D" parent="."]
+
+[node name="ShippingContainer1" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.39851, 2.625, -16.4078)
+
+[node name="ShippingContainer2" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.38398, 2.625, -35.8217)
+
+[node name="ShippingContainer8" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.17991, 2.625, -30.3719)
+
+[node name="ShippingContainer3" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.0356, 2.625, -60.4816)
+
+[node name="ShippingContainer6" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.7335, 2.625, -11.3177)
+
+[node name="ShippingContainer7" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.4, 2.625, -57.4478)
+
+[node name="ShippingContainer4" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 25.8952, 2.625, -35.0319)
+
+[node name="ShippingContainer5" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.1988, 2.625, -40.3271)
+
+[node name="ShippingContainerFull1" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.95422, 2.625, -25.0107)
+
+[node name="ShippingContainerFull2" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17.078, 2.625, -24.7131)
+
+[node name="ShippingContainerFull3" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.724, 2.625, -50.6658)
+
+[node name="ShippingContainerFull4" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.6466, 2.625, -54.6779)
+
+[node name="ShippingContainerFull5" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.327211, 2.625, -46.1336)
+
+[node name="ShippingContainerFull6" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.411692, 7.88865, -36.752)
+
+[node name="ShippingContainerFull7" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.57621, 7.88865, -21.3482)
+
+[node name="ShippingContainerFull8" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12.9159, 7.88865, -15.0526)
+
+[node name="ShippingContainerFull9" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 20.0199, 7.88865, -25.3854)
+
+[node name="ShippingContainerFull10" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 24.5072, 7.88865, -40.7536)
+
+[node name="ShippingContainerFull11" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 20.3338, 7.88865, -56.1227)
+
+[node name="ShippingContainerFull12" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 9.99805, 7.88865, -52.5441)
+
+[node name="ShippingContainerFull13" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -1.25021, 7.88865, -47.1816)

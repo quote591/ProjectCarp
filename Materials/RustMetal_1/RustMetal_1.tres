@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://irkkoejf3w26"]
+
+[ext_resource type="Texture2D" uid="uid://sdfpxml8fbvt" path="res://Materials/RustMetal_1/RustMetal1_256.png" id="1_h1sgg"]
+[ext_resource type="Texture2D" uid="uid://d2miu3byybwpm" path="res://Materials/RustMetal_1/RustMetal1_AmbientOcclusion.png" id="2_hcs8c"]
+[ext_resource type="Texture2D" uid="uid://dlrqgwnf10dhh" path="res://Materials/RustMetal_1/RustMetal1_NormalMap.png" id="3_iw3hs"]
+
+[resource]
+albedo_texture = ExtResource("1_h1sgg")
+normal_enabled = true
+normal_texture = ExtResource("3_iw3hs")
+ao_enabled = true
+ao_texture = ExtResource("2_hcs8c")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+uv1_world_triplanar = true

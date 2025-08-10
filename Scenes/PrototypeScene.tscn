@@ -1,20 +1,31 @@
-[gd_scene load_steps=7 format=3 uid="uid://b627hvgjd82nf"]
+[gd_scene load_steps=10 format=3 uid="uid://b627hvgjd82nf"]
 
 [ext_resource type="Script" uid="uid://pyhfa1pbwakg" path="res://Scripts/fish_spin.gd" id="1_lp0cs"]
 [ext_resource type="Texture2D" uid="uid://bc46bgocw8b6e" path="res://3D Models/Low Poly Fish 2/Texture/fish.png" id="2_r76xm"]
 [ext_resource type="ArrayMesh" uid="uid://bhsfky7l2h6b6" path="res://3D Models/Low Poly Fish 2/obj/fish.obj" id="3_fpt4d"]
-[ext_resource type="AudioStream" uid="uid://dautd6iu63c2g" path="res://UI/Mr Beast Music.wav" id="4_fpt4d"]
+[ext_resource type="AudioStream" uid="uid://cy3y7oyh38doi" path="res://Sound Files/nebula-space-clouds-9387.mp3" id="4_fpt4d"]
+[ext_resource type="Texture2D" uid="uid://c446g85xk6kes" path="res://Materials/top.png" id="5_fpt4d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dj5p"]
 albedo_texture = ExtResource("2_r76xm")
 
-[sub_resource type="Environment" id="Environment_soq2c"]
-background_mode = 1
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4dj5p"]
+panorama = ExtResource("5_fpt4d")
+
+[sub_resource type="Sky" id="Sky_v86od"]
+sky_material = SubResource("PanoramaSkyMaterial_4dj5p")
+
+[sub_resource type="Environment" id="Environment_yje0d"]
+background_mode = 2
+sky = SubResource("Sky_v86od")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
 
 [node name="PrototypeScene" type="Node3D"]
 
 [node name="Fish" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53626, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.147475, 1.60857, -0.321078)
 script = ExtResource("1_lp0cs")
 
 [node name="Fish2" type="MeshInstance3D" parent="Fish"]
@@ -30,10 +41,15 @@ autoplay = true
 bus = &"Music"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.67842, -0.304904, 0.668416, -0.00125604, 0.90933, 0.416074, -0.734673, -0.283113, 0.616525, 2.24506, 3.21407, 4.2209)
+transform = Transform3D(-0.67842, 0.304904, -0.668416, -0.001256, 0.90933, 0.416074, 0.734673, 0.283113, -0.616525, -2.09759, 3.28639, -4.54198)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.844716, -0.22158, 0.487193, -0.00158692, 0.909235, 0.41628, -0.535212, -0.352412, 0.767694, 2.123, 3.11226, 3.275)
+transform = Transform3D(-0.844716, 0.22158, -0.487193, -0.00158692, 0.909235, 0.41628, 0.535212, 0.352412, -0.767694, -1.97552, 3.18458, -3.59608)
+visible = false
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.49764, 3.61031, -3.35073)
+omni_range = 7.134
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_soq2c")
+environment = SubResource("Environment_yje0d")

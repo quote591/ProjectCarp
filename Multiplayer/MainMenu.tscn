@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dvw84vtck70nl"]
 
 [ext_resource type="Script" uid="uid://1a6kypyu4nno" path="res://Multiplayer/MultiplayerController.cs" id="1_0h2kk"]
-[ext_resource type="PackedScene" uid="uid://do8skqcvrqrl5" path="res://Multiplayer/TestMultiplayerScene.tscn" id="2_m25wp"]
+[ext_resource type="PackedScene" uid="uid://duakbce0unxpi" path="res://Scenes/LobbyArea.tscn" id="2_fwsuw"]
 [ext_resource type="PackedScene" uid="uid://b627hvgjd82nf" path="res://Scenes/PrototypeScene.tscn" id="3_6i2j3"]
 [ext_resource type="Theme" uid="uid://c3uqa40po2q06" path="res://UI/game_ui_theme.tres" id="4_34od7"]
 
@@ -13,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0h2kk")
-MultiplayerScene = ExtResource("2_m25wp")
+MultiplayerScene = ExtResource("2_fwsuw")
 BackgroundScene = ExtResource("3_6i2j3")
 port = 60065
 

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://1pqmghuwtp0w"]
+
+[ext_resource type="Material" uid="uid://bg65dwhm1uvqj" path="res://Materials/Stone_1/stone_1.tres" id="1_02gkj"]
+
+[node name="EntryRoom" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(10, 1, 10)
+material = ExtResource("1_02gkj")

@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=3 uid="uid://hmi4kmdwmo3x"]
+
+[ext_resource type="Material" uid="uid://bg65dwhm1uvqj" path="res://Materials/Stone_1/stone_1.tres" id="1_y03s2"]
+[ext_resource type="Material" uid="uid://dn8mrwd65n81" path="res://Materials/Metal_1/Metal_1.tres" id="2_47pg4"]
+[ext_resource type="Material" uid="uid://cl4t8sixufhb8" path="res://Materials/CorrugatedMetal_1/CorrugatedMetal_1.tres" id="3_s6brg"]
+
+[node name="ShippingContainer" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="ContainerFrame_1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_13" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.312196, -0.950004, 0, 0.950015, 0.312203, 0, 0, 0, 0.999988, -0.0757677, 0.00094676, 2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 15.7955, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_14" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.312196, -0.950004, 0, 0.950015, 0.312203, 0, 0, 0, 0.999988, -0.0757677, 0.00094676, -2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 15.7955, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, -2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.5, -2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_9" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.5, 2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_11" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.5, -2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_12" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.5, 2.5)
+material_override = ExtResource("1_y03s2")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.5, -2.5, 0)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -7.5, -2.5, 0)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_8" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -7.5, 2.5, 0)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="ContainerFrame_10" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.5, 2.5, 0)
+material_override = ExtResource("1_y03s2")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_47pg4")
+
+[node name="Container_1" type="CSGBox3D" parent="CSGCombiner3D"]
+material_override = ExtResource("1_y03s2")
+size = Vector3(15, 5, 5)
+material = ExtResource("3_s6brg")

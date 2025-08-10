@@ -154,6 +154,9 @@ public partial class MultiplayerController : Control
         {
             var scene = MultiplayerScene.Instantiate<Node3D>();
             GetTree().Root.AddChild(scene);
+            // remove background scene
+            //Node sceneBack = GetNode("PrototypeScene");
+            //sceneBack.QueueFree();
         }
         else
         {
