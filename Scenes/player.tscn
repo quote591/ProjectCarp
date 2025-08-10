@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhxmmr7tpr8j1"]
+[gd_scene load_steps=8 format=3 uid="uid://bhxmmr7tpr8j1"]
 
 [ext_resource type="Script" uid="uid://c7j1201a4wfsu" path="res://Scripts/Player.cs" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://2cdjhkwcqbdb" path="res://UI/Settings.tscn" id="2_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://q8dnii7pyiso" path="res://ProximityChat/AudioManager.tscn" id="3_6t5aa"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v0iea"]
 properties/0/path = NodePath(".:position")
@@ -40,3 +41,5 @@ mesh = SubResource("CapsuleMesh_v0iea")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="AudioManager" parent="." instance=ExtResource("3_6t5aa")]

@@ -1,7 +1,22 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://56fsxmtfwv6c"]
+[gd_resource type="AudioBusLayout" load_steps=5 format=3 uid="uid://56fsxmtfwv6c"]
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_j3pel"]
 resource_name = "SpectrumAnalyzer"
+
+[sub_resource type="AudioEffectCapture" id="AudioEffectCapture_an7nc"]
+resource_name = "Capture"
+buffer_length = 0.05
+
+[sub_resource type="AudioEffectEQ" id="AudioEffectEQ_aih5a"]
+resource_name = "EQ"
+band_db/32_hz = -60.0
+band_db/1000_hz = 2.0
+band_db/3200_hz = 1.0
+band_db/10000_hz = -60.0
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_aih5a"]
+resource_name = "PitchShift"
+pitch_scale = 1.07
 
 [resource]
 bus/1/name = &"Music"
@@ -12,3 +27,33 @@ bus/1/volume_db = 0.0
 bus/1/send = &"Master"
 bus/1/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_j3pel")
 bus/1/effect/0/enabled = true
+bus/2/name = &"Mute"
+bus/2/solo = false
+bus/2/mute = true
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/3/name = &"Record"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Mute"
+bus/3/effect/0/effect = SubResource("AudioEffectCapture_an7nc")
+bus/3/effect/0/enabled = true
+bus/4/name = &"OutsideVoice"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectEQ_aih5a")
+bus/4/effect/0/enabled = true
+bus/4/effect/1/effect = SubResource("AudioEffectPitchShift_aih5a")
+bus/4/effect/1/enabled = true
+bus/5/name = &"DroneVoices"
+bus/5/solo = false
+bus/5/mute = false
+bus/5/bypass_fx = false
+bus/5/volume_db = 0.0
+bus/5/send = &"Master"

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb8truij5p6x1"]
+
+[ext_resource type="Script" uid="uid://cl6qndog5ttwf" path="res://ProximityChat/VoiceDroneController.cs" id="1_0peix"]
+[ext_resource type="PackedScene" uid="uid://l6yg1evrpf14" path="res://ProximityChat/EmptyDrone.tscn" id="2_0peix"]
+
+[node name="VoiceDroneController" type="Node3D"]
+script = ExtResource("1_0peix")
+DroneScene = ExtResource("2_0peix")

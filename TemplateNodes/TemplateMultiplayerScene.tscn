@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c01yoeufgpusv"]
+[gd_scene load_steps=4 format=3 uid="uid://c01yoeufgpusv"]
 
 [ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_hln6r"]
 [ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_5pvwf"]
+[ext_resource type="PackedScene" uid="uid://bb8truij5p6x1" path="res://ProximityChat/VoiceDroneController.tscn" id="3_5lemp"]
 
 [node name="TemplateMultiplayerScene" type="Node3D"]
 script = ExtResource("1_hln6r")
@@ -32,3 +33,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
 
 [node name="7" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="VoiceDroneController" parent="." instance=ExtResource("3_5lemp")]

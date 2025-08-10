@@ -14,18 +14,6 @@
 /// 2) Replication Window (bottom middle)
 /// 3) + Add property to sync
 /// 
-/// TODO:
-/// currently when the player spawns, its in the air			(low priority)
-/// till the user clicks on the window
-/// 
-/// change the interval for the multiplayerSynchronizer			(low priority)
-/// currently its set to 0 (fast as possible)
-/// however as the scene gets more complicated and harder to run
-/// we will need to increase this, 
-/// and then fix the stuttering that happens because of it
-/// 
-/// add cool af movement stuff 									(High Priority)
-/// 
 /// /summary>
 
 using Godot;

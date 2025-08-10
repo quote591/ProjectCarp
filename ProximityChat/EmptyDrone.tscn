@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://l6yg1evrpf14"]
+
+[ext_resource type="Script" uid="uid://bsxt31wba2mjo" path="res://ProximityChat/Drone.cs" id="1_gl2lj"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_8d7jd"]
+mix_rate = 48000.0
+
+[node name="EmptyDrone" type="Node3D"]
+script = ExtResource("1_gl2lj")
+
+[node name="3DAudio" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamGenerator_8d7jd")
+bus = &"DroneVoices"

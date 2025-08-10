@@ -11,6 +11,7 @@
 /// 2) Change the name
 /// 
 /// Basically this script should handle all the scene events
+/// currenlty only 3D Audio (proxy chat) is possible
 /// 
 /// </summary>
 
@@ -29,7 +30,9 @@ public partial class TemplateMultiplayerScript : Node3D
 
     public override void _Ready()
     {
-        
+        // get the drone manager from the tree
+        var droneManager = GetNode<VoiceDroneController>("VoiceDroneController");
+
         var spawnPoints = GetTree().GetNodesInGroup("PlayerSpawnPoints").OfType<Node3D>().OrderBy(n =>
         {
             if (int.TryParse(n.Name, out var v))
@@ -56,7 +59,11 @@ public partial class TemplateMultiplayerScript : Node3D
                 GD.PrintErr($"No spawn point for player index {index}");
             }
             index++;
+            // attach a drone to the player
+            GD.Print("[" + Multiplayer.GetUniqueId() + "] RegisterPlayer currentPlayerId: "+currentPlayer.PlayerId);
+            droneManager.RegisterPlayer(currentPlayer);
         }
+
         // ===== Multiplayer spawning and instantiaton end =====
 
         // here you can place all the code you want to run when the scene is first made x

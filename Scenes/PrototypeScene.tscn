@@ -12,9 +12,9 @@ albedo_texture = ExtResource("2_r76xm")
 background_mode = 1
 
 [node name="PrototypeScene" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45035, 0)
 
 [node name="Fish" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53626, 0)
 script = ExtResource("1_lp0cs")
 
 [node name="Fish2" type="MeshInstance3D" parent="Fish"]
@@ -25,15 +25,15 @@ skeleton = NodePath("../..")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_fpt4d")
-volume_db = -25.0
+volume_db = -15.0
 autoplay = true
 bus = &"Music"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.67842, -0.304904, 0.668416, -0.00125604, 0.90933, 0.416074, -0.734673, -0.283113, 0.616525, 2.24506, 1.67781, 4.2209)
+transform = Transform3D(0.67842, -0.304904, 0.668416, -0.00125604, 0.90933, 0.416074, -0.734673, -0.283113, 0.616525, 2.24506, 3.21407, 4.2209)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.844716, -0.22158, 0.487193, -0.00158692, 0.909235, 0.416281, -0.535212, -0.352412, 0.767693, 2.123, 1.576, 3.275)
+transform = Transform3D(0.844716, -0.22158, 0.487193, -0.00158692, 0.909235, 0.41628, -0.535212, -0.352412, 0.767694, 2.123, 3.11226, 3.275)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_soq2c")

@@ -2,22 +2,7 @@
 /// 
 /// Welcome to the Multiplayer Controller!
 /// 
-/// TODO
-/// We need to make the port and address accessible via the main menu            (QoL) (DONE 06/08/2025)
-/// i would recommend using the LineEdit UI node to get the correct information
-/// 
-/// Also we need a way to hide the buttons as their are used                     (QoL) (DONE 06/08/2025)
-/// example, we dont need a join button when the user has hosted
-/// 
-/// UPnP Universal Plug and Play                                        (low priority)
-/// basically we want something that port forwards automatically
-/// while yes we can port forward manually with router access
-/// probs best to have an actul automatic system for this
-/// problem of UPnP, not all routers support it, so probs steam might be best
-/// 
-/// Steam intergration                                                  (low priority)
-/// I hope to you good luck if you are here for implementing steam integration
-/// I wouldn't wish it on my worst enermy... GOODLUCK!! 
+/// Handles all the networking for making a server and loading into the first scene
 /// 
 /// </summary>
 
@@ -68,6 +53,7 @@ public partial class MultiplayerController : Control
         var sceneBack = BackgroundScene.Instantiate<Node3D>();
         GetTree().Root.CallDeferred("add_child", sceneBack);
 
+        // this just captures the mouse again when server is ready
         Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
