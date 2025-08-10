@@ -1,7 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8c3c7vg4klrp"]
+[gd_scene load_steps=11 format=3 uid="uid://c8c3c7vg4klrp"]
 
 [ext_resource type="Material" uid="uid://dkt6f0p1nwd3e" path="res://Materials/missing-texture.tres" id="1_kvjmi"]
 [ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_xh66l"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xh66l"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_n6t57"]
+sky_material = SubResource("ProceduralSkyMaterial_xh66l")
+
+[sub_resource type="Environment" id="Environment_qg828"]
+background_mode = 2
+sky = SubResource("Sky_n6t57")
+tonemap_mode = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_xh66l"]
 size = Vector2(20, 20)
@@ -11,7 +23,16 @@ size = Vector2(20, 20)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xh66l"]
 size = Vector3(20, 0, 20)
 
+[sub_resource type="BoxMesh" id="BoxMesh_xh66l"]
+size = Vector3(5, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n6t57"]
+size = Vector3(5, 0.5, 3)
+
 [node name="TestMap" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qg828")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000834465, 0.00836134, 0.000858307)
@@ -20,14 +41,24 @@ cast_shadow = 0
 mesh = SubResource("PlaneMesh_xh66l")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000335693, -0.00281048, -0.0112443)
 physics_material_override = SubResource("PhysicsMaterial_xh66l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0445902, -0.0796456, -0.219063)
 shape = SubResource("BoxShape3D_xh66l")
 
 [node name="Player" parent="." instance=ExtResource("2_xh66l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.724851, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004, 0.6, 0.019)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7923, 0.610131, 0, -0.610131, 0.7923, 0, 8.19102, 11.6544)
+transform = Transform3D(1, 0, 0, 0, 0.7923, 0.610131, 0, -0.610131, 0.7923, 0.00141525, 8.19102, 11.6563)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.241, 1.6, -4.932)
+mesh = SubResource("BoxMesh_xh66l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00389242, 0.0114825, -0.00063324)
+shape = SubResource("BoxShape3D_n6t57")
