@@ -1,7 +1,13 @@
 using Godot;
 using System;
+using Interaction;
 
 /*
+This script is for an area around an interactable object
+This will allow the object to detect when a player is close and do things
+like display some interaction text etc. Or not because it might be useless,
+idk. regardless its here
+
 Setup for the usage of this script
 
 Root Object
@@ -11,7 +17,7 @@ Root Object
 
 */
 
-public partial class InteractableObject : Area3D
+public partial class InteractionArea : Area3D
 {
     InteractionManager g_im = null;
     private uint defaultColl = 1;

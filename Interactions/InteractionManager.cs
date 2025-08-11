@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 
-#define DEBUG
 
 public partial class InteractionManager : Node
 {
@@ -50,27 +49,25 @@ public partial class InteractionManager : Node
         {
 
         }
-
     }
 
     public void RegisterObject(Node3D obj)
     {
-        if (obj == null)
-        {
-            GD.PrintErr("Its null");
-
-        }
         if (interactActiveArea.Contains(obj) || obj == null)
             return;
-
         interactActiveArea.AddLast(obj);
+        
+#if DEBUG_ENABLED
         GD.Print($"IntMan: Registered: {obj.Name} Pos: {obj.GlobalPosition}");
+#endif
     }
 
     public void UnregisterObject(Node3D obj)
     {
         interactActiveArea.Remove(interactActiveArea.Find(obj));
+#if DEBUG_ENABLED
         GD.Print($"IntMan: UnRegistered: {obj.Name}");
+#endif
     }
 
 }

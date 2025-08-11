@@ -29,6 +29,7 @@
 /// /summary>
 
 using Godot;
+using Interaction;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -48,7 +49,10 @@ public partial class Player : CharacterBody3D
 
 	// synced varibles
     public int Score { get; set; } = 0;
-	
+
+	// Label variables
+	private Label3D hudLabel;
+
 	public override void _Ready()
 	{
 		// When loading the players, and each one has a MultiplayerSynchronizer
@@ -64,6 +68,12 @@ public partial class Player : CharacterBody3D
 			_cam.Current = true; // Multiplayer 
 		else // Multiplayer
 			_cam.Current = false; // Multiplayer
+
+		// Hud text
+		hudLabel = new Label3D();
+		hudLabel.Hide();
+		AddChild(hudLabel);
+
 	}
 
 	public void SetActive(bool active)
@@ -163,16 +173,24 @@ public partial class Player : CharacterBody3D
 			*/
 			#endregion
 
-			// Get 
+			// Get any ray intersections here 
 			var query = PhysicsRayQueryParameters3D.Create(_cam.GlobalPosition, _cam.GlobalPosition - _cam.GlobalTransform.Basis.Z * 2);
 			query.CollisionMask = 1U << InteractionManager.collisionMask;
 			var result = spaceState.IntersectRay(query);
 
-			if (result.Count > 0 && Input.IsKeyPressed(Key.E))
-				GD.Print("Hit at point: ", result["position"], result["collider"], result["collider_id"]);
-				
-
+			if (result.Count > 0)
+			{
+				Node collider = (Node)result["collider"];
+				if (collider is Node3D and InteractableInterface interactCol)
+				{
+					// Can show any "press E to interact code here"
+					if (Input.IsKeyPressed(Key.E))
+					{
+						interactCol.OnInteraction(this);
+					}
+				}
+			}
 			// ===== End Physics Code =====
-		}
+			}
 	}
 }

@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dechedcimg57p"]
+[gd_scene load_steps=12 format=3 uid="uid://dechedcimg57p"]
 
 [ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_hln6r"]
 [ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_5pvwf"]
 [ext_resource type="Material" uid="uid://dkt6f0p1nwd3e" path="res://Materials/missing-texture.tres" id="3_k54nw"]
 [ext_resource type="Script" uid="uid://bbh283h2vkjrg" path="res://Interactions/Box.cs" id="4_qot8w"]
 [ext_resource type="Texture2D" uid="uid://dc6nsedsxowwg" path="res://Materials/crossHair.png" id="5_d3olk"]
-[ext_resource type="Script" uid="uid://8a7bbtfgesjo" path="res://Interactions/InteractableObject.cs" id="5_k4774"]
+[ext_resource type="Script" uid="uid://bmrsornm6hf1l" path="res://Interactions/InteractableObject3D.cs" id="5_x0cji"]
+[ext_resource type="Script" uid="uid://twy4iiap2shh" path="res://Interactions/InteractionArea.cs" id="6_x0cji"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qot8w"]
 
@@ -65,12 +66,13 @@ mesh = SubResource("BoxMesh_d3olk")
 script = ExtResource("4_qot8w")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Box"]
+script = ExtResource("5_x0cji")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
 shape = SubResource("BoxShape3D_k4774")
 
 [node name="Area3D" type="Area3D" parent="Box"]
-script = ExtResource("5_k4774")
+script = ExtResource("6_x0cji")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Area3D"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
