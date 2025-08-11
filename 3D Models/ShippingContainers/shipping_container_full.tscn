@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=3 uid="uid://hmi4kmdwmo3x"]
+
+[ext_resource type="Texture2D" uid="uid://ccijvur2l5q6j" path="res://3D Models/RoomModules/Stone1_256.png" id="1_fjujx"]
+[ext_resource type="Material" uid="uid://nujj7njbsp1k" path="res://Materials/RustyMetal_2/RustyMetal_2.tres" id="2_tm863"]
+[ext_resource type="Material" uid="uid://c7nifw6hybugr" path="res://Materials/CorrugatedMetal_4/CorrugatedMetal_4.tres" id="3_tm863"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1p1gi"]
+load_path = "res://.godot/imported/Stone1_AmbientOcclusion.png-b6ae8acf9b2a91163fbeff78101ab63d.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_scyuo"]
+load_path = "res://.godot/imported/Stone1_NormalMap.png-f0807f05bfa4d72656bdf48cc4ea7e5d.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3a6a0"]
+albedo_texture = ExtResource("1_fjujx")
+roughness = 0.9
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = SubResource("CompressedTexture2D_scyuo")
+ao_enabled = true
+ao_light_affect = 0.35
+ao_texture = SubResource("CompressedTexture2D_1p1gi")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_offset = Vector3(0.5, 0, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_world_triplanar = true
+
+[node name="ShippingContainer" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="ContainerFrame_1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_13" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.312196, -0.950004, 0, 0.950015, 0.312203, 0, 0, 0, 0.999988, -0.0757677, 0.00094676, 2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 15.7955, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_14" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.312196, -0.950004, 0, 0.950015, 0.312203, 0, 0, 0, 0.999988, -0.0757677, 0.00094676, -2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 15.7955, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, -2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.5, -2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_9" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.5, 2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_11" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.5, -2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_12" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.5, 2.5)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(15.25, 0.25, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.5, -2.5, 0)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -7.5, -2.5, 0)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_8" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -7.5, 2.5, 0)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="ContainerFrame_10" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.5, 2.5, 0)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(0.25, 5, 0.25)
+material = ExtResource("2_tm863")
+
+[node name="Container_1" type="CSGBox3D" parent="CSGCombiner3D"]
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(15, 5, 5)
+material = ExtResource("3_tm863")

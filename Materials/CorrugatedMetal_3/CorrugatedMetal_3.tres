@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://8c3xsqn5kr55"]
+
+[ext_resource type="Texture2D" uid="uid://djoauuo8jd50l" path="res://Materials/CorrugatedMetal_3/CorrugatedSteel005_1K-PNG_Color.png" id="1_fo872"]
+[ext_resource type="Texture2D" uid="uid://b8wuvdchxidmh" path="res://Materials/CorrugatedMetal_3/CorrugatedSteel005_1K-PNG_AmbientOcclusion.png" id="2_5fc6n"]
+[ext_resource type="Texture2D" uid="uid://dpuojnt2o2wf1" path="res://Materials/CorrugatedMetal_3/CorrugatedSteel005_1K-PNG_Metalness.png" id="3_gbi11"]
+[ext_resource type="Texture2D" uid="uid://j65n3765tmmo" path="res://Materials/CorrugatedMetal_3/CorrugatedSteel005_1K-PNG_NormalDX.png" id="4_qvi31"]
+[ext_resource type="Texture2D" uid="uid://cpp0qhpg61qqu" path="res://Materials/CorrugatedMetal_3/CorrugatedSteel005_1K-PNG_Roughness.png" id="5_c4oen"]
+
+[resource]
+albedo_texture = ExtResource("1_fo872")
+metallic = 1.0
+metallic_texture = ExtResource("3_gbi11")
+roughness_texture = ExtResource("5_c4oen")
+normal_enabled = true
+normal_texture = ExtResource("4_qvi31")
+ao_enabled = true
+ao_texture = ExtResource("2_5fc6n")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true

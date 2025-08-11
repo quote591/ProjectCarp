@@ -42,6 +42,8 @@ public partial class MultiplayerController : Control
     private long[] listOfLobbyIds;
     private int numberOfPlayersInLobby = 1;
 
+    private Node3D sceneBack;
+
     public override void _Ready()
     {
         Multiplayer.PeerConnected += PeerConnected;
@@ -51,7 +53,9 @@ public partial class MultiplayerController : Control
         Multiplayer.ServerDisconnected += ServerDisconnected;
 
         var sceneBack = BackgroundScene.Instantiate<Node3D>();
+        GD.Print("sceneBack assigned: ", sceneBack);
         GetTree().Root.CallDeferred("add_child", sceneBack);
+        sceneBack.Name = "BackgroundScene";
 
         // this just captures the mouse again when server is ready
         Input.MouseMode = Input.MouseModeEnum.Visible;
@@ -157,6 +161,24 @@ public partial class MultiplayerController : Control
             // remove background scene
             //Node sceneBack = GetNode("PrototypeScene");
             //sceneBack.QueueFree();
+
+            foreach (Node child in GetTree().Root.GetChildren())
+            {
+                GD.Print("Root child: ", child.Name);
+            }
+
+
+            var sceneBack = GetTree().Root.GetNodeOrNull("BackgroundScene");
+            if (sceneBack != null)
+            {
+                sceneBack.QueueFree();
+                GD.Print("Background scene removed.");
+            }
+            else
+            {
+                GD.Print("No background scene found to remove with GetNodeOrNull.");
+            }
+
         }
         else
         {

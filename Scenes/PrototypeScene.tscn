@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bc46bgocw8b6e" path="res://3D Models/Low Poly Fish 2/Texture/fish.png" id="2_r76xm"]
 [ext_resource type="ArrayMesh" uid="uid://bhsfky7l2h6b6" path="res://3D Models/Low Poly Fish 2/obj/fish.obj" id="3_fpt4d"]
 [ext_resource type="AudioStream" uid="uid://cy3y7oyh38doi" path="res://Sound Files/nebula-space-clouds-9387.mp3" id="4_fpt4d"]
-[ext_resource type="Texture2D" uid="uid://c446g85xk6kes" path="res://Materials/top.png" id="5_fpt4d"]
+[ext_resource type="Texture2D" uid="uid://dm0d2xmhay4ua" path="res://Materials/panorama_image (1).png" id="5_fpt4d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dj5p"]
 albedo_texture = ExtResource("2_r76xm")
@@ -12,12 +12,12 @@ albedo_texture = ExtResource("2_r76xm")
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4dj5p"]
 panorama = ExtResource("5_fpt4d")
 
-[sub_resource type="Sky" id="Sky_v86od"]
+[sub_resource type="Sky" id="Sky_fpt4d"]
 sky_material = SubResource("PanoramaSkyMaterial_4dj5p")
 
 [sub_resource type="Environment" id="Environment_yje0d"]
 background_mode = 2
-sky = SubResource("Sky_v86od")
+sky = SubResource("Sky_fpt4d")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
@@ -37,7 +37,6 @@ skeleton = NodePath("../..")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_fpt4d")
 volume_db = -15.0
-autoplay = true
 bus = &"Music"
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -53,3 +52,8 @@ omni_range = 7.134
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yje0d")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_fpt4d")
+autoplay = true
+max_distance = 37.7
