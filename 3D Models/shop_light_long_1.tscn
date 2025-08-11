@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://crhvnrylp0wtp"]
+
+[ext_resource type="PackedScene" uid="uid://dh6qrp7p1hb43" path="res://3D Models/ShopLightLong_1.glb" id="1_3tiac"]
+[ext_resource type="Material" uid="uid://nujj7njbsp1k" path="res://Materials/RustyMetal_2/RustyMetal_2.tres" id="2_8tap7"]
+[ext_resource type="Material" uid="uid://bn7p24bly5ags" path="res://Materials/lightEmissionMaterial.tres" id="3_xg2s7"]
+
+[node name="ShopLightLong_1" instance=ExtResource("1_3tiac")]
+
+[node name="ShopLightHousing" parent="." index="0"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.5)
+surface_material_override/0 = ExtResource("2_8tap7")
+
+[node name="LightRods" parent="." index="1"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.5)
+material_override = ExtResource("3_xg2s7")
+
+[node name="OmniLight3D_4" type="OmniLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.191461, -5.5)
+light_color = Color(0.674577, 0.727014, 0.900268, 1)
+light_bake_mode = 1
+shadow_enabled = true
+
+[node name="OmniLight3D_5" type="OmniLight3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.191461, 5.5)
+light_color = Color(0.674577, 0.727014, 0.900268, 1)
+light_bake_mode = 1
+shadow_enabled = true
+
+[node name="OmniLight3D_6" type="OmniLight3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.191461, 0)
+light_color = Color(0.674577, 0.727014, 0.900268, 1)
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 10.0

@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://5djdc60kgnk1" path="res://3D Models/ShippingContainers/shipping_container.tscn" id="5_ml3do"]
 [ext_resource type="Material" uid="uid://dmkmuqd0xw03x" path="res://Materials/Concrete_2/Concrete_2.tres" id="5_scyuo"]
 [ext_resource type="PackedScene" uid="uid://hmi4kmdwmo3x" path="res://3D Models/ShippingContainers/shipping_container_full.tscn" id="6_1n544"]
+[ext_resource type="Texture2D" uid="uid://dm0d2xmhay4ua" path="res://Materials/panorama_image (1).png" id="7_xfsxt"]
 [ext_resource type="Texture2D" uid="uid://b85kudam833sf" path="res://Materials/RustyMetal_1/Metal025_1K-PNG_Color.png" id="8_1p1gi"]
-[ext_resource type="Texture2D" uid="uid://c446g85xk6kes" path="res://Materials/top.png" id="8_scyuo"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1p1gi"]
 load_path = "res://.godot/imported/Stone1_AmbientOcclusion.png-b6ae8acf9b2a91163fbeff78101ab63d.s3tc.ctex"
@@ -32,14 +32,14 @@ uv1_world_triplanar = true
 uv2_world_triplanar = true
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1p1gi"]
-panorama = ExtResource("8_scyuo")
+panorama = ExtResource("7_xfsxt")
 
-[sub_resource type="Sky" id="Sky_v86od"]
+[sub_resource type="Sky" id="Sky_scyuo"]
 sky_material = SubResource("PanoramaSkyMaterial_1p1gi")
 
 [sub_resource type="Environment" id="Environment_scyuo"]
 background_mode = 2
-sky = SubResource("Sky_v86od")
+sky = SubResource("Sky_scyuo")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.0

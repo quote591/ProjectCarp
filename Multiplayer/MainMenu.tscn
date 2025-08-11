@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dvw84vtck70nl"]
 
 [ext_resource type="Script" uid="uid://1a6kypyu4nno" path="res://Multiplayer/MultiplayerController.cs" id="1_0h2kk"]
-[ext_resource type="PackedScene" uid="uid://dh5vjqmecwxp0" path="res://Scenes/SuperMarket.tscn" id="2_fwsuw"]
+[ext_resource type="PackedScene" uid="uid://dh5vjqmecwxp0" path="res://Scenes/PackingPlant.tscn" id="2_fwsuw"]
 [ext_resource type="PackedScene" uid="uid://b627hvgjd82nf" path="res://Scenes/PrototypeScene.tscn" id="3_6i2j3"]
 [ext_resource type="Theme" uid="uid://c3uqa40po2q06" path="res://UI/game_ui_theme.tres" id="4_34od7"]
 
