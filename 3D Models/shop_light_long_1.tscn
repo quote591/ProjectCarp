@@ -19,12 +19,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.191461, -5.5)
 light_color = Color(0.674577, 0.727014, 0.900268, 1)
 light_bake_mode = 1
 shadow_enabled = true
+omni_range = 10.0
 
 [node name="OmniLight3D_5" type="OmniLight3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.191461, 5.5)
 light_color = Color(0.674577, 0.727014, 0.900268, 1)
 light_bake_mode = 1
 shadow_enabled = true
+omni_range = 10.0
 
 [node name="OmniLight3D_6" type="OmniLight3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.191461, 0)

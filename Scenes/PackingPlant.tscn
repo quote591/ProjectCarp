@@ -25,7 +25,6 @@ background_mode = 2
 sky = SubResource("Sky_v86od")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_rn5dh"]
 
