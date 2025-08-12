@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dh5vjqmecwxp0"]
+[gd_scene load_steps=24 format=3 uid="uid://dh5vjqmecwxp0"]
 
 [ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_u42ih"]
 [ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_56d4o"]
@@ -9,24 +9,28 @@
 [ext_resource type="Material" uid="uid://bns13o5astlug" path="res://Materials/Wood_1/Wood_1.tres" id="6_3l8hy"]
 [ext_resource type="Material" uid="uid://8c3xsqn5kr55" path="res://Materials/CorrugatedMetal_3/CorrugatedMetal_3.tres" id="6_qq445"]
 [ext_resource type="Material" uid="uid://d0j8daopvba72" path="res://Materials/CorrugatedMetal_2/CorrugatedMetal_2.tres" id="7_qitc4"]
-[ext_resource type="Texture2D" uid="uid://c446g85xk6kes" path="res://Materials/top.png" id="10_k3lvq"]
 [ext_resource type="PackedScene" uid="uid://cwwyjkar3sv1b" path="res://3D Models/metal_frame_1.tscn" id="10_pye2a"]
 [ext_resource type="PackedScene" uid="uid://bvmaftcbcbwio" path="res://3D Models/down_light_1.tscn" id="12_qitc4"]
 [ext_resource type="Material" uid="uid://bn7p24bly5ags" path="res://Materials/lightEmissionMaterial.tres" id="12_ydwp5"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_yki7n"]
-panorama = ExtResource("10_k3lvq")
-
-[sub_resource type="Sky" id="Sky_v86od"]
-sky_material = SubResource("PanoramaSkyMaterial_yki7n")
-
-[sub_resource type="Environment" id="Environment_3l8hy"]
-background_mode = 2
-sky = SubResource("Sky_v86od")
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
+[ext_resource type="Script" uid="uid://dnlydw2llubtr" path="res://Scripts/DungeonGenerator.cs" id="14_07td1"]
+[ext_resource type="PackedScene" uid="uid://bmkqcrot5q8bc" path="res://Scenes/ProcedualScenes/10x10x10_C_Juction.tscn" id="15_6h1o5"]
+[ext_resource type="PackedScene" uid="uid://5dvx7sdrssur" path="res://Scenes/ProcedualScenes/10x10x10_End.tscn" id="16_407vk"]
+[ext_resource type="PackedScene" uid="uid://cvvidgxbb50e8" path="res://Scenes/ProcedualScenes/10x30x10_Hall.tscn" id="17_x61k0"]
+[ext_resource type="PackedScene" uid="uid://q8tpjw5whiep" path="res://Scenes/ProcedualScenes/20x30x20_Stairset.tscn" id="18_chooi"]
+[ext_resource type="PackedScene" uid="uid://dw443mfrwbneo" path="res://Scenes/ProcedualScenes/10x10x10_Hall.tscn" id="19_407vk"]
+[ext_resource type="Texture2D" uid="uid://dm0d2xmhay4ua" path="res://Materials/panorama_image (1).png" id="19_x61k0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rn5dh"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_chooi"]
+panorama = ExtResource("19_x61k0")
+
+[sub_resource type="Sky" id="Sky_vg3vs"]
+sky_material = SubResource("PanoramaSkyMaterial_chooi")
+
+[sub_resource type="Environment" id="Environment_iqq8b"]
+background_mode = 2
+sky = SubResource("Sky_vg3vs")
 
 [node name="TemplateMultiplayerScene" type="Node3D"]
 script = ExtResource("1_u42ih")
@@ -36,7 +40,7 @@ playerScene = ExtResource("2_56d4o")
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -56.1755, 3.59934, -48.134)
 
 [node name="0" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21, -3.79914, 0)
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 66.629, -3.04604, 24.1453)
 
 [node name="1" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -3.79914, 0)
@@ -67,8 +71,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -42)
 use_collision = true
 
 [node name="Floor_1" type="CSGBox3D" parent="Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2597, -0.536156, 19.4344)
-size = Vector3(44.5808, 0.927689, 44.7636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2597, -0.536156, 19.5518)
+size = Vector3(44.5808, 0.927689, 44.9985)
 material = ExtResource("4_8rcdt")
 
 [node name="Floor_Large_1" type="CSGBox3D" parent="Building"]
@@ -157,6 +161,12 @@ material = ExtResource("6_qq445")
 [node name="Wall_6" type="CSGBox3D" parent="Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.03596, 6.7541, 41.8606)
 size = Vector3(62, 15, 0.475525)
+material = ExtResource("6_qq445")
+
+[node name="Dungeon_Start_1_Gap" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7802, 2.38179, 41.8606)
+operation = 2
+size = Vector3(5, 4.90137, 0.476)
 material = ExtResource("6_qq445")
 
 [node name="Wall_3" type="CSGBox3D" parent="Building"]
@@ -248,9 +258,6 @@ transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 
 
 [node name="ShippingContainer" parent="PlayerShippingContainers" instance=ExtResource("5_jreeo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.611, 0)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_3l8hy")
 
 [node name="MetalFrames" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, -4.68549, -42)
@@ -476,6 +483,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3763, 14.0277, 38.9399)
 
 [node name="Lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, -4.68549, -42)
+visible = false
 
 [node name="Down_Light_1" parent="Lights" instance=ExtResource("12_qitc4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6163, 13.6269, 34.9381)
@@ -536,7 +544,24 @@ surface_material_override/0 = ExtResource("12_ydwp5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, -4.37114e-08, 0.866025, 0.5, 7.57103e-08, 0.5, -0.866025, 0, 20.6775, -96.6673)
-light_energy = 0.01
+light_energy = 0.1
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 shadow_enabled = true
+
+[node name="DungeonCreator" type="Node3D" parent="."]
+script = ExtResource("14_07td1")
+Junction_1x1x1 = ExtResource("15_6h1o5")
+NumberOfJunction_1x1x1 = 20
+End_1x1x1 = ExtResource("16_407vk")
+Hall_1x3x1 = ExtResource("17_x61k0")
+NumberOfHall_1x3x1 = 10
+Stairset2x3x2 = ExtResource("18_chooi")
+NumberOfStairset2x3x2 = 10
+Hall_1x1x1 = ExtResource("19_407vk")
+NumberOfHall_1x1x1 = 10
+DungeonWidth = 20
+DungeonLength = 60
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iqq8b")

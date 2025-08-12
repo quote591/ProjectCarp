@@ -22,7 +22,7 @@ using System.Runtime.CompilerServices;
 
 public partial class Player : CharacterBody3D
 {
-	public const float Speed = 5.0f;
+	public const float Speed = 25.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float CamSensitivity = 0.006f;
 
