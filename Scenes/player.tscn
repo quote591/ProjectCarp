@@ -44,10 +44,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 4.54747e-12, -1.16415e-10, -2.28283e-10, 1, 0, 0, 1.16415e-10, 1, 0.000752586, -0.000662327, -0.443589)
-visible = false
-light_energy = 0.1
+light_energy = 0.2
 spot_range = 40.0
-spot_angle = 30.0
+spot_angle = 40.4
 
 [node name="AudioManager" parent="." instance=ExtResource("3_6t5aa")]
 

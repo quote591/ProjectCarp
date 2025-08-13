@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dh5vjqmecwxp0"]
+[gd_scene load_steps=30 format=3 uid="uid://dh5vjqmecwxp0"]
 
 [ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_u42ih"]
 [ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_56d4o"]
@@ -18,12 +18,18 @@
 [ext_resource type="PackedScene" uid="uid://cvvidgxbb50e8" path="res://Scenes/ProcedualScenes/10x30x10_Hall.tscn" id="17_x61k0"]
 [ext_resource type="PackedScene" uid="uid://q8tpjw5whiep" path="res://Scenes/ProcedualScenes/20x30x20_Stairset.tscn" id="18_chooi"]
 [ext_resource type="PackedScene" uid="uid://dw443mfrwbneo" path="res://Scenes/ProcedualScenes/10x10x10_Hall.tscn" id="19_407vk"]
-[ext_resource type="Texture2D" uid="uid://dm0d2xmhay4ua" path="res://Materials/panorama_image (1).png" id="19_x61k0"]
+[ext_resource type="PackedScene" uid="uid://c0tvix2m4la5y" path="res://Scenes/ProcedualScenes/10x10x10_T_Junction.tscn" id="19_chooi"]
+[ext_resource type="PackedScene" uid="uid://bbdff2bk46c8h" path="res://Scenes/ProcedualScenes/30x30x10_TurnLeft.tscn" id="20_vg3vs"]
+[ext_resource type="Texture2D" uid="uid://c446g85xk6kes" path="res://Materials/top.png" id="20_x61k0"]
+[ext_resource type="PackedScene" uid="uid://bl5ltuhsknw2g" path="res://Scenes/ProcedualScenes/30x30x10_TurnRight.tscn" id="21_iqq8b"]
+[ext_resource type="Script" uid="uid://bdtfc6is5nalq" path="res://Scripts/DungeonGeneratorV2.cs" id="23_iqq8b"]
+[ext_resource type="PackedScene" uid="uid://c03m2mvkw6iv3" path="res://Scenes/ProcedualScenes/10x10x10_TurnLeft.tscn" id="24_s83p4"]
+[ext_resource type="PackedScene" uid="uid://bsp1qenfhdntp" path="res://Scenes/ProcedualScenes/10x10x10_TurnRight.tscn" id="25_s2mcb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rn5dh"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_chooi"]
-panorama = ExtResource("19_x61k0")
+panorama = ExtResource("20_x61k0")
 
 [sub_resource type="Sky" id="Sky_vg3vs"]
 sky_material = SubResource("PanoramaSkyMaterial_chooi")
@@ -31,6 +37,8 @@ sky_material = SubResource("PanoramaSkyMaterial_chooi")
 [sub_resource type="Environment" id="Environment_iqq8b"]
 background_mode = 2
 sky = SubResource("Sky_vg3vs")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="TemplateMultiplayerScene" type="Node3D"]
 script = ExtResource("1_u42ih")
@@ -160,6 +168,7 @@ material = ExtResource("6_qq445")
 
 [node name="Wall_6" type="CSGBox3D" parent="Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.03596, 6.7541, 41.8606)
+visible = false
 size = Vector3(62, 15, 0.475525)
 material = ExtResource("6_qq445")
 
@@ -552,16 +561,31 @@ shadow_enabled = true
 [node name="DungeonCreator" type="Node3D" parent="."]
 script = ExtResource("14_07td1")
 Junction_1x1x1 = ExtResource("15_6h1o5")
-NumberOfJunction_1x1x1 = 20
+NumberOfJunction_1x1x1 = 5
 End_1x1x1 = ExtResource("16_407vk")
 Hall_1x3x1 = ExtResource("17_x61k0")
-NumberOfHall_1x3x1 = 10
 Stairset2x3x2 = ExtResource("18_chooi")
-NumberOfStairset2x3x2 = 10
+NumberOfStairset2x3x2 = 5
 Hall_1x1x1 = ExtResource("19_407vk")
-NumberOfHall_1x1x1 = 10
-DungeonWidth = 20
-DungeonLength = 60
+TJunction_1x1x1 = ExtResource("19_chooi")
+NumberOfTJunction_1x1x1 = 5
+TurnLeft_3x3x1 = ExtResource("20_vg3vs")
+TurnRight_3x3x1 = ExtResource("21_iqq8b")
+DungeonWidth = 30
+DungeonLength = 30
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_iqq8b")
+
+[node name="DungeonCreatorV2" type="Node3D" parent="."]
+script = ExtResource("23_iqq8b")
+Stairset2x3x2 = ExtResource("18_chooi")
+Inspector_Number_Of_Stairset2x3x2 = 10
+Junction_1x1 = ExtResource("15_6h1o5")
+TJunction_1x1 = ExtResource("19_chooi")
+TurnLeft_1x1 = ExtResource("24_s83p4")
+TurnRight_1x1 = ExtResource("25_s2mcb")
+Hall_1x1 = ExtResource("19_407vk")
+DungeonAttempts = 5000
+DungeonWidth = 30
+DungeonDepth = 30

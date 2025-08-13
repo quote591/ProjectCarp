@@ -1,0 +1,27 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://0qivkw3va0x6"
+path.bptc="res://.godot/imported/10x30x10_Hall.exr-8297edb3d4076b2260a3a02081dfdfb1.bptc.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://Scenes/ProcedualScenes/10x30x10_Hall.exr"
+dest_files=["res://.godot/imported/10x30x10_Hall.exr-8297edb3d4076b2260a3a02081dfdfb1.bptc.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=24

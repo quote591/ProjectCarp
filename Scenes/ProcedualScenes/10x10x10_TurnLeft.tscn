@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw443mfrwbneo"]
+[gd_scene load_steps=7 format=3 uid="uid://c03m2mvkw6iv3"]
 
-[ext_resource type="Material" uid="uid://v3a1fi6v6gy6" path="res://Materials/Grip_Metal_1/Grip_Metal_1.tres" id="1_i1kto"]
-[ext_resource type="Material" uid="uid://8c3xsqn5kr55" path="res://Materials/CorrugatedMetal_3/CorrugatedMetal_3.tres" id="2_whrms"]
-[ext_resource type="Material" uid="uid://cx6ge5ondk7yj" path="res://Materials/RustyMetal_1/Rusty_Metal_1.tres" id="3_8acfl"]
+[ext_resource type="Material" uid="uid://v3a1fi6v6gy6" path="res://Materials/Grip_Metal_1/Grip_Metal_1.tres" id="1_jqamm"]
+[ext_resource type="Material" uid="uid://8c3xsqn5kr55" path="res://Materials/CorrugatedMetal_3/CorrugatedMetal_3.tres" id="2_e5ptp"]
+[ext_resource type="Material" uid="uid://cx6ge5ondk7yj" path="res://Materials/RustyMetal_1/Rusty_Metal_1.tres" id="3_aoeow"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oohop"]
 
@@ -20,41 +20,42 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 [node name="Floor_1" type="MeshInstance3D" parent="Building"]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 10, -0.5, 4.37114e-07)
 mesh = SubResource("BoxMesh_oohop")
-surface_material_override/0 = ExtResource("1_i1kto")
+surface_material_override/0 = ExtResource("1_jqamm")
 
 [node name="Roof_1" type="MeshInstance3D" parent="Building"]
 transform = Transform3D(-1.09278e-08, 4.37114e-07, 10, 0.25, -4.37114e-07, 4.37112e-07, 1.09278e-08, 10, -4.37114e-07, 10, 9, 4.37114e-07)
 mesh = SubResource("BoxMesh_oohop")
-surface_material_override/0 = ExtResource("2_whrms")
+surface_material_override/0 = ExtResource("2_e5ptp")
 
 [node name="Wall_Group_1" type="Node3D" parent="Building"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 10)
 
 [node name="Wall_6" type="MeshInstance3D" parent="Building/Wall_Group_1"]
 transform = Transform3D(-1.31134e-08, 0, 10, 0, 10, 0, -0.3, 0, -4.37114e-07, 10, 4, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_whrms")
+surface_material_override/0 = ExtResource("2_e5ptp")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_1"]
 transform = Transform3D(-1.09278e-08, 0, 10, 0, 0.25, 0, -0.25, 0, -4.37114e-07, 10, 8.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_8acfl")
+surface_material_override/0 = ExtResource("3_aoeow")
 
 [node name="Wall_Group_3" type="Node3D" parent="Building"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 20, 0, 8.74228e-07)
 
 [node name="Wall_6" type="MeshInstance3D" parent="Building/Wall_Group_3"]
 transform = Transform3D(-1.31134e-08, 0, 10, 0, 10, 0, -0.3, 0, -4.37114e-07, -10, 4, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_whrms")
+surface_material_override/0 = ExtResource("2_e5ptp")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_3"]
 transform = Transform3D(-1.09278e-08, 0, 10, 0, 0.25, 0, -0.25, 0, -4.37114e-07, -10, 8.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_8acfl")
+surface_material_override/0 = ExtResource("3_aoeow")
 
 [node name="Collisions" type="Node3D" parent="."]
 
@@ -66,11 +67,11 @@ shape = SubResource("BoxShape3D_08rdw")
 debug_color = Color(0.98188, 0, 0.0710054, 1)
 
 [node name="CollisionShapeRightWall" type="CollisionShape3D" parent="Collisions/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.72791, 4.3504, 5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0369003, 4.3504, 9.70021)
 shape = SubResource("BoxShape3D_xom1v")
 debug_color = Color(0.98188, 0, 0.0710054, 1)
 
 [node name="CollisionShapeLeftWall" type="CollisionShape3D" parent="Collisions/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74577, 4.3504, 5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.83879, 4.3504, 5)
 shape = SubResource("BoxShape3D_xom1v")
 debug_color = Color(0.98188, 0, 0.0710054, 1)
