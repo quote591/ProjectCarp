@@ -10,6 +10,14 @@ public partial class DungeonGeneratorV2 : Node
     public PackedScene Stairset2x3x2 { get; set; }
     [Export]
     public int Inspector_Number_Of_Stairset2x3x2;
+    [Export]
+    public PackedScene TurnAround2x3 { get; set; }
+    [Export]
+    public int Inspector_Number_Of_TurnAround2x3;
+    [Export]
+    public PackedScene FishSpawnRoom1x2 { get; set; }
+    [Export]
+    public int Inspector_Number_Of_FishSpawnRoom1x2;
 
     // Junction Rooms
     [Export]
@@ -39,6 +47,8 @@ public partial class DungeonGeneratorV2 : Node
     [Export]
     public int DungeonAttempts;
     public int NumberOfStairset2x3x2;
+    public int NumberOfTurnaround2x3;
+    public int NumberOfFishSpawnRoom1x2;
 
     // Storing Instuctions
     private struct SpawnInstruction
@@ -112,6 +122,8 @@ public partial class DungeonGeneratorV2 : Node
 
         // reset all numbers of rooms here
         NumberOfStairset2x3x2 = Inspector_Number_Of_Stairset2x3x2;
+        NumberOfTurnaround2x3 = Inspector_Number_Of_TurnAround2x3;
+        NumberOfFishSpawnRoom1x2 = Inspector_Number_Of_FishSpawnRoom1x2;
 
         //if (DEBUG == true) print_ground_floor_map();
     }
@@ -191,6 +203,16 @@ public partial class DungeonGeneratorV2 : Node
                 Node3D stairset = Stairset2x3x2.Instantiate<Node3D>();
                 spawnRoom(stairset, instruction.Depth, instruction.Column, instruction.Direction);
             }
+            else if (instruction.RoomName == "turnaround")
+            {
+                Node3D turnaround = TurnAround2x3.Instantiate<Node3D>();
+                spawnRoom(turnaround, instruction.Depth, instruction.Column, instruction.Direction);
+            }
+            else if (instruction.RoomName == "fishspawmroom")
+            {
+                Node3D fishspawnroom = FishSpawnRoom1x2.Instantiate<Node3D>();
+                spawnRoom(fishspawnroom, instruction.Depth, instruction.Column, instruction.Direction);
+            }
             else
             {
                 if (DEBUG == true) GD.Print("Unknown room: " + instruction.RoomName);
@@ -233,8 +255,9 @@ public partial class DungeonGeneratorV2 : Node
         // making basic layout
         // 2 corridoors, 1 junction, 2 corridoors, 1 unique room
         // keep going till all unique rooms are added
-        while (NumberOfStairset2x3x2 > 0)
+        while ((NumberOfStairset2x3x2 + NumberOfTurnaround2x3 + NumberOfFishSpawnRoom1x2) > 0)
         {
+            if (!try_to_add_a_corridoor()) return false;
             if (!try_to_add_a_corridoor()) return false;
             if (!try_to_add_a_corridoor()) return false;
             if (!try_to_add_a_junction()) return false;
@@ -347,7 +370,9 @@ public partial class DungeonGeneratorV2 : Node
             Func<bool>[] conditions = new Func<bool>[]
             {
                 // Add the unique rooms here
-                () => tryToPlace_Stairs2x3x2(foundRow,foundCol,direction)
+                () => tryToPlace_Stairs2x3x2(foundRow,foundCol,direction),
+                () => tryToPlace_TurnAround2x3(foundRow,foundCol,direction),
+                () => tryToPlace_FishSpawnRoom1x2(foundRow,foundCol,direction)
             };
 
             Random rng = new Random();
@@ -520,6 +545,7 @@ public partial class DungeonGeneratorV2 : Node
     }
     private bool tryToPlace_T_Junction1x1x1(int Row, int Col, string Direction)
     {
+        if (Row <= 2) return false; // depth check
         if (Direction == "down")
         {
             if (Col + 1 >= DungeonWidth) return false;
@@ -566,6 +592,7 @@ public partial class DungeonGeneratorV2 : Node
 
     private bool tryToPlace_Junction1x1x1(int Row, int Col, string Direction)
     {
+        if (Row <= 2) return false; // depth check
         if (Direction == "down")
         {
             if (Col + 1 >= DungeonWidth) return false;
@@ -624,6 +651,7 @@ public partial class DungeonGeneratorV2 : Node
     // UNIQUE ROOMS
     private bool tryToPlace_Stairs2x3x2(int Row, int Col, string Direction)
     {
+        if (NumberOfStairset2x3x2 == 0) return false;
         if (Direction == "down")
         {
             if (Row + 3 >= DungeonDepth) return false;
@@ -715,6 +743,134 @@ public partial class DungeonGeneratorV2 : Node
         SpawnQueue.Add(new SpawnInstruction("stairset", Row, Col, Direction));
         return true;
     }
+    private bool tryToPlace_TurnAround2x3(int Row, int Col, string Direction)
+    {
+        if (NumberOfTurnaround2x3 == 0) return false;
+        if (Direction == "down")
+        {
+            if (Row + 1 >= DungeonDepth) return false;
+            if (Row - 1 < 0) return false;
+            if (Col + 2 >= DungeonWidth) return false;
+            if (!(GroundFloorMap[Row, Col + 1] == " ")) return false;
+            if (!(GroundFloorMap[Row, Col + 2] == " ")) return false;
+            if (!(GroundFloorMap[Row - 1, Col + 2] == " ")) return false;
+            if (!(GroundFloorMap[Row + 1, Col] == " ")) return false;
+            if (!(GroundFloorMap[Row + 1, Col + 1] == " ")) return false;
+            if (!(GroundFloorMap[Row + 1, Col + 2] == " ")) return false;
+            NumberOfTurnaround2x3--;
+            GroundFloorMap[Row, Col] = "X";
+            GroundFloorMap[Row, Col + 1] = "X";
+            GroundFloorMap[Row, Col + 2] = "X";
+            GroundFloorMap[Row + 1, Col] = "X";
+            GroundFloorMap[Row + 1, Col + 1] = "X";
+            GroundFloorMap[Row + 1, Col + 2] = "X";
+            GroundFloorMap[Row - 1, Col + 2] = "A";
+        }
+        if (Direction == "left")
+        {
+            if (Col - 1 < 0) return false;
+            if (Col + 1 >= DungeonWidth) return false;
+            if (Row + 2 >= DungeonDepth) return false;
+            if (!(GroundFloorMap[Row, Col - 1] == " ")) return false;
+            if (!(GroundFloorMap[Row + 1, Col] == " ")) return false;
+            if (!(GroundFloorMap[Row + 1, Col - 1] == " ")) return false;
+            if (!(GroundFloorMap[Row + 2, Col] == " ")) return false;
+            if (!(GroundFloorMap[Row + 2, Col - 1] == " ")) return false;
+            if (!(GroundFloorMap[Row + 2, Col + 1] == " ")) return false;
+            NumberOfTurnaround2x3--;
+            GroundFloorMap[Row, Col] = "X";
+            GroundFloorMap[Row, Col - 1] = "X";
+            GroundFloorMap[Row + 1, Col] = "X";
+            GroundFloorMap[Row + 1, Col - 1] = "X";
+            GroundFloorMap[Row + 2, Col] = "X";
+            GroundFloorMap[Row + 2, Col - 1] = "X";
+            GroundFloorMap[Row + 2, Col + 1] = ">";
+
+        }
+        if (Direction == "right")
+        {
+            if (Col - 1 < 0) return false;
+            if (Col + 1 >= DungeonWidth) return false;
+            if (Row - 2 < 0) return false;
+            if (!(GroundFloorMap[Row, Col + 1] == " ")) return false;
+            if (!(GroundFloorMap[Row - 1, Col] == " ")) return false;
+            if (!(GroundFloorMap[Row - 1, Col + 1] == " ")) return false;
+            if (!(GroundFloorMap[Row - 2, Col] == " ")) return false;
+            if (!(GroundFloorMap[Row - 2, Col + 1] == " ")) return false;
+            if (!(GroundFloorMap[Row - 2, Col - 1] == " ")) return false;
+            NumberOfTurnaround2x3--;
+            GroundFloorMap[Row, Col] = "X";
+            GroundFloorMap[Row, Col + 1] = "X";
+            GroundFloorMap[Row - 1, Col] = "X";
+            GroundFloorMap[Row - 1, Col + 1] = "X";
+            GroundFloorMap[Row - 2, Col] = "X";
+            GroundFloorMap[Row - 2, Col + 1] = "X";
+            GroundFloorMap[Row - 2, Col - 1] = "<";
+        }
+        if (Direction == "up")
+        {
+            if (Row + 1 >= DungeonDepth) return false;
+            if (Row - 1 < 0) return false;
+            if (Col - 2 < 0) return false;
+            if (!(GroundFloorMap[Row, Col - 1] == " ")) return false;
+            if (!(GroundFloorMap[Row, Col - 2] == " ")) return false;
+            if (!(GroundFloorMap[Row + 1, Col - 2] == " ")) return false;
+            if (!(GroundFloorMap[Row - 1, Col] == " ")) return false;
+            if (!(GroundFloorMap[Row - 1, Col - 1] == " ")) return false;
+            if (!(GroundFloorMap[Row - 1, Col - 2] == " ")) return false;
+            NumberOfTurnaround2x3--;
+            GroundFloorMap[Row, Col] = "X";
+            GroundFloorMap[Row, Col - 1] = "X";
+            GroundFloorMap[Row, Col - 2] = "X";
+            GroundFloorMap[Row + 1, Col - 2] = "v";
+            GroundFloorMap[Row - 1, Col] = "X";
+            GroundFloorMap[Row - 1, Col - 1] = "X";
+            GroundFloorMap[Row - 1, Col - 2] = "X";
+        }
+        SpawnQueue.Add(new SpawnInstruction("turnaround", Row, Col, Direction));
+        return true;
+    }
+    private bool tryToPlace_FishSpawnRoom1x2(int Row, int Col, string Direction)
+    {
+        if (DEBUG == true) GD.Print("Fish Spawn Room");
+        if (NumberOfFishSpawnRoom1x2 == 0) return false;
+        if (Row <= 10) return false; // depth check
+        if (Direction == "down")
+        {
+            if (Col + 1 >= DungeonWidth) return false;
+            if (!(GroundFloorMap[Row, Col + 1] == " ")) return false;
+            GroundFloorMap[Row, Col] = "S";
+            GroundFloorMap[Row, Col + 1] = "S";
+            NumberOfFishSpawnRoom1x2--;
+        }
+        if (Direction == "left")
+        {
+            if (Row + 1 >= DungeonDepth) return false;
+            if (!(GroundFloorMap[Row + 1, Col] == " ")) return false;
+            GroundFloorMap[Row, Col] = "S";
+            GroundFloorMap[Row + 1, Col] = "S";
+            NumberOfFishSpawnRoom1x2--;
+        }
+        if (Direction == "right")
+        {
+            if (Row - 1 < 0) return false;
+            if (!(GroundFloorMap[Row - 1, Col] == " ")) return false;
+            GroundFloorMap[Row, Col] = "S";
+            GroundFloorMap[Row - 1, Col] = "S";
+            NumberOfFishSpawnRoom1x2--;
+        }
+        if (Direction == "up")
+        {
+            if (Col - 1 < 0) return false;
+            if (!(GroundFloorMap[Row, Col + 1] == " ")) return false;
+            GroundFloorMap[Row, Col] = "S";
+            GroundFloorMap[Row, Col - 1] = "S";
+            NumberOfFishSpawnRoom1x2--;
+        }
+        SpawnQueue.Add(new SpawnInstruction("fishspawmroom", Row, Col, Direction));
+        return true;
+    }
+
 
 
 

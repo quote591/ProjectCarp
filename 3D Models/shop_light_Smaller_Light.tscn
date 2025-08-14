@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqbd7yp1tvq2e"]
+
+[ext_resource type="PackedScene" uid="uid://1u6htqydlqqo" path="res://3D Models/ShippingContainers/ShopLight_1.glb" id="1_f1y0w"]
+[ext_resource type="Material" uid="uid://cx6ge5ondk7yj" path="res://Materials/RustyMetal_1/Rusty_Metal_1.tres" id="2_dgyo6"]
+[ext_resource type="Material" uid="uid://bn7p24bly5ags" path="res://Materials/lightEmissionMaterial.tres" id="3_4cw3y"]
+
+[node name="ShopLight_1" instance=ExtResource("1_f1y0w")]
+
+[node name="ShopLightHousing" parent="." index="0"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.34987)
+material_override = ExtResource("2_dgyo6")
+
+[node name="LightRods" parent="." index="1"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.34987)
+material_override = ExtResource("3_4cw3y")
+cast_shadow = 0
+
+[node name="Lights" type="Node3D" parent="." index="2"]

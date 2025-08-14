@@ -23,7 +23,7 @@ mesh = SubResource("BoxMesh_oohop")
 surface_material_override/0 = ExtResource("1_i1kto")
 
 [node name="Roof_1" type="MeshInstance3D" parent="Building"]
-transform = Transform3D(-1.09278e-08, 4.37114e-07, 10, 0.25, -4.37114e-07, 4.37112e-07, 1.09278e-08, 10, -4.37114e-07, 10, 9, 4.37114e-07)
+transform = Transform3D(-1.09278e-08, 4.37114e-07, 10, 0.25, -4.37114e-07, 4.37112e-07, 1.09278e-08, 10, -4.37114e-07, 10, 7, 4.37114e-07)
 mesh = SubResource("BoxMesh_oohop")
 surface_material_override/0 = ExtResource("2_whrms")
 
@@ -36,7 +36,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_whrms")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_1"]
-transform = Transform3D(-1.09278e-08, 0, 10, 0, 0.25, 0, -0.25, 0, -4.37114e-07, 10, 8.75802, -4.6467)
+transform = Transform3D(-1.09278e-08, 0, 10, 0, 0.25, 0, -0.25, 0, -4.37114e-07, 10, 6.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("3_8acfl")
@@ -51,7 +51,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_whrms")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_3"]
-transform = Transform3D(-1.09278e-08, 0, 10, 0, 0.25, 0, -0.25, 0, -4.37114e-07, -10, 8.75802, -4.6467)
+transform = Transform3D(-1.09278e-08, 0, 10, 0, 0.25, 0, -0.25, 0, -4.37114e-07, -10, 6.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("3_8acfl")
