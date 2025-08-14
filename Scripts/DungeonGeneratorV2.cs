@@ -19,6 +19,14 @@ public partial class DungeonGeneratorV2 : Node
     [Export]
     public int Inspector_Number_Of_FishSpawnRoom1x2;
 
+    // End caps 1x1
+    [Export]
+    public PackedScene Toilet1x1 { get; set; }
+    [Export]
+    public int Inspector_Number_Of_Toilet1x1;
+    [Export]
+    public PackedScene Endcap1x1 { get; set; }
+
     // Junction Rooms
     [Export]
     public PackedScene Junction_1x1 { get; set; }
@@ -49,6 +57,7 @@ public partial class DungeonGeneratorV2 : Node
     public int NumberOfStairset2x3x2;
     public int NumberOfTurnaround2x3;
     public int NumberOfFishSpawnRoom1x2;
+    public int NumberOfToilet1x1;
 
     // Storing Instuctions
     private struct SpawnInstruction
@@ -74,6 +83,8 @@ public partial class DungeonGeneratorV2 : Node
     public int DungeonWidth;
     [Export]
     public int DungeonDepth;
+
+    public int OpenDoors = 0;
     // generate 2 random corridors
     // generate 1 random junction
     // generate 2 random corridors
@@ -121,9 +132,11 @@ public partial class DungeonGeneratorV2 : Node
         SpawnQueue.Clear();
 
         // reset all numbers of rooms here
+        OpenDoors = 0;
         NumberOfStairset2x3x2 = Inspector_Number_Of_Stairset2x3x2;
         NumberOfTurnaround2x3 = Inspector_Number_Of_TurnAround2x3;
         NumberOfFishSpawnRoom1x2 = Inspector_Number_Of_FishSpawnRoom1x2;
+        NumberOfToilet1x1 = Inspector_Number_Of_Toilet1x1;
 
         //if (DEBUG == true) print_ground_floor_map();
     }
@@ -136,13 +149,14 @@ public partial class DungeonGeneratorV2 : Node
             {
                 if (DEBUG == true) GD.Print("Good dungeon has been created");
                 if (DEBUG1 == true) print_ground_floor_map();
-                if (DEBUG1 == true) GD.Print("FOUND THE CORRECT ONE AT: "+i);
+                if (DEBUG1 == true) GD.Print("FOUND THE CORRECT ONE AT: " + i);
+                if (DEBUG1 == true) GD.Print("We need to fill: "+OpenDoors);
                 return true;
             }
             else
             {
                 if (DEBUG == true) print_ground_floor_map();
-                if (DEBUG == true) GD.Print("dungeon failed at pass: "+NumberOfStairset2x3x2+", trying again");
+                if (DEBUG == true) GD.Print("dungeon failed at pass: " + NumberOfStairset2x3x2 + ", trying again");
                 if (DEBUG1 == true)
                 {
                     if (record > NumberOfStairset2x3x2)
@@ -213,6 +227,16 @@ public partial class DungeonGeneratorV2 : Node
                 Node3D fishspawnroom = FishSpawnRoom1x2.Instantiate<Node3D>();
                 spawnRoom(fishspawnroom, instruction.Depth, instruction.Column, instruction.Direction);
             }
+            else if (instruction.RoomName == "endcap")
+            {
+                Node3D endcap = Endcap1x1.Instantiate<Node3D>();
+                spawnRoom(endcap, instruction.Depth, instruction.Column, instruction.Direction);
+            }
+            else if (instruction.RoomName == "toilet")
+            {
+                Node3D toilet = Toilet1x1.Instantiate<Node3D>();
+                spawnRoom(toilet, instruction.Depth, instruction.Column, instruction.Direction);
+            }
             else
             {
                 if (DEBUG == true) GD.Print("Unknown room: " + instruction.RoomName);
@@ -241,7 +265,7 @@ public partial class DungeonGeneratorV2 : Node
         }
         if (direction == "up")
         {
-            positionToSpawn = new Vector3((((col - middle) * 10)), 0, ((depth * 10) + 10 ));
+            positionToSpawn = new Vector3((((col - middle) * 10)), 0, ((depth * 10) + 10));
             wayToRotate = new Vector3(0, 180, 0);
         }
         room.Position = positionToSpawn;
@@ -266,7 +290,12 @@ public partial class DungeonGeneratorV2 : Node
             if (!try_to_add_a_unique_room()) return false;
             if (DEBUG == true) GD.Print("[HERE] One Loop Successful! only " + NumberOfStairset2x3x2 + " Left!");
         }
-
+        // ok dungeon has been made, lets add all the end caps
+        while (!(OpenDoors == 0))
+        {
+            if (!try_to_add_end_caps()) return false;
+        }
+        if (DEBUG == true) GD.Print("End Caps Placed Successfully");
 
 
 
@@ -312,7 +341,7 @@ public partial class DungeonGeneratorV2 : Node
             }
             foreach (var condition in conditions)
             {
-                if (condition()) 
+                if (condition())
                     return true;
             }
 
@@ -349,7 +378,7 @@ public partial class DungeonGeneratorV2 : Node
             }
             foreach (var condition in conditions)
             {
-                if (condition()) 
+                if (condition())
                     return true;
             }
 
@@ -385,7 +414,32 @@ public partial class DungeonGeneratorV2 : Node
             }
             foreach (var condition in conditions)
             {
-                if (condition()) 
+                if (condition())
+                    return true;
+            }
+
+            // last ditch effort
+            //if (try_to_add_a_corridoor()) return true;
+
+            return false;
+        }
+        return false;
+    }
+    private bool try_to_add_end_caps()
+    {
+        (bool successfulFinding, string direction, int foundRow, int foundCol) = find_open_door_in_every_direction();
+        if (successfulFinding)
+        {
+            if (DEBUG == true) GD.Print("open door found at " + foundRow + " " + foundCol + " in direction: " + direction);
+            Func<bool>[] conditions = new Func<bool>[]
+            {
+                // Add the unique rooms here
+                () => tryToPlace_Toilet1x1(foundRow,foundCol,direction),
+                () => tryToPlace_End1x1(foundRow,foundCol,direction),
+            };
+            foreach (var condition in conditions)
+            {
+                if (condition())
                     return true;
             }
 
@@ -587,6 +641,7 @@ public partial class DungeonGeneratorV2 : Node
             GroundFloorMap[Row, Col + 1] = ">";
         }
         SpawnQueue.Add(new SpawnInstruction("t_junction_1x1", Row, Col, Direction));
+        OpenDoors++;
         return true;
     }
 
@@ -646,6 +701,8 @@ public partial class DungeonGeneratorV2 : Node
             GroundFloorMap[Row, Col + 1] = ">";
         }
         SpawnQueue.Add(new SpawnInstruction("cross_junction_1x1", Row, Col, Direction));
+        OpenDoors++;
+        OpenDoors++;
         return true;
     }
     // UNIQUE ROOMS
@@ -868,6 +925,55 @@ public partial class DungeonGeneratorV2 : Node
             NumberOfFishSpawnRoom1x2--;
         }
         SpawnQueue.Add(new SpawnInstruction("fishspawmroom", Row, Col, Direction));
+        return true;
+    }
+
+    // end caps
+    private bool tryToPlace_End1x1(int Row, int Col, string Direction)
+    {
+        if (Direction == "down")
+        {
+            GroundFloorMap[Row, Col] = "E";
+        }
+        if (Direction == "left")
+        {
+            GroundFloorMap[Row, Col] = "E";
+        }
+        if (Direction == "right")
+        {
+            GroundFloorMap[Row, Col] = "E";
+        }
+        if (Direction == "up")
+        {
+            GroundFloorMap[Row, Col] = "E";
+        }
+        SpawnQueue.Add(new SpawnInstruction("endcap", Row, Col, Direction));
+        OpenDoors--;
+        return true;
+    }
+    private bool tryToPlace_Toilet1x1(int Row, int Col, string Direction)
+    {
+        if (NumberOfToilet1x1 == 0) return false;
+        if (Row <= 7) return false;
+        if (Direction == "down")
+        {
+            GroundFloorMap[Row, Col] = "T";
+        }
+        if (Direction == "left")
+        {
+            GroundFloorMap[Row, Col] = "T";
+        }
+        if (Direction == "right")
+        {
+            GroundFloorMap[Row, Col] = "T";
+        }
+        if (Direction == "up")
+        {
+            GroundFloorMap[Row, Col] = "T";
+        }
+        NumberOfToilet1x1--;
+        OpenDoors--;
+        SpawnQueue.Add(new SpawnInstruction("toilet", Row, Col, Direction));
         return true;
     }
 

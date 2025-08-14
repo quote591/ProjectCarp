@@ -1,9 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://5dvx7sdrssur"]
+[gd_scene load_steps=13 format=3 uid="uid://caktumwfq8o2y"]
 
-[ext_resource type="Material" uid="uid://v3a1fi6v6gy6" path="res://Materials/Grip_Metal_1/Grip_Metal_1.tres" id="1_1tbrg"]
-[ext_resource type="Material" uid="uid://8c3xsqn5kr55" path="res://Materials/CorrugatedMetal_3/CorrugatedMetal_3.tres" id="2_e3fvv"]
-[ext_resource type="Material" uid="uid://cx6ge5ondk7yj" path="res://Materials/RustyMetal_1/Rusty_Metal_1.tres" id="3_c246f"]
-[ext_resource type="PackedScene" uid="uid://cwwyjkar3sv1b" path="res://3D Models/metal_frame_1.tscn" id="5_61wef"]
+[ext_resource type="Material" uid="uid://cmokor2wltul0" path="res://Materials/Concrete_1/Concrete_1.tres" id="1_tvv0l"]
+[ext_resource type="Material" uid="uid://l3chwjjcaakj" path="res://Materials/Metal_Plate_2/Metal_Plate_2.tres" id="2_tuf5j"]
+[ext_resource type="Material" uid="uid://8c3xsqn5kr55" path="res://Materials/CorrugatedMetal_3/CorrugatedMetal_3.tres" id="2_uoan0"]
+[ext_resource type="Material" uid="uid://cx6ge5ondk7yj" path="res://Materials/RustyMetal_1/Rusty_Metal_1.tres" id="3_tuf5j"]
+[ext_resource type="Material" uid="uid://coaaikvefsyha" path="res://Materials/Terrazzoo_1/Terrazoo_1.tres" id="3_uoan0"]
+[ext_resource type="PackedScene" uid="uid://d2v3ra7jlucd7" path="res://3D Models/toilet_1.tscn" id="6_tuf5j"]
+[ext_resource type="PackedScene" uid="uid://4cfgyiw07kx8" path="res://3D Models/down_light_2.tscn" id="7_s41ix"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oohop"]
 
@@ -22,17 +25,17 @@ size = Vector3(0.451294, 9.45703, 9.52298)
 [node name="10x10x10_End" type="Node3D"]
 
 [node name="Building" type="Node3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 15)
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0.00045439, 0, 14.8177)
 
 [node name="Floor_1" type="MeshInstance3D" parent="Building"]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 10, -0.5, 0)
 mesh = SubResource("BoxMesh_oohop")
-surface_material_override/0 = ExtResource("1_1tbrg")
+surface_material_override/0 = ExtResource("1_tvv0l")
 
 [node name="Roof_1" type="MeshInstance3D" parent="Building"]
 transform = Transform3D(-1.09278e-08, 4.37114e-07, 10, 0.25, -4.37114e-07, 4.37112e-07, 1.09278e-08, 10, -4.37114e-07, 10, 9, 0)
 mesh = SubResource("BoxMesh_oohop")
-surface_material_override/0 = ExtResource("2_e3fvv")
+surface_material_override/0 = ExtResource("2_tuf5j")
 
 [node name="Wall_Group_1" type="Node3D" parent="Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
@@ -41,19 +44,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 transform = Transform3D(-1.31134e-08, 0, 9.75, 0, 10, 0, -0.3, 0, -4.26186e-07, 0, 4, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_e3fvv")
+surface_material_override/0 = ExtResource("3_uoan0")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_1"]
 transform = Transform3D(-1.09278e-08, 0, 9.75, 0, 0.25, 0, -0.25, 0, -4.26186e-07, 0, 8.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Frame_2" type="MeshInstance3D" parent="Building/Wall_Group_1"]
 transform = Transform3D(1.36585e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 4.6354, 4.14554, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Wall_Group_3" type="Node3D" parent="Building"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 10, 0, 0)
@@ -62,19 +65,19 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 10, 0,
 transform = Transform3D(-1.31134e-08, 0, 9.75, 0, 10, 0, -0.3, 0, -4.26186e-07, 0, 4, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_e3fvv")
+surface_material_override/0 = ExtResource("3_uoan0")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_3"]
 transform = Transform3D(-1.09278e-08, 0, 9.75, 0, 0.25, 0, -0.25, 0, -4.26186e-07, 0, 8.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Frame_2" type="MeshInstance3D" parent="Building/Wall_Group_3"]
 transform = Transform3D(1.77636e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 4.6354, 4.14554, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Wall_Group_4" type="Node3D" parent="Building"]
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 10, 0, 0)
@@ -83,79 +86,91 @@ transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 10, 0, 0
 transform = Transform3D(-1.31134e-08, 0, 9.75, 0, 10, 0, -0.3, 0, -4.26186e-07, 0, 4, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_e3fvv")
+surface_material_override/0 = ExtResource("3_uoan0")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_4"]
 transform = Transform3D(-1.09278e-08, 0, 9.75, 0, 0.25, 0, -0.25, 0, -4.26186e-07, 0, 8.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Frame_2" type="MeshInstance3D" parent="Building/Wall_Group_4"]
 transform = Transform3D(1.77636e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 4.6354, 4.14554, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Wall_Group_2" type="Node3D" parent="Building"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, 0)
 
 [node name="Wall_5" type="MeshInstance3D" parent="Building/Wall_Group_2"]
-transform = Transform3D(-1.31134e-08, 0, 3, 0, 10, 0, -0.3, 0, -1.31134e-07, 3.25, 4, -4.875)
+transform = Transform3D(-1.31134e-08, 0, 3, 0, 10, 0, -0.3, 0, -1.31134e-07, 3.25, 4, -4.82955)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_e3fvv")
+surface_material_override/0 = ExtResource("3_uoan0")
 
 [node name="Wall_6" type="MeshInstance3D" parent="Building/Wall_Group_2"]
-transform = Transform3D(-1.31134e-08, 0, 3, 0, 10, 0, -0.3, 0, -1.31134e-07, -3.25, 4, -4.875)
+transform = Transform3D(-1.31134e-08, 0, 3, 0, 10, 0, -0.3, 0, -1.31134e-07, -3.25, 4, -4.82955)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_e3fvv")
+surface_material_override/0 = ExtResource("3_uoan0")
 
 [node name="Wall_7" type="MeshInstance3D" parent="Building/Wall_Group_2"]
-transform = Transform3D(-1.09278e-08, 0, 5, 0, 5, 0, -0.25, 0, -2.18557e-07, 0, 6.5, -4.875)
+transform = Transform3D(-1.09278e-08, 0, 5, 0, 5, 0, -0.25, 0, -2.18557e-07, 3.97375e-09, 6.5, -4.82955)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_e3fvv")
+surface_material_override/0 = ExtResource("3_uoan0")
+
+[node name="Wall_8" type="MeshInstance3D" parent="Building/Wall_Group_2"]
+transform = Transform3D(-1.31134e-08, 0, 3.2, 0, 10, 0, -0.3, 0, -1.39876e-07, 3.41954, 4, -4.871)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_uoan0")
+
+[node name="Wall_9" type="MeshInstance3D" parent="Building/Wall_Group_2"]
+transform = Transform3D(-1.31134e-08, 0, 3.2, 0, 10, 0, -0.3, 0, -1.39876e-07, -3.37898, 4, -4.8706)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_uoan0")
+
+[node name="Wall_10" type="MeshInstance3D" parent="Building/Wall_Group_2"]
+transform = Transform3D(-1.09278e-08, 0, 5, 0, 5, 0, -0.25, 0, -2.18557e-07, 3.84944e-10, 6.5, -4.8706)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_uoan0")
 
 [node name="Frame_1" type="MeshInstance3D" parent="Building/Wall_Group_2"]
 transform = Transform3D(-1.09278e-08, 0, 9.5, 0, 0.25, 0, -0.25, 0, -4.15258e-07, 0, 8.75802, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Frame_2" type="MeshInstance3D" parent="Building/Wall_Group_2"]
 transform = Transform3D(1.36585e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 4.68918, 4.14554, -4.6467)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Frame_Door_1" type="MeshInstance3D" parent="Building/Wall_Group_2"]
 transform = Transform3D(-2.18557e-08, 0, 3.65, 0, 0.25, 0, -0.5, 0, -1.59547e-07, 0, 4, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Frame_Door_2" type="MeshInstance3D" parent="Building/Wall_Group_2"]
 transform = Transform3D(9.55343e-16, 0.25, -1.85118e-07, 2.18557e-08, -1.09278e-08, -4.235, -0.5, 0, -1.85118e-07, 1.7, 1.851, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Frame_Door_3" type="MeshInstance3D" parent="Building/Wall_Group_2"]
 transform = Transform3D(9.55343e-16, 0.25, -1.85118e-07, 2.18557e-08, -1.09278e-08, -4.235, -0.5, 0, -1.85118e-07, -1.7, 1.851, -4.875)
 mesh = SubResource("BoxMesh_oohop")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("3_c246f")
-
-[node name="Metal_Frame_1" parent="." instance=ExtResource("5_61wef")]
-transform = Transform3D(4.77, -4.1963e-07, 1.35465e-14, -2.02017e-21, -1.04907e-07, -1.21, 8.34014e-07, 2.4, -5.28908e-08, 0, 4.0659, 7.28085)
-
-[node name="Metal_Frame_2" parent="." instance=ExtResource("5_61wef")]
-transform = Transform3D(-4.77, -4.1963e-07, 1.35465e-14, 2.02017e-21, -1.04907e-07, -1.21, -8.34014e-07, 2.4, -5.28908e-08, 0, 4.0659, 7.28085)
+surface_material_override/0 = ExtResource("3_tuf5j")
 
 [node name="Collisions" type="Node3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, -0.145383)
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0.000455701, 0, -0.182304)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Collisions"]
 
@@ -180,7 +195,7 @@ shape = SubResource("BoxShape3D_e3fvv")
 debug_color = Color(1, 0, 0.15, 1)
 
 [node name="CollisionShape3DWall_1" type="CollisionShape3D" parent="Collisions/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.08783, 4.22852, -0.00947571)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.69538, 4.22852, -0.0094756)
 shape = SubResource("BoxShape3D_c246f")
 debug_color = Color(0.98, 0, 0.424667, 1)
 
@@ -193,3 +208,15 @@ debug_color = Color(0.98, 0, 0.424667, 1)
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.10334, 4.22852, 4.74311)
 shape = SubResource("BoxShape3D_c246f")
 debug_color = Color(0.98, 0, 0.424667, 1)
+
+[node name="Toilet_1" parent="." instance=ExtResource("6_tuf5j")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.000455193, 0.479593, 8.56511)
+
+[node name="Down_Light_1" parent="." instance=ExtResource("7_s41ix")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.000455264, 7.352, 4.8177)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Down_Light_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.406544, 0)
+light_energy = 0.254
+omni_range = 8.425
+omni_attenuation = 0.497

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://4cfgyiw07kx8"]
+
+[ext_resource type="PackedScene" uid="uid://slhtrbqfxfgn" path="res://3D Models/Down_Light_1.glb" id="1_ibtj0"]
+[ext_resource type="Material" uid="uid://cx6ge5ondk7yj" path="res://Materials/RustyMetal_1/Rusty_Metal_1.tres" id="2_ux4be"]
+[ext_resource type="Material" uid="uid://8c3xsqn5kr55" path="res://Materials/CorrugatedMetal_3/CorrugatedMetal_3.tres" id="3_wiyeq"]
+[ext_resource type="Material" uid="uid://bn7p24bly5ags" path="res://Materials/lightEmissionMaterial.tres" id="4_sme6x"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sghco"]
+radial_segments = 8
+rings = 8
+
+[node name="Down_Light_1" instance=ExtResource("1_ibtj0")]
+
+[node name="LampShade" parent="." index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+surface_material_override/0 = ExtResource("2_ux4be")
+
+[node name="Wire" parent="." index="1"]
+transform = Transform3D(0.1, 0, 0, 0, 0.144058, 0, 0, 0, 0.1, -0.000736713, -0.0731711, -0.0012188)
+surface_material_override/0 = ExtResource("3_wiyeq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_sghco")
+surface_material_override/0 = ExtResource("4_sme6x")

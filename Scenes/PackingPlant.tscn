@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dh5vjqmecwxp0"]
+[gd_scene load_steps=33 format=3 uid="uid://dh5vjqmecwxp0"]
 
 [ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_u42ih"]
 [ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_56d4o"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://c03m2mvkw6iv3" path="res://Scenes/ProcedualScenes/10x10x10_TurnLeft.tscn" id="24_s83p4"]
 [ext_resource type="PackedScene" uid="uid://bfex4cxebhra3" path="res://Scenes/ProcedualScenes/10x20x10_FishSpawn_1.tscn" id="25_apeeu"]
 [ext_resource type="PackedScene" uid="uid://bsp1qenfhdntp" path="res://Scenes/ProcedualScenes/10x10x10_TurnRight.tscn" id="25_s2mcb"]
+[ext_resource type="PackedScene" uid="uid://caktumwfq8o2y" path="res://Scenes/ProcedualScenes/1x1_Task_1.tscn" id="26_6prgg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rn5dh"]
 
@@ -41,7 +42,7 @@ background_mode = 2
 sky = SubResource("Sky_vg3vs")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.0
+ambient_light_energy = 0.05
 
 [node name="TemplateMultiplayerScene" type="Node3D"]
 script = ExtResource("1_u42ih")
@@ -51,7 +52,7 @@ playerScene = ExtResource("2_56d4o")
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -56.1755, 3.59934, -48.134)
 
 [node name="0" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
-transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 66.629, -3.04604, 24.1453)
+transform = Transform3D(-0.999999, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -0.999999, -21.3756, -3.04604, -1.49858)
 
 [node name="1" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -3.79914, 0)
@@ -494,7 +495,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3763, 14.0277, 38.9399)
 
 [node name="Lights" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, -4.68549, -42)
-visible = false
 
 [node name="Down_Light_1" parent="Lights" instance=ExtResource("12_qitc4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6163, 13.6269, 34.9381)
@@ -550,6 +550,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3837, 13.6269, 12.7023)
 [node name="0,0,0" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="0,0,0"]
+visible = false
 mesh = SubResource("BoxMesh_rn5dh")
 surface_material_override/0 = ExtResource("12_ydwp5")
 
@@ -587,6 +588,9 @@ TurnAround2x3 = ExtResource("24_rcvby")
 Inspector_Number_Of_TurnAround2x3 = 2
 FishSpawnRoom1x2 = ExtResource("25_apeeu")
 Inspector_Number_Of_FishSpawnRoom1x2 = 1
+Toilet1x1 = ExtResource("26_6prgg")
+Inspector_Number_Of_Toilet1x1 = 3
+Endcap1x1 = ExtResource("16_407vk")
 Junction_1x1 = ExtResource("15_6h1o5")
 TJunction_1x1 = ExtResource("19_chooi")
 TurnLeft_1x1 = ExtResource("24_s83p4")
