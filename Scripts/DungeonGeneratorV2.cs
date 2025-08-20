@@ -75,7 +75,6 @@ public partial class DungeonGeneratorV2 : Node
         }
     }
     private List<SpawnInstruction> SpawnQueue = new List<SpawnInstruction>();
-    // spawnQueue.Add(new SpawnInstruction("TurnLeft", 4, 2, 2));
 
     // Dungeon creator
     private string[,] GroundFloorMap;
@@ -103,16 +102,21 @@ public partial class DungeonGeneratorV2 : Node
 
     public override void _Ready()
     {
-        set_up_for_dungeon_making();
-        if (create_good_dungeon())
+        int id = Multiplayer.GetUniqueId();
+        if (id == 1)
         {
-            // remember to send off the SpawnQueue to everyone
-            generate_dungeon_in_scene(SpawnQueue);
+            set_up_for_dungeon_making();
+            if (create_good_dungeon())
+            {
+                // remember to send off the SpawnQueue to everyone
+                Rpc(nameof(GenerateDungeonInScene), ToRpcArray(SpawnQueue));
+            }
+            else
+            {
+                if (DEBUG == true) GD.Print("dungeon failed completely");
+            }
         }
-        else
-        {
-            if (DEBUG == true) GD.Print("dungeon failed completely");
-        }
+        
     }
 
     private void set_up_for_dungeon_making()
@@ -172,9 +176,13 @@ public partial class DungeonGeneratorV2 : Node
         }
         return false;
     }
-
-    private void generate_dungeon_in_scene(List<SpawnInstruction> spawnQueue)
+    // Multiplayer stuff
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    private void GenerateDungeonInScene(Godot.Collections.Array spawnQueueDicts)
     {
+        var spawnQueue = FromRpcArray(spawnQueueDicts);
+        GD.Print($"Received {spawnQueue.Count} spawn instructions.");
+
         foreach (var instruction in spawnQueue)
         {
             if (instruction.RoomName == "stairset")
@@ -242,6 +250,42 @@ public partial class DungeonGeneratorV2 : Node
                 if (DEBUG == true) GD.Print("Unknown room: " + instruction.RoomName);
             }
         }
+    }
+    private static Godot.Collections.Array ToRpcArray(List<SpawnInstruction> list)
+    {
+        var arr = new Godot.Collections.Array();
+
+        foreach (var s in list)
+        {
+            var dict = new Godot.Collections.Dictionary
+            {
+                { "room", s.RoomName },
+                { "depth", s.Depth },
+                { "col", s.Column },
+                { "dir", s.Direction }
+            };
+            arr.Add(dict);
+        }
+
+        return arr;
+    }
+
+    private static List<SpawnInstruction> FromRpcArray(Godot.Collections.Array arr)
+    {
+        var list = new List<SpawnInstruction>();
+
+        foreach (Godot.Collections.Dictionary dict in arr)
+        {
+            var s = new SpawnInstruction(
+                (string)dict["room"],
+                (int)dict["depth"],
+                (int)dict["col"],
+                (string)dict["dir"]
+            );
+            list.Add(s);
+        }
+
+        return list;
     }
 
     private void spawnRoom(Node3D room, int depth, int col, string direction)
