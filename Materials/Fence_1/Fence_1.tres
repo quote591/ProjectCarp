@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://dh28gtj5mg5yw"]
+
+[ext_resource type="Texture2D" uid="uid://djovmiyec0nxi" path="res://Materials/Fence_1/Fence007A_1K-PNG_Color.png" id="1_rfaoh"]
+[ext_resource type="Texture2D" uid="uid://che52ai2urd5c" path="res://Materials/Fence_1/Fence007A_1K-PNG_Metalness.png" id="2_rkam5"]
+[ext_resource type="Texture2D" uid="uid://c7icn3vdgeore" path="res://Materials/Fence_1/Fence007A_1K-PNG_NormalDX.png" id="3_3gk2h"]
+[ext_resource type="Texture2D" uid="uid://bfxivq4041dnp" path="res://Materials/Fence_1/Fence007A_1K-PNG_Roughness.png" id="4_neqpx"]
+
+[resource]
+albedo_texture = ExtResource("1_rfaoh")
+metallic = 1.0
+metallic_texture = ExtResource("2_rkam5")
+roughness_texture = ExtResource("4_neqpx")
+normal_enabled = true
+normal_texture = ExtResource("3_3gk2h")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+uv1_world_triplanar = true

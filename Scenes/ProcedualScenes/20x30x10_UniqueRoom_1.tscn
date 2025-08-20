@@ -1,0 +1,374 @@
+[gd_scene load_steps=14 format=3 uid="uid://baqveugt888nw"]
+
+[ext_resource type="Material" uid="uid://v3a1fi6v6gy6" path="res://Materials/Grip_Metal_1/Grip_Metal_1.tres" id="1_iqw2d"]
+[ext_resource type="Material" uid="uid://8c3xsqn5kr55" path="res://Materials/CorrugatedMetal_3/CorrugatedMetal_3.tres" id="2_qixbd"]
+[ext_resource type="Material" uid="uid://cx6ge5ondk7yj" path="res://Materials/RustyMetal_1/Rusty_Metal_1.tres" id="3_u104s"]
+[ext_resource type="PackedScene" uid="uid://cwwyjkar3sv1b" path="res://3D Models/metal_frame_1.tscn" id="4_dckia"]
+[ext_resource type="PackedScene" uid="uid://crhvnrylp0wtp" path="res://3D Models/shop_light_long_1.tscn" id="5_fpkq5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oohop"]
+lightmap_size_hint = Vector2i(14, 21)
+add_uv2 = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_5wxl8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4chlu"]
+size = Vector3(3.28674, 8.62457, 0.408569)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_du0hi"]
+size = Vector3(3.19043, 4.82672, 0.516235)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w3gjq"]
+size = Vector3(9.94873, 1, 30.1022)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aasc5"]
+size = Vector3(0.332, 8.737, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_toigd"]
+size = Vector3(10.174, 9.1781, 0.276733)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_38jks"]
+size = Vector3(30, 10, 0.5)
+
+[node name="20x30x20_T_Juction" type="Node3D"]
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+
+[node name="Building" type="Node3D" parent="LightmapGI"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, 15)
+
+[node name="Floor_1" type="MeshInstance3D" parent="LightmapGI/Building"]
+transform = Transform3D(-1.31134e-06, 0, 20, 0, 1, 0, -30, 0, -8.74228e-07, 5, -0.5, 1.90735e-06)
+mesh = SubResource("BoxMesh_oohop")
+surface_material_override/0 = ExtResource("1_iqw2d")
+
+[node name="Roof_1" type="MeshInstance3D" parent="LightmapGI/Building"]
+transform = Transform3D(-1.31134e-06, 0, 20, 0, 0.5, 0, -30, 0, -8.74228e-07, 5, 8.12447, 6.67572e-06)
+mesh = SubResource("BoxMesh_oohop")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Wall_Group_1" type="Node3D" parent="LightmapGI/Building"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5, 0, 10)
+
+[node name="Wall_6" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_1"]
+transform = Transform3D(-1.31134e-08, 0, 20, 0, 10, 0, -0.3, 0, -8.74228e-07, 0, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Frame_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_1"]
+transform = Transform3D(-1.09278e-08, 0, 20, 0, 0.25, 0, -0.25, 0, -8.74228e-07, 0, 7.75802, -4.6467)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_2" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_1"]
+transform = Transform3D(1.77636e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 9.53666, 4.14554, -4.53822)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_3" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_1"]
+transform = Transform3D(1.77636e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, -9.64178, 4.14554, -4.6467)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Wall_Group_10" type="Node3D" parent="LightmapGI/Building"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 5, 0, -10)
+
+[node name="Wall_6" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_10"]
+transform = Transform3D(-1.31134e-08, 0, 20, 0, 10, 0, -0.3, 0, -8.74228e-07, 0, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Frame_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_10"]
+transform = Transform3D(-1.09278e-08, 0, 20, 0, 0.25, 0, -0.25, 0, -8.74228e-07, 0, 7.75802, -4.6467)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_2" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_10"]
+transform = Transform3D(1.77636e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 9.80667, 4.14554, -4.6467)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_3" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_10"]
+transform = Transform3D(0, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, -9.6163, 4.13481, -4.61179)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Wall_Group_3" type="Node3D" parent="LightmapGI/Building"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 0)
+
+[node name="Wall_6" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_3"]
+transform = Transform3D(-1.31134e-08, 0, 29.5982, 0, 10, 0, -0.3, 0, -1.29377e-06, 0, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Frame_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_3"]
+transform = Transform3D(-1.09278e-08, 0, 29.1942, 0, 0.25, 0, -0.25, 0, -1.27612e-06, -9.53674e-07, 7.75802, -4.6467)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_2" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_3"]
+transform = Transform3D(1.77636e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 5.00158, 4.14554, 14.6221)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Wall_Group_5" type="Node3D" parent="LightmapGI/Building"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, 0)
+
+[node name="Wall_6" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_5"]
+transform = Transform3D(-1.31134e-08, 0, 10, 0, 10, 0, -0.3, 0, -4.37114e-07, 0, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Frame_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_5"]
+transform = Transform3D(-1.09278e-08, 0, 10, 0, 0.25, 0, -0.25, 0, -4.37114e-07, 0, 7.75802, -4.6467)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_2" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_5"]
+transform = Transform3D(1.77636e-15, 0.25, -4.15258e-07, 1.09278e-08, -1.09278e-08, -9.5, -0.25, 0, -4.15258e-07, 5.13469, 4.14554, -4.6467)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Wall_Group_2" type="Node3D" parent="LightmapGI/Building"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, -10)
+
+[node name="Wall_5" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_2"]
+transform = Transform3D(-1.31134e-08, 0, 3.25, 0, 9, 0, -0.3, 0, -1.42062e-07, 3.38725, 4.18879, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Wall_6" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_2"]
+transform = Transform3D(-1.31134e-08, 0, 3.25, 0, 9, 0, -0.3, 0, -1.42062e-07, -3.39723, 4.16571, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Wall_7" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_2"]
+transform = Transform3D(-1.09278e-08, 0, 5, 0, 4.75, 0, -0.25, 0, -2.18557e-07, -0.0248413, 6.34827, -4.8538)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Frame_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_2"]
+transform = Transform3D(-1.09278e-08, 0, 9.75, 0, 0.25, 0, -0.25, 0, -4.26186e-07, 0.14825, 7.758, -4.647)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_Door_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_2"]
+transform = Transform3D(-2.18557e-08, 0, 3.65, 0, 0.25, 0, -0.5, 0, -1.59547e-07, 0, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_Door_2" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_2"]
+transform = Transform3D(9.55343e-16, 0.25, -1.85118e-07, 2.18557e-08, -1.09278e-08, -4.235, -0.5, 0, -1.85118e-07, 1.7, 1.851, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_Door_3" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_2"]
+transform = Transform3D(9.55343e-16, 0.25, -1.85118e-07, 2.18557e-08, -1.09278e-08, -4.235, -0.5, 0, -1.85118e-07, -1.7, 1.851, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Wall_Group_4" type="Node3D" parent="LightmapGI/Building"]
+transform = Transform3D(-2.18557e-07, 0, -1, 0, 1, 0, 1, 0, -2.18557e-07, 10, 0, 10)
+
+[node name="Wall_5" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_4"]
+transform = Transform3D(-1.31134e-08, 0, 3.25, 0, 10, 0, -0.3, 0, -1.42062e-07, 3.38725, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Wall_6" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_4"]
+transform = Transform3D(-1.31134e-08, 0, 3.25, 0, 10, 0, -0.3, 0, -1.42062e-07, -3.39723, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Wall_7" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_4"]
+transform = Transform3D(-1.09278e-08, 0, 5, 0, 5, 0, -0.25, 0, -2.18557e-07, 0, 6.5, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_qixbd")
+
+[node name="Frame_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_4"]
+transform = Transform3D(-1.09278e-08, 0, 9.75, 0, 0.25, 0, -0.25, 0, -4.26186e-07, 0.148251, 7.758, -4.647)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_Door_1" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_4"]
+transform = Transform3D(-2.18557e-08, 0, 3.65, 0, 0.25, 0, -0.5, 0, -1.59547e-07, 0, 4, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_Door_2" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_4"]
+transform = Transform3D(9.55343e-16, 0.25, -1.85118e-07, 2.18557e-08, -1.09278e-08, -4.235, -0.5, 0, -1.85118e-07, 1.7, 1.851, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Frame_Door_3" type="MeshInstance3D" parent="LightmapGI/Building/Wall_Group_4"]
+transform = Transform3D(9.55343e-16, 0.25, -1.85118e-07, 2.18557e-08, -1.09278e-08, -4.235, -0.5, 0, -1.85118e-07, -1.7, 1.851, -4.875)
+mesh = SubResource("BoxMesh_oohop")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_u104s")
+
+[node name="Stairset" type="Node3D" parent="LightmapGI/Building"]
+visible = false
+
+[node name="Catwalk_4" type="MeshInstance3D" parent="LightmapGI/Building/Stairset"]
+transform = Transform3D(3, 0, 0, 0, 0.433013, -3, 0, 0.25, 5.19615, 7.52734, 8.28101, -9.51935)
+mesh = SubResource("BoxMesh_5wxl8")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_iqw2d")
+
+[node name="Catwalk_5" type="MeshInstance3D" parent="LightmapGI/Building/Stairset"]
+transform = Transform3D(3, 0, 0, 0, 0.5, 0, 0, 0, 6, 7.53898, 6.75, -4.07476)
+mesh = SubResource("BoxMesh_5wxl8")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_iqw2d")
+
+[node name="Catwalk_6" type="MeshInstance3D" parent="LightmapGI/Building/Stairset"]
+transform = Transform3D(-1.31134e-07, -0.25, -5.19615, 0, 0.433013, -3, 3, 1.48817e-08, -4.05945e-07, 3.55833, 5.28101, -2.6166)
+mesh = SubResource("BoxMesh_5wxl8")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_iqw2d")
+
+[node name="Catwalk_7" type="MeshInstance3D" parent="LightmapGI/Building/Stairset"]
+transform = Transform3D(-1.31134e-07, 0, -6, 0, 0.5, 0, 3, 0, -2.62268e-07, -1.88626, 3.75, -2.6107)
+mesh = SubResource("BoxMesh_5wxl8")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_iqw2d")
+
+[node name="Catwalk_8" type="MeshInstance3D" parent="LightmapGI/Building/Stairset"]
+transform = Transform3D(-3, -3.95387e-09, 9.23278e-07, 3.55271e-14, 0.433013, -4.3752, -2.62268e-07, -0.25, -7.57807, -3.3874, 1.59159, -7.78479)
+mesh = SubResource("BoxMesh_5wxl8")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_iqw2d")
+
+[node name="Metal_Frame_23" parent="LightmapGI/Building/Stairset" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.72678, 2.85436, -6.00455)
+
+[node name="Metal_Frame_25" parent="LightmapGI/Building/Stairset" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, -0.866025, 0.5, 0, -0.5, -0.866025, 7.72678, 7.86129, -9.46906)
+
+[node name="Metal_Frame_24" parent="LightmapGI/Building/Stairset" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.72678, 2.85436, -1.56264)
+
+[node name="Metal_Frame_26" parent="LightmapGI/Building/Stairset" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.691636, 7.72678, 5.52212, -4.30485)
+
+[node name="Metal_Frame_27" parent="LightmapGI/Building/Stairset" instance=ExtResource("4_dckia")]
+transform = Transform3D(3.55271e-15, 1.35, 1.99856e-08, 4.37114e-08, -5.90104e-08, 0.457217, 1, 0, -1.99856e-08, -4.26668, 1.77051, -2.4853)
+
+[node name="Metal_Frame_28" parent="LightmapGI/Building/Stairset" instance=ExtResource("4_dckia")]
+transform = Transform3D(-8.74228e-08, -1.35, -1.99856e-08, 4.37114e-08, -5.90104e-08, 0.457217, -1, 1.18021e-07, 1.99856e-08, 0.733315, 1.77051, -2.4853)
+
+[node name="Collisions" type="Node3D" parent="LightmapGI"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LightmapGI/Collisions"]
+
+[node name="CollisionShapeDoor_1" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15424, 4.28365, 0.22757)
+shape = SubResource("BoxShape3D_4chlu")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeDoor_2" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.17581, 4.28365, 0.22757)
+shape = SubResource("BoxShape3D_4chlu")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeDoor_3" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0329986, 6.19701, 0.156586)
+shape = SubResource("BoxShape3D_du0hi")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeDoor_4" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.8074, 4.28365, 0.289885)
+shape = SubResource("BoxShape3D_4chlu")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeDoor_5" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1375, 4.28365, 0.289885)
+shape = SubResource("BoxShape3D_4chlu")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeDoor_6" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9947, 6.19701, 0.218884)
+shape = SubResource("BoxShape3D_du0hi")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeFloor" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.0052, -0.490515, 14.7559)
+shape = SubResource("BoxShape3D_w3gjq")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeFloor2" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.0052, -0.490515, 4.95322)
+shape = SubResource("BoxShape3D_w3gjq")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeRightWall" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.72791, 4.3504, 10.0188)
+shape = SubResource("BoxShape3D_aasc5")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeLeftWall" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7511, 4.3504, 10.0188)
+shape = SubResource("BoxShape3D_aasc5")
+debug_color = Color(0.98188, 0, 0.0710054, 1)
+
+[node name="CollisionShapeWall_1" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.88419, 4.08905, 0.153748)
+shape = SubResource("BoxShape3D_toigd")
+debug_color = Color(0.97, 0, 0.274833, 1)
+
+[node name="CollisionShapeWall_2" type="CollisionShape3D" parent="LightmapGI/Collisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.88419, 3.96066, 19.802)
+shape = SubResource("BoxShape3D_38jks")
+debug_color = Color(0.97, 0, 0.274833, 1)
+
+[node name="MetalFrames" type="Node3D" parent="LightmapGI"]
+
+[node name="Metal_Frame_1" parent="LightmapGI/MetalFrames" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.68358, 6.80065, 4.27953)
+
+[node name="Metal_Frame_2" parent="LightmapGI/MetalFrames" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.68358, 6.80065, 11.1495)
+
+[node name="Metal_Frame_3" parent="LightmapGI/MetalFrames" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.68358, 6.80065, 15.7959)
+
+[node name="Metal_Frame_4" parent="LightmapGI/MetalFrames" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7399, 6.80065, 4.27953)
+
+[node name="Metal_Frame_5" parent="LightmapGI/MetalFrames" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7399, 6.80065, 11.1495)
+
+[node name="Metal_Frame_6" parent="LightmapGI/MetalFrames" instance=ExtResource("4_dckia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7399, 6.80065, 15.7959)
+
+[node name="Lights" type="Node3D" parent="LightmapGI"]
+
+[node name="ShopLightLong_1" parent="LightmapGI/Lights" instance=ExtResource("5_fpkq5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.95067, 7.5699, 9.95825)

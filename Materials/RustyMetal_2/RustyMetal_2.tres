@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://nujj7njbsp1k"]
+
+[ext_resource type="Texture2D" uid="uid://c8oc22pihlg0b" path="res://Materials/RustyMetal_2/PaintedMetal006_1K-PNG_Color.png" id="1_jqgi5"]
+[ext_resource type="Texture2D" uid="uid://cjje5ltraicre" path="res://Materials/RustyMetal_2/PaintedMetal006_1K-PNG_AmbientOcclusion.png" id="2_8px8d"]
+[ext_resource type="Texture2D" uid="uid://cahd8ljan8oi4" path="res://Materials/RustyMetal_2/PaintedMetal006_1K-PNG_Metalness.png" id="3_bfwi3"]
+[ext_resource type="Texture2D" uid="uid://dxl3ethgo12mj" path="res://Materials/RustyMetal_2/PaintedMetal006_1K-PNG_NormalDX.png" id="4_e6dp8"]
+[ext_resource type="Texture2D" uid="uid://8fvb55y7wb7g" path="res://Materials/RustyMetal_2/PaintedMetal006_1K-PNG_Roughness.png" id="5_3w7pd"]
+
+[resource]
+albedo_texture = ExtResource("1_jqgi5")
+metallic = 1.0
+metallic_texture = ExtResource("3_bfwi3")
+roughness_texture = ExtResource("5_3w7pd")
+normal_enabled = true
+normal_texture = ExtResource("4_e6dp8")
+ao_enabled = true
+ao_texture = ExtResource("2_8px8d")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true
+uv1_world_triplanar = true

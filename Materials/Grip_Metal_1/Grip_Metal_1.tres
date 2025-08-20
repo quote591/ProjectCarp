@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://v3a1fi6v6gy6"]
+
+[ext_resource type="Texture2D" uid="uid://6i71jjdp3ftc" path="res://Materials/Grip_Metal_1/DiamondPlate008C_1K-PNG_Color.png" id="1_fx5y3"]
+[ext_resource type="Texture2D" uid="uid://cmyl83nckvj2o" path="res://Materials/Grip_Metal_1/DiamondPlate008C_1K-PNG_AmbientOcclusion.png" id="2_hneug"]
+[ext_resource type="Texture2D" uid="uid://yel8ju0uxg3u" path="res://Materials/Grip_Metal_1/DiamondPlate008C_1K-PNG_Metalness.png" id="3_tqrh4"]
+[ext_resource type="Texture2D" uid="uid://wex3cq784g5y" path="res://Materials/Grip_Metal_1/DiamondPlate008C_1K-PNG_NormalDX.png" id="4_k18ej"]
+[ext_resource type="Texture2D" uid="uid://ba1p6ku0s1q4v" path="res://Materials/Grip_Metal_1/DiamondPlate008C_1K-PNG_Roughness.png" id="5_mvols"]
+
+[resource]
+albedo_texture = ExtResource("1_fx5y3")
+metallic = 1.0
+metallic_texture = ExtResource("3_tqrh4")
+roughness_texture = ExtResource("5_mvols")
+normal_enabled = true
+normal_texture = ExtResource("4_k18ej")
+ao_enabled = true
+ao_texture = ExtResource("2_hneug")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true
+uv1_world_triplanar = true

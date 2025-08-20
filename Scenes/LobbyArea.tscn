@@ -1,0 +1,316 @@
+[gd_scene load_steps=23 format=3 uid="uid://duakbce0unxpi"]
+
+[ext_resource type="Script" uid="uid://c56a0gsu0nwij" path="res://TemplateNodes/TemplateMultiplayerScript.cs" id="1_meh8y"]
+[ext_resource type="PackedScene" uid="uid://bhxmmr7tpr8j1" path="res://Scenes/player.tscn" id="2_qhnhq"]
+[ext_resource type="PackedScene" uid="uid://bb8truij5p6x1" path="res://ProximityChat/VoiceDroneController.tscn" id="3_edmep"]
+[ext_resource type="Texture2D" uid="uid://ccijvur2l5q6j" path="res://3D Models/RoomModules/Stone1_256.png" id="4_xfsxt"]
+[ext_resource type="PackedScene" uid="uid://5djdc60kgnk1" path="res://3D Models/ShippingContainers/shipping_container.tscn" id="5_ml3do"]
+[ext_resource type="Material" uid="uid://dmkmuqd0xw03x" path="res://Materials/Concrete_2/Concrete_2.tres" id="5_scyuo"]
+[ext_resource type="PackedScene" uid="uid://hmi4kmdwmo3x" path="res://3D Models/ShippingContainers/shipping_container_full.tscn" id="6_1n544"]
+[ext_resource type="Texture2D" uid="uid://dm0d2xmhay4ua" path="res://Materials/panorama_image (1).png" id="7_xfsxt"]
+[ext_resource type="Texture2D" uid="uid://b85kudam833sf" path="res://Materials/RustyMetal_1/Metal025_1K-PNG_Color.png" id="8_1p1gi"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1p1gi"]
+load_path = "res://.godot/imported/Stone1_AmbientOcclusion.png-b6ae8acf9b2a91163fbeff78101ab63d.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_scyuo"]
+load_path = "res://.godot/imported/Stone1_NormalMap.png-f0807f05bfa4d72656bdf48cc4ea7e5d.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3a6a0"]
+albedo_texture = ExtResource("4_xfsxt")
+roughness = 0.9
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = SubResource("CompressedTexture2D_scyuo")
+ao_enabled = true
+ao_light_affect = 0.35
+ao_texture = SubResource("CompressedTexture2D_1p1gi")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_offset = Vector3(0.5, 0, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1p1gi"]
+panorama = ExtResource("7_xfsxt")
+
+[sub_resource type="Sky" id="Sky_scyuo"]
+sky_material = SubResource("PanoramaSkyMaterial_1p1gi")
+
+[sub_resource type="Environment" id="Environment_scyuo"]
+background_mode = 2
+sky = SubResource("Sky_scyuo")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jcqfp"]
+load_path = "res://.godot/imported/RustMetal1_256.png-fcd5085e52d620b3d24f88118a519e6e.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wyjx4"]
+load_path = "res://.godot/imported/RustMetal1_AmbientOcclusion.png-bd7ad3ba01ab4c7102f9743eb93e68ae.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7cfnu"]
+load_path = "res://.godot/imported/RustMetal1_NormalMap.png-2f58787eaf08cd2b02b00d0da0e8b75b.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5g7yq"]
+albedo_texture = SubResource("CompressedTexture2D_jcqfp")
+normal_enabled = true
+normal_texture = SubResource("CompressedTexture2D_7cfnu")
+ao_enabled = true
+ao_texture = SubResource("CompressedTexture2D_wyjx4")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_641uy"]
+load_path = "res://.godot/imported/Metal1_AmbientOcclusion.png-a25354253ee2d1a55eb3374c95bcbd99.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kyhsa"]
+load_path = "res://.godot/imported/Metal1_NormalMap.png-4600bb80450a14ca1a465cd2c7580d7e.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykl6j"]
+albedo_texture = ExtResource("8_1p1gi")
+normal_enabled = true
+normal_texture = SubResource("CompressedTexture2D_kyhsa")
+ao_enabled = true
+ao_texture = SubResource("CompressedTexture2D_641uy")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="LobbyArea" type="Node3D"]
+script = ExtResource("1_meh8y")
+playerScene = ExtResource("2_qhnhq")
+
+[node name="PlayerSpawnPoints" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.49, 0.5, -15.9816)
+
+[node name="1" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.78778, 0.5, -30.5496)
+
+[node name="2" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.93643, 0.5, -35.7761)
+
+[node name="3" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4502, 0.5, -61.267)
+
+[node name="4" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4939, 0.5, -56.8971)
+
+[node name="5" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.9994, 0.5, -41.2173)
+
+[node name="6" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3655, 0.5, -35.5145)
+
+[node name="7" type="Node3D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8646, 0.5, -11.3002)
+
+[node name="VoiceDroneController" parent="." instance=ExtResource("3_edmep")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -41.8599)
+use_collision = true
+
+[node name="Floor_1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44444, -0.5, 8.32161)
+material_override = SubResource("StandardMaterial3D_3a6a0")
+size = Vector3(87.8383, 1, 77.2491)
+material = ExtResource("5_scyuo")
+
+[node name="ShippingContainers" type="Node3D" parent="."]
+
+[node name="ShippingContainer1" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.39851, 2.625, -16.4078)
+
+[node name="ShippingContainer2" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.38398, 2.625, -35.8217)
+
+[node name="ShippingContainer8" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.17991, 2.625, -30.3719)
+
+[node name="ShippingContainer3" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.0356, 2.625, -60.4816)
+
+[node name="ShippingContainer6" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.7335, 2.625, -11.3177)
+
+[node name="ShippingContainer7" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.4, 2.625, -57.4478)
+
+[node name="ShippingContainer4" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 25.8952, 2.625, -35.0319)
+
+[node name="ShippingContainer5" parent="ShippingContainers" instance=ExtResource("5_ml3do")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.1988, 2.625, -40.3271)
+
+[node name="ShippingContainerFull1" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.95422, 2.625, -25.0107)
+
+[node name="ShippingContainerFull31" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.04578, 2.625, -0.826205)
+
+[node name="ShippingContainerFull32" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19.9542, 1.625, -31.8262)
+
+[node name="ShippingContainerFull33" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19.9542, 2.625, -31.8262)
+
+[node name="ShippingContainerFull34" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 42.0458, 2.625, -41.8262)
+
+[node name="ShippingContainerFull2" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17.078, 2.625, -24.7131)
+
+[node name="ShippingContainerFull3" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.724, 2.625, -50.6658)
+
+[node name="ShippingContainerFull4" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.6466, 2.625, -54.6779)
+
+[node name="ShippingContainerFull5" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.327211, 2.625, -46.1336)
+
+[node name="ShippingContainerFull6" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.411692, 7.88865, -36.752)
+
+[node name="ShippingContainerFull7" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.57621, 7.88865, -21.3482)
+
+[node name="ShippingContainerFull8" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12.9159, 7.88865, -15.0526)
+
+[node name="ShippingContainerFull9" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 20.0199, 7.88865, -25.3854)
+
+[node name="ShippingContainerFull10" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 24.5072, 7.88865, -40.7536)
+
+[node name="ShippingContainerFull14" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, -1, -4.37114e-08, -1.31134e-07, -4.37114e-08, 1, -5.73205e-15, 36.4998, 10.1441, -32.8102)
+
+[node name="ShippingContainerFull16" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 8.74228e-08, -1, 1.14641e-14, -1, -8.74228e-08, -1.31134e-07, 30.5945, 7.8878, -32.8102)
+
+[node name="ShippingContainerFull15" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 42.3346, 9.13159, -43.614)
+
+[node name="ShippingContainerFull17" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 30.1983, 11.2318, -50.6039)
+
+[node name="ShippingContainerFull18" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 23.7123, 13.1243, -54.8093)
+
+[node name="ShippingContainerFull11" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 22.3338, 7.88865, -56.1227)
+
+[node name="ShippingContainerFull19" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, 12.0346, 7.88865, -60.1787)
+
+[node name="ShippingContainerFull24" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, -3.28852, 7.88865, -63.6677)
+
+[node name="ShippingContainerFull25" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, -11.6164, 7.88865, -53.2664)
+
+[node name="ShippingContainerFull21" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, -4.62971, 2.64175, -56.4074)
+
+[node name="ShippingContainerFull22" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, -4.62971, 2.64175, -61.7464)
+
+[node name="ShippingContainerFull23" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, -9.98877, 2.64175, -51.099)
+
+[node name="ShippingContainerFull20" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, 13.3743, 13.1872, -56.4649)
+
+[node name="ShippingContainerFull26" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, 6.3996, 13.166, -51.0413)
+
+[node name="ShippingContainerFull27" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, -3.89194, 13.166, -45.693)
+
+[node name="ShippingContainerFull28" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, 10.0254, 13.166, -61.7703)
+
+[node name="ShippingContainerFull29" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, -5.36569, 13.166, -62.8956)
+
+[node name="ShippingContainerFull30" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, -14.2454, 13.166, -52.5073)
+
+[node name="ShippingContainerFull12" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 9.99805, 7.88865, -52.5441)
+
+[node name="ShippingContainerFull13" parent="ShippingContainers" instance=ExtResource("6_1n544")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -1.25021, 7.88865, -47.1816)
+
+[node name="GreenSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.056073, -0.397757, 0.915776, -0.00298775, 0.917148, 0.398536, -0.998422, -0.0250832, 0.0502388, 48.5249, 30.9761, -39.751)
+visible = false
+light_color = Color(0.263041, 0.414096, 0.271051, 1)
+light_energy = 5.0
+light_indirect_energy = 0.1
+shadow_enabled = true
+
+[node name="WhiteSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.909998, -0.410076, -0.0611628, -0.400815, 0.832352, 0.382802, -0.106069, 0.372864, -0.921803, 2.52184, 43.3985, -90.9734)
+visible = false
+light_energy = 5.0
+light_indirect_energy = 0.1
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_scyuo")
+
+[node name="ScrapMetal" type="Node3D" parent="."]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="ScrapMetal"]
+use_collision = true
+
+[node name="MetalSheet" type="CSGBox3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(0.99624, 0, 0.0866341, 0, 1, 0, -0.0866341, 0, 0.99624, 20.7747, 5.29908, -41.0112)
+size = Vector3(1.24066, 0.0544434, 8.71716)
+material = SubResource("StandardMaterial3D_5g7yq")
+
+[node name="MetalSheet3" type="CSGBox3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(0.955896, 0, 0.293707, 0, 1, 0, -0.293707, 0, 0.955896, 19.0519, 5.29908, -48.1497)
+size = Vector3(1.24572, 0.0544434, 4.83757)
+material = SubResource("StandardMaterial3D_5g7yq")
+
+[node name="MetalSheet2" type="CSGBox3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(0.829486, 0, -0.558527, 0, 1, 0, 0.558527, 0, 0.829486, 17.0462, 5.29908, -34.2111)
+size = Vector3(1.79675, 0.0544434, 7.4759)
+material = SubResource("StandardMaterial3D_5g7yq")
+
+[node name="MetalSheet4" type="CSGBox3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(0.999823, -2.77705e-11, 0.018831, -0.00649676, 0.938601, 0.344942, -0.0176748, -0.345003, 0.938435, 13.337, 4.02708, -22.3788)
+size = Vector3(1.08246, 0.0544434, 7.4759)
+material = SubResource("StandardMaterial3D_5g7yq")
+
+[node name="MetalSheet5" type="CSGBox3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(0.923944, -0.196829, 0.328004, -0.010081, 0.844636, 0.535245, -0.382396, -0.497843, 0.778412, 12.0972, 1.43872, -29.4604)
+size = Vector3(1.43771, 0.0544434, 5.28007)
+material = SubResource("StandardMaterial3D_5g7yq")
+
+[node name="Barrel1" type="CSGCylinder3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2883, 1.17619, -26.6059)
+radius = 1.0
+height = 3.0
+material = SubResource("StandardMaterial3D_5g7yq")
+
+[node name="BarrelPart1" type="CSGCylinder3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2883, 2.64451, -26.6059)
+radius = 1.11914
+height = 0.152832
+material = SubResource("StandardMaterial3D_ykl6j")
+
+[node name="BarrelPart2" type="CSGCylinder3D" parent="ScrapMetal/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2883, 0.0575475, -26.6059)
+radius = 1.11914
+height = 0.152832
+material = SubResource("StandardMaterial3D_ykl6j")

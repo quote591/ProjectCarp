@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2v3ra7jlucd7"]
+
+[ext_resource type="PackedScene" uid="uid://bjexjqgyjy2bd" path="res://3D Models/Toilet_1.glb" id="1_2m8fp"]
+[ext_resource type="Material" uid="uid://cgcpq84ddw4dy" path="res://Materials/Plastic_1/Plastic_1.tres" id="2_nq26v"]
+
+[node name="Toilet_1" instance=ExtResource("1_2m8fp")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_nq26v")
+
+[node name="Cube_001" parent="." index="1"]
+surface_material_override/0 = ExtResource("2_nq26v")

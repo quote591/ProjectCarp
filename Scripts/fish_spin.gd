@@ -31,4 +31,4 @@ func _process(delta):
 
 	# Use linear loudness to control spin speed
 	var speed = lerp(0.1, 5.0, clamp(linear, 0.0, 1.0))
-	spinner.rotate_y(speed * delta * 25)
+	spinner.rotate_y(speed * delta * 5)
