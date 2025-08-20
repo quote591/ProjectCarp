@@ -1,3 +1,20 @@
+/// <summary>
+/// 
+/// Welcome to DungeonGeneratorV2!
+/// 
+/// What happened to DungeonGeneratorV1...?
+/// we don't talk about dungeon generator v1
+/// 
+/// ANYWAY, add this script to a empty 3dnode at 0,0,0
+/// and add all your prefabs in the scene inspector 
+/// 
+/// how it works:
+/// - try to generate a dungeon
+/// - if the generator fails, restart
+/// - because the generator is random, sometimes impossible generations occur
+/// - once the entire dungeon is created successfully, send the spawn queue to all peers
+/// </summary>
+
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -94,9 +111,10 @@ public partial class DungeonGeneratorV2 : Node
     // if succeed, give spawning queue to all people connected
     // execute spawn queue
 
-    public bool DEBUG = false;
-    public bool DEBUG1 = true;
-    public int record = 10;
+    // this is for debugging
+    public bool DEBUG = false; 
+    public bool DEBUG1 = true; 
+    public int record = 10; 
 
 
 
@@ -108,7 +126,6 @@ public partial class DungeonGeneratorV2 : Node
             set_up_for_dungeon_making();
             if (create_good_dungeon())
             {
-                // remember to send off the SpawnQueue to everyone
                 Rpc(nameof(GenerateDungeonInScene), ToRpcArray(SpawnQueue));
             }
             else
@@ -142,7 +159,7 @@ public partial class DungeonGeneratorV2 : Node
         NumberOfFishSpawnRoom1x2 = Inspector_Number_Of_FishSpawnRoom1x2;
         NumberOfToilet1x1 = Inspector_Number_Of_Toilet1x1;
 
-        //if (DEBUG == true) print_ground_floor_map();
+        if (DEBUG == true) print_ground_floor_map();
     }
     private bool create_good_dungeon()
     {
@@ -171,7 +188,7 @@ public partial class DungeonGeneratorV2 : Node
                 }
                 set_up_for_dungeon_making();
                 if (DEBUG == true) GD.Print(" === NEW ATTEMPT ===");
-                //if (DEBUG == true) print_ground_floor_map();
+                if (DEBUG == true) print_ground_floor_map();
             }
         }
         return false;
@@ -340,12 +357,6 @@ public partial class DungeonGeneratorV2 : Node
             if (!try_to_add_end_caps()) return false;
         }
         if (DEBUG == true) GD.Print("End Caps Placed Successfully");
-
-
-
-
-        //SpawnQueue.Add(new SpawnInstruction("stairset", 0, 3, "up"));
-
         // create dungeon
         //   generate 2 corridors, 1 junction, 2 corridors, 1 unique room
         //   check how many unique rooms left, if more than 0, loop
@@ -425,10 +436,6 @@ public partial class DungeonGeneratorV2 : Node
                 if (condition())
                     return true;
             }
-
-            // last ditch effort
-            //if (try_to_add_a_corridoor()) return true;
-
             return false;
         }
         return false;
@@ -461,10 +468,6 @@ public partial class DungeonGeneratorV2 : Node
                 if (condition())
                     return true;
             }
-
-            // last ditch effort
-            //if (try_to_add_a_corridoor()) return true;
-
             return false;
         }
         return false;
@@ -486,10 +489,6 @@ public partial class DungeonGeneratorV2 : Node
                 if (condition())
                     return true;
             }
-
-            // last ditch effort
-            //if (try_to_add_a_corridoor()) return true;
-
             return false;
         }
         return false;
@@ -1020,24 +1019,6 @@ public partial class DungeonGeneratorV2 : Node
         SpawnQueue.Add(new SpawnInstruction("toilet", Row, Col, Direction));
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Debug help
     private void print_ground_floor_map()
